@@ -40,10 +40,8 @@
   },
   "scripts": {
     "postinstall": "electron-builder install-app-deps",
-    "electron:dev": "concurrently \"cross-env BROWSER=none yarn start\" \"tsc -p electron -w\" \"tsc -p electron && electron .\"",
-    "electron:build": "yarn build && tsc -p electron && electron-builder",
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "concurrently \"cross-env BROWSER=none react-scripts start\" \"tsc -p electron -w\" \"tsc -p electron && electron .\"",
+    "build": "react-scripts build && tsc -p electron && electron-builder",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

@@ -9,11 +9,11 @@ yarn
 ## To run in development mode
 
 ```bash
-yarn electron:dev
+yarn start
 ```
 
 ## To build
 
 ```bash
-yarn electron:build
+yarn build
 ```
