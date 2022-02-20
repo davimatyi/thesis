@@ -12,7 +12,9 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true
     }
-  })
+  });
+
+  win.removeMenu();
 
   if (isDev) {
     win.loadURL('http://localhost:3000/index.html');
