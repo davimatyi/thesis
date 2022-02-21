@@ -1,14 +1,13 @@
 import { app, BrowserWindow } from 'electron';
 import * as path from 'path';
 import * as isDev from 'electron-is-dev';
-// import installExtension, { REACT_DEVELOPER_TOOLS } from "electron-devtools-installer";
 
 let win: BrowserWindow | null = null;
 
 function createWindow() {
   win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1280,
+    height: 720,
     webPreferences: {
       nodeIntegration: true
     }
@@ -26,6 +25,7 @@ function createWindow() {
   win.on('closed', () => win = null);
 
   // Hot Reloading
+
   if (isDev) {
     // 'node_modules/.bin/electronPath'
     require('electron-reload')(__dirname, {
@@ -34,15 +34,6 @@ function createWindow() {
       hardResetMethod: 'exit'
     });
   }
-
-  // DevTools
-  // installExtension(REACT_DEVELOPER_TOOLS)
-  //   .then((name) => console.log(`Added Extension:  ${name}`))
-  //   .catch((err) => console.log('An error occurred: ', err));
-
-  // if (isDev) {
-  //   win.webContents.openDevTools();
-  // }
 }
 
 app.on('ready', createWindow);

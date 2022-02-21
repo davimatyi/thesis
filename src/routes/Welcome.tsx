@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/buttons/LinkButton';
 
 const Welcome: React.FC = () => {
   return (
     <>
       Welcome
-      <Link to="/editor">Next</Link>
+      <LinkButton to="/editor">Next</LinkButton>
     </>
   );
 }

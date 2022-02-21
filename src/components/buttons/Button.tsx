@@ -3,9 +3,9 @@ import "./Button.css"
 
 const Button: React.FC<{onClick:Function}> = ({children, onClick}) => {
   return(
-    <button onClick={() => onClick}>
+    <div className="button" onClick={() => onClick}>
       {children}
-    </button>
+    </div>
   )
 }
 

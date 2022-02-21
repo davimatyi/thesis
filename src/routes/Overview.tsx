@@ -1,11 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/buttons/LinkButton';
 
 const Overview: React.FC = () => {
   return (
     <>
       Overview
-      <Link to="/style">Back</Link>
+      <LinkButton to="/style">Back</LinkButton>
     </>
   );
 }

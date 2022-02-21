@@ -1,12 +1,12 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import LinkButton from '../components/buttons/LinkButton';
 
 const StyleEditor: React.FC = () => {
   return (
     <>
       Style
-      <Link to="/editor">Back</Link>
-      <Link to="/overview">Next</Link>
+      <LinkButton to="/editor">Back</LinkButton>
+      <LinkButton to="/overview">Next</LinkButton>
     </>
   );
 }
