@@ -2,21 +2,31 @@ import React from 'react';
 import Sketch from 'react-p5';
 import p5Types from 'p5';
 import { ChartData } from "../types/chartDataType";
+import DrawBarChart from './charts/BarChart';
 
-interface RendererProps {
-	data: ChartData
+const canvasWidth = 800, canvasHeight = 600;
+
+export interface MetaData {
+	canvasWidth: number,
+	canvasHeight: number,
 }
 
-const ChartView: React.FC<RendererProps> = (props: RendererProps) => {
-	
+let metadata: MetaData= {
+	canvasWidth: 800,
+	canvasHeight: 600,
+}
+
+const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
+
 
 	const setup = (p5: p5Types, canvasParentRef: Element) => {
-		p5.createCanvas(500, 500).parent(canvasParentRef);
+		p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
 	};
 
 	const draw = (p5: p5Types) => {
-		p5.background(0);
-		p5.ellipse(50, 50, 70, 70);
+		switch(data.type) {
+			case 'bar': DrawBarChart(p5, data, metadata);
+		}
 	};
 
 	return <Sketch setup={setup} draw={draw} />;

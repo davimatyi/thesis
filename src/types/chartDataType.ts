@@ -1,6 +1,8 @@
 export interface ChartData {
   title: string,
   type: string,
+  background: string,
+  foreground: string,
   dimensity: number,
   values: number[][],
   x_axis_labels: string[],
@@ -13,23 +15,29 @@ export interface ChartData {
   fill_gradient: boolean,
   show_x_axis: boolean,
   show_y_axis: boolean,
-  show_value_labels: boolean
+  show_value_labels: boolean,
+  bar_spacing: number,
+  margin: number
 } 
 
-export const DefaultChart: ChartData = {
+export const defaultChart: ChartData = {
   title: "title",
   type: "bar",
+  background: "#eeeeee",
+  foreground: "#000000",
   dimensity: 1,
-  values: [[5, 6, 8, 7]],
-  x_axis_labels: ["value 1", "value 2", "value 3", "value 4"],
+  values: [[5, 6, 8, 7, 10]],
+  x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],
   y_axis_labels: [],
   stroke_color: "#ffffff",
   stroke_width: 1,
   stroke: true,
-  fill_primary: "#ff0000",
+  fill_primary: "#72b2ac",
   fill_secondary: "#00ff00",
   fill_gradient: false,
   show_x_axis: true,
   show_y_axis: false,
-  show_value_labels: false
+  show_value_labels: false,
+  bar_spacing: 10,
+  margin: 100
 }

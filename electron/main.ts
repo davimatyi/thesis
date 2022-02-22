@@ -13,7 +13,7 @@ function createWindow() {
     }
   });
 
-  win.removeMenu();
+  // win.removeMenu();
 
   if (isDev) {
     win.loadURL('http://localhost:3000/index.html');
