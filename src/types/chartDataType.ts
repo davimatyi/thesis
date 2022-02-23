@@ -13,10 +13,13 @@ export interface ChartData {
   fill_primary: string,
   fill_secondary: string,
   fill_gradient: boolean,
+  fill_colors: string[],
+  use_multiple_colors: boolean
   show_x_axis: boolean,
   show_y_axis: boolean,
   show_value_labels: boolean,
-  bar_spacing: number,
+  spacing: number,
+  border_radius: number,
   margin: number
 } 
 
@@ -26,18 +29,21 @@ export const defaultChart: ChartData = {
   background: "#eeeeee",
   foreground: "#000000",
   dimensity: 1,
-  values: [[5, 6, 8, 7, 10]],
+  values: [[5, 6, 8, 7, 30]],
   x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],
   y_axis_labels: [],
-  stroke_color: "#ffffff",
+  stroke_color: "#000000",
   stroke_width: 1,
   stroke: true,
   fill_primary: "#72b2ac",
   fill_secondary: "#00ff00",
   fill_gradient: false,
+  fill_colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#00ffff"],
+  use_multiple_colors: true,
   show_x_axis: true,
   show_y_axis: false,
   show_value_labels: false,
-  bar_spacing: 10,
+  spacing: 10,
+  border_radius: 5,
   margin: 100
 }
