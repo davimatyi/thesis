@@ -20,30 +20,32 @@ export interface ChartData {
   show_value_labels: boolean,
   spacing: number,
   border_radius: number,
-  margin: number
+  margin: number,
+  start_from_zero: boolean
 } 
 
 export const defaultChart: ChartData = {
   title: "title",
-  type: "bar",
+  type: "line",
   background: "#eeeeee",
   foreground: "#000000",
   dimensity: 1,
-  values: [[5, 6, 8, 7, 30]],
+  values: [[5, 6, 8, 7, 10]],
   x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],
   y_axis_labels: [],
-  stroke_color: "#000000",
-  stroke_width: 1,
+  stroke_color: "#555555",
+  stroke_width: 5,
   stroke: true,
   fill_primary: "#72b2ac",
   fill_secondary: "#00ff00",
   fill_gradient: false,
   fill_colors: ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#00ffff"],
-  use_multiple_colors: true,
+  use_multiple_colors: false,
   show_x_axis: true,
   show_y_axis: false,
   show_value_labels: false,
   spacing: 10,
   border_radius: 5,
-  margin: 100
+  margin: 100,
+  start_from_zero: true
 }
