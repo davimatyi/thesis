@@ -49,11 +49,11 @@ export const defaultChart: ChartData = {
   show_y_axis: true,
   axis_line_width: 5,
   axis_line_color: "#222222",
-  axis_marker_length: 30,
+  axis_marker_length: 25,
   y_axis_marker_frequency: 1,
   show_value_labels: false,
   spacing: 10,
   border_radius: 5,
   margin: 100,
-  start_from_zero: true
+  start_from_zero: false
 }
