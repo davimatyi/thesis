@@ -5,7 +5,7 @@ import Button from './Button';
 const LinkButton: React.FC<{ to: string }> = ({ children, to }) => {
   return (
     <Link to={to}>
-      <Button onClick={() => null}>{children}</Button>
+      <Button onClick={undefined}>{children}</Button>
     </Link>
   );
 }

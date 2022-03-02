@@ -9,6 +9,7 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
   const dataCount = flatArr.length;
   const barWidth = (meta.canvasWidth - 2 * data.margin) / dataCount - data.spacing;
   const colorCount = data.fill_colors.length;
+  const markerCount = Math.round(maxValue / data.y_axis_marker_frequency);
 
   p5.background(data.background);
   if(data.stroke) {
@@ -23,13 +24,53 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
       p5.fill(data.fill_primary);
       
     p5.rect(
-      data.margin + i * (barWidth + data.spacing),
+      data.margin + i * (barWidth + data.spacing) + data.spacing,
       (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / maxValue),
       barWidth,
       (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / maxValue),
       data.border_radius
     );
   }
+
+  if(data.show_x_axis) {
+    p5.stroke(data.axis_line_color);
+    p5.strokeWeight(data.axis_line_width);
+
+    p5.line(
+      data.margin, 
+      meta.canvasHeight - data.margin, 
+      meta.canvasWidth - data.margin, 
+      meta.canvasHeight - data.margin
+    );
+    for(let i = 0; i < dataCount; i++) {
+      p5.line(
+        data.margin + i * (barWidth + data.spacing) + barWidth / 2 - data.axis_marker_length + data.spacing ,
+        meta.canvasHeight - data.margin + data.axis_marker_length,
+        data.margin + i * (barWidth + data.spacing) + barWidth / 2 + data.spacing,
+        meta.canvasHeight - data.margin
+      );
+    }
+  }
+  if(data.show_y_axis) {
+    p5.stroke(data.axis_line_color);
+    p5.strokeWeight(data.axis_line_width);
+
+    p5.line(
+      data.margin, 
+      meta.canvasHeight - data.margin, 
+      data.margin, 
+      data.margin - 20
+    );
+    for(let i = 0; i < markerCount; i++) {
+      p5.line(
+        data.margin - data.axis_marker_length,
+        (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount),
+        data.margin,
+        (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount)
+      )
+    }
+  }
+  
 
 }
 
