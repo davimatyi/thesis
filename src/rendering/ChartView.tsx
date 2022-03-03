@@ -13,7 +13,7 @@ export interface MetaData {
 	canvasHeight: number,
 }
 
-let metadata: MetaData= {
+let metadata: MetaData = {
 	canvasWidth: 800,
 	canvasHeight: 600,
 }
@@ -26,7 +26,7 @@ const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
 	};
 
 	const draw = (p5: p5Types) => {
-		switch(data.type) {
+		switch (data.type) {
 			case 'bar': DrawBarChart(p5, data, metadata); break;
 			case 'pie': DrawPieChart(p5, data, metadata); break;
 			case 'line': DrawLineChart(p5, data, metadata); break;

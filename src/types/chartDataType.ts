@@ -22,6 +22,7 @@ export interface ChartData {
   axis_marker_length: number,
   y_axis_marker_frequency: number,
   show_value_labels: boolean,
+  show_background_grid: boolean,
   spacing: number,
   border_radius: number,
   margin: number,
@@ -51,9 +52,10 @@ export const defaultChart: ChartData = {
   axis_line_color: "#222222",
   axis_marker_length: 25,
   y_axis_marker_frequency: 1,
-  show_value_labels: false,
-  spacing: 10,
-  border_radius: 5,
+  show_value_labels: true,
+  show_background_grid: true,
+  spacing: 20,
+  border_radius: 0,
   margin: 100,
-  start_from_zero: false
+  start_from_zero: true
 }
