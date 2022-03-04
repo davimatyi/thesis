@@ -9,6 +9,4 @@ const Button: React.FC<{ onClick: React.MouseEventHandler | undefined }> = ({ ch
   )
 }
 
-
-
 export default Button;

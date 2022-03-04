@@ -1,7 +1,7 @@
 import React from 'react';
-import Button from '../components/buttons/Button';
-import DropDownButton from '../components/buttons/DropDownButton';
-import LinkButton from '../components/buttons/LinkButton';
+import Button from '../components/buttons/button/Button';
+import DropDownButton from '../components/buttons/dropdownbutton/DropDownButton';
+import LinkButton from '../components/buttons/linkbutton/LinkButton';
 
 const Welcome: React.FC = () => {
   return (

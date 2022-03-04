@@ -1,5 +1,5 @@
 import React from 'react';
-import LinkButton from '../components/buttons/LinkButton';
+import LinkButton from '../components/buttons/linkbutton/LinkButton';
 
 const DataEditor: React.FC = () => {
   return (
