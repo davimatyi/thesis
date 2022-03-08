@@ -1,8 +1,10 @@
-import React from 'react';
+import React from "react";
 import './Accordion.css';
 
-const Accordion: React.FC<{text: string}> = ({children, text}) => {
-  return <>{children}</>
+const Accordion: React.FC = (children) => {
+  return (
+    <div className="accordion"></div>
+  );
 }
 
 export default Accordion;

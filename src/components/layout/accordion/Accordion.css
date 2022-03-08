@@ -1,0 +1,35 @@
+.accordion {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accordion_item {
+  border: 1px solid #c9c9c9;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.accordion_header h4 {
+  transition: 0.2s ease-in-out;
+}
+
+.accordion_header i {
+  transition: 0.2s ease-in-out;
+  transform-origin: center;
+  margin-bottom: 10px;
+}
+
+.accordion_header:hover h4 {
+  color: #cccccc;
+}
+
+.accordion_header:hover i {
+  color: #10d6f5;
+}
+
+.accordion_content {
+  margin: 5px;
+}
+
