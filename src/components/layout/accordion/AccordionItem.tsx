@@ -25,7 +25,7 @@ const AccordionItem: React.FC<{ text: string }> = ({ children, text }) => {
   });
   const iconAnimation = useSpring({ 
     transform: open ? "rotate(180deg)" : "rotate(0deg)", 
-    color: open ? "#10d6f5" : "#fff",
+    color: open ? "#10d6f5" : "#000",
     config: {duration: 120} 
   });
 
@@ -35,9 +35,9 @@ const AccordionItem: React.FC<{ text: string }> = ({ children, text }) => {
         <h4 style={styles.accordionTitle}>
           {text}
         </h4>
-        {/* <animated.i style={iconAnimation}>
-          {TODO add icon }
-        </animated.i> */}
+        <animated.i style={iconAnimation}>
+          {/* TODO add icon */}
+        </animated.i>
       </div>
       <div className="accordion_content">
         {children}

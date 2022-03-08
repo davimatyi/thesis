@@ -1,9 +1,9 @@
 import React from "react";
 import './Accordion.css';
 
-const Accordion: React.FC = (children) => {
+const Accordion: React.FC = (props) => {
   return (
-    <div className="accordion">{children}</div>
+    <div className="accordion">{props.children}</div>
   );
 }
 
