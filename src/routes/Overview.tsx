@@ -23,7 +23,6 @@ const Overview: React.FC = () => {
             <Accordion>
               <AccordionItem text='Accordion 1'>
                 <Button onClick={undefined}>asd</Button>
-                <Button onClick={undefined}>asd2</Button>
               </AccordionItem>
               <AccordionItem text='Accordion 2'>
                 <Button onClick={undefined}>kek</Button>

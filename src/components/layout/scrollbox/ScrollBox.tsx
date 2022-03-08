@@ -1,7 +1,7 @@
 import React from 'react';
 import './ScrollBox.css';
 
-const ScrollBox : React.FC = (children: React.ReactNode) => {
+const ScrollBox : React.FC = ({children}) => {
 
   return <>{children}</>;
 }

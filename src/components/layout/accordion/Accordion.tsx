@@ -3,7 +3,7 @@ import './Accordion.css';
 
 const Accordion: React.FC = (children) => {
   return (
-    <div className="accordion"></div>
+    <div className="accordion">{children}</div>
   );
 }
 
