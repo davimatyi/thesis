@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../components/buttons/button/Button';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
+import CheckBox from '../components/checkbox/CheckBox';
 import Accordion from '../components/layout/accordion/Accordion';
 import AccordionItem from '../components/layout/accordion/AccordionItem';
 import FlexBox from '../components/layout/flexbox/FlexBox';
@@ -22,10 +22,21 @@ const Overview: React.FC = () => {
           <ScrollBox>
             <Accordion>
               <AccordionItem text='Accordion 1'>
-                <Button onClick={undefined}>asd</Button>
-                <Button onClick={undefined}>asd</Button>
-                <Button onClick={undefined}>asd</Button>
-                <Button onClick={undefined}>asd</Button>
+                <CheckBox 
+                  callBack={(v: boolean) => {defaultChart.show_background_grid = v}}
+                  isChecked={defaultChart.show_background_grid}
+                  value={"Grid"}
+                />
+                <CheckBox 
+                  callBack={(v: boolean) => {defaultChart.show_x_axis = v}}
+                  isChecked={defaultChart.show_x_axis}
+                  value={"Show x"}
+                />
+                <CheckBox 
+                  callBack={(v: boolean) => {defaultChart.show_y_axis = v}}
+                  isChecked={defaultChart.show_y_axis}
+                  value={"Show y"}
+                />
               </AccordionItem>
             </Accordion>
           </ScrollBox>

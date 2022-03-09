@@ -9,11 +9,11 @@
   width: 100%;
   border: 1px solid #c9c9c9;
   overflow: hidden;
-  cursor: pointer;
 }
 
 .accordion_header h4 {
   transition: 0.2s ease-in-out;
+  cursor: pointer;
 }
 
 .accordion_header i {
