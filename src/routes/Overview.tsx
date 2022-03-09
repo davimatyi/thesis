@@ -27,41 +27,6 @@ const Overview: React.FC = () => {
                 <Button onClick={undefined}>asd</Button>
                 <Button onClick={undefined}>asd</Button>
               </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <AccordionItem text='Accordion 2'>
-                  <Button onClick={undefined}>kek</Button>
-                </AccordionItem>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
-              <AccordionItem text='Accordion 2'>
-                <Button onClick={undefined}>kek</Button>
-              </AccordionItem>
             </Accordion>
           </ScrollBox>
         </FlexBox>
