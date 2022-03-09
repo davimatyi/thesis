@@ -3,7 +3,7 @@ import './ScrollBox.css';
 
 const ScrollBox : React.FC = ({children}) => {
 
-  return <>{children}</>;
+  return <div className="scroll_box">{children}</div>
 }
 
 export default ScrollBox

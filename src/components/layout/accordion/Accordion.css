@@ -6,6 +6,7 @@
 }
 
 .accordion_item {
+  width: 100%;
   border: 1px solid #c9c9c9;
   overflow: hidden;
   cursor: pointer;
@@ -22,7 +23,7 @@
 }
 
 .accordion_header:hover h4 {
-  color: #cccccc;
+  background-color: #cccccc;
 }
 
 .accordion_header:hover i {

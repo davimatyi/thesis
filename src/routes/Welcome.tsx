@@ -2,6 +2,8 @@ import React from 'react';
 import Button from '../components/buttons/button/Button';
 import DropDownButton from '../components/buttons/dropdownbutton/DropDownButton';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
+import Accordion from '../components/layout/accordion/Accordion';
+import AccordionItem from '../components/layout/accordion/AccordionItem';
 
 const Welcome: React.FC = () => {
   return (
@@ -15,6 +17,14 @@ const Welcome: React.FC = () => {
           })
         }
       </DropDownButton>
+      <Accordion>
+        <AccordionItem text='Accordion 1'>
+          <Button onClick={undefined}>asd</Button>
+        </AccordionItem>
+        <AccordionItem text='Accordion 2'>
+          <Button onClick={undefined}>kek</Button>
+        </AccordionItem>
+      </Accordion>
     </>
   );
 }

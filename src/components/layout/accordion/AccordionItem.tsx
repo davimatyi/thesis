@@ -19,10 +19,14 @@ const AccordionItem: React.FC<{ text: string }> = ({ children, text }) => {
 
 
   const openAnimation = useSpring({ 
-    opacity: open ? 1 : 0, 
-    maxHeight: open ? "120px" : "25px",
+    maxHeight: open ? "100%" : "45px",
     config: {duration: 300} 
   });
+  const fadeAnimation = useSpring({
+    opacity: open ? 1 : 0,
+    maxHeight: open ? "100%" : "0px",
+    config: {duration: 300}
+  })
   const iconAnimation = useSpring({ 
     transform: open ? "rotate(180deg)" : "rotate(0deg)", 
     color: open ? "#10d6f5" : "#000",
@@ -39,9 +43,9 @@ const AccordionItem: React.FC<{ text: string }> = ({ children, text }) => {
           {/* TODO add icon */}
         </animated.i>
       </div>
-      <div className="accordion_content">
+      <animated.div className="accordion_content" style={fadeAnimation}>
         {children}
-      </div>
+      </animated.div>
     </animated.div>
   );
 }
