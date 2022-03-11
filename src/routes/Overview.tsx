@@ -25,17 +25,17 @@ const Overview: React.FC = () => {
                 <CheckBox 
                   callBack={(v: boolean) => {defaultChart.show_background_grid = v}}
                   isChecked={defaultChart.show_background_grid}
-                  value={"Grid"}
+                  text={"Grid"}
                 />
                 <CheckBox 
                   callBack={(v: boolean) => {defaultChart.show_x_axis = v}}
                   isChecked={defaultChart.show_x_axis}
-                  value={"Show x"}
+                  text={"Show x"}
                 />
                 <CheckBox 
                   callBack={(v: boolean) => {defaultChart.show_y_axis = v}}
                   isChecked={defaultChart.show_y_axis}
-                  value={"Show y"}
+                  text={"Show y"}
                 />
               </AccordionItem>
             </Accordion>
