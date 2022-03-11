@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../components/buttons/button/Button';
 import DropDownButton from '../components/buttons/dropdownbutton/DropDownButton';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
+import Slider from '../components/inputs/slider/Slider';
 import Accordion from '../components/layout/accordion/Accordion';
 import AccordionItem from '../components/layout/accordion/AccordionItem';
 
@@ -25,6 +26,7 @@ const Welcome: React.FC = () => {
           <Button onClick={undefined}>kek</Button>
         </AccordionItem>
       </Accordion>
+      <Slider max={100} min={0} initialValue={50} onChange={(val: number) => {}}/>
     </>
   );
 }
