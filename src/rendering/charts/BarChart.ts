@@ -7,7 +7,8 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
   const flatArr = data.values.flat();
   const maxValue = Math.max(...(data.values.map(arr => Math.max(...arr))));
   const dataCount = flatArr.length;
-  const barWidth = (meta.canvasWidth - 2 * data.margin) / dataCount - data.spacing;
+  const barWidth = (meta.canvasWidth - 2 * data.margin) / dataCount * (1 - data.spacing / 100.0);
+  const spacing = (meta.canvasWidth - 2 * data.margin) / dataCount * (data.spacing / 100.0);
   const colorCount = data.fill_colors.length;
   const markerCount = Math.round(maxValue / data.y_axis_marker_frequency);
 
@@ -39,7 +40,7 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
       p5.fill(data.fill_primary);
 
     p5.rect(
-      data.margin + i * (barWidth + data.spacing) + data.spacing / 2,
+      data.margin + i * (barWidth + spacing) + spacing / 2,
       (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / maxValue),
       barWidth,
       (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / maxValue),
@@ -51,7 +52,7 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
       p5.fill(data.axis_line_color);
       p5.textStyle(p5.BOLD);
       p5.translate(
-        data.margin + i * (barWidth + data.spacing) + data.spacing / 2 + barWidth / 2,
+        data.margin + i * (barWidth + spacing) + spacing / 2 + barWidth / 2,
         (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / maxValue) - 10
       );
       p5.text(flatArr[i], - p5.textWidth(flatArr[i] + "") / 2, 0, 0);
@@ -71,9 +72,9 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
     );
     for (let i = 0; i < dataCount; i++) {
       p5.line(
-        data.margin + i * (barWidth + data.spacing) + barWidth / 2 - data.axis_marker_length + data.spacing / 2,
+        data.margin + i * (barWidth + spacing) + barWidth / 2 - data.axis_marker_length + spacing / 2,
         meta.canvasHeight - data.margin + data.axis_marker_length,
-        data.margin + i * (barWidth + data.spacing) + barWidth / 2 + data.spacing / 2,
+        data.margin + i * (barWidth + spacing) + barWidth / 2 + spacing / 2,
         meta.canvasHeight - data.margin
       );
       if (data.x_axis_labels.length > i) {
@@ -82,7 +83,7 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
         p5.fill(data.axis_line_color);
         p5.textStyle(p5.BOLD);
         p5.translate(
-          data.margin + i * (barWidth + data.spacing) + barWidth / 2 + data.spacing / 2,
+          data.margin + i * (barWidth + spacing) + barWidth / 2 + spacing / 2,
           meta.canvasHeight - data.margin
         );
         p5.rotate(p5.radians(-45));
