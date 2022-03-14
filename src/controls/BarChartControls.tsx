@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CheckBox from "../components/checkbox/CheckBox";
 import Slider from "../components/inputs/slider/Slider";
 import TextField from "../components/inputs/TextField";
@@ -7,7 +7,15 @@ import AccordionItem from "../components/layout/accordion/AccordionItem";
 import ScrollBox from "../components/layout/scrollbox/ScrollBox";
 import { ChartData } from "../types/ChartDataType";
 
+function useForcedUpdate() {
+  const [, setValue] = useState(0);
+  return () => setValue(value => value + 1);
+}
+
 const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
+
+  const forcedUpdate = useForcedUpdate();
+
   return (
     <ScrollBox>
       <Accordion>
@@ -18,7 +26,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             onChange={(v: string) => { chart.background = v }}
           />
           <CheckBox
-            callBack={(v: boolean) => { chart.show_background_grid = v }}
+            callBack={(v: boolean) => { chart.show_background_grid = v; }}
             isChecked={chart.show_background_grid}
             text="Show background grid"
           />
@@ -56,11 +64,13 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             callBack={(v: boolean) => { chart.show_x_axis = v }}
             isChecked={chart.show_x_axis}
             text={"Show X axis"}
+            onClick={forcedUpdate}
           />
           <CheckBox
             callBack={(v: boolean) => { chart.show_y_axis = v }}
             isChecked={chart.show_y_axis}
             text={"Show Y axis"}
+            onClick={forcedUpdate}
           />
           Axis line width
           {

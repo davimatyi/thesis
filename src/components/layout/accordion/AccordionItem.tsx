@@ -19,12 +19,12 @@ const AccordionItem: React.FC<{ text: string }> = ({ children, text }) => {
 
 
   const openAnimation = useSpring({ 
-    maxHeight: open ? "100%" : "45px",
+    height: open ? "fit-content" : "45px",
     config: {duration: 300} 
   });
   const fadeAnimation = useSpring({
     opacity: open ? 1 : 0,
-    maxHeight: open ? "100%" : "0px",
+    maxHeight: open ? "fit-content" : "0px",
     config: {duration: 300}
   })
   const iconAnimation = useSpring({ 
