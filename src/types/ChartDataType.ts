@@ -2,7 +2,6 @@ export interface ChartData {
   title: string,
   type: string, // TODO change chart type to enum
   background: string, // color hex
-  foreground: string, // color hex
   dimensity: number,
   values: number[][],
   x_axis_labels: string[],
@@ -20,7 +19,7 @@ export interface ChartData {
   axis_line_width: number, // pixels
   axis_line_color: string, // hex
   axis_marker_length: number, // pixels
-  y_axis_marker_frequency: number, // divider
+  y_axis_marker_frequency: number, // percentile
   show_value_labels: boolean,
   show_background_grid: boolean,
   spacing: number, // percentile
@@ -33,7 +32,6 @@ export const defaultChart: ChartData = {
   title: "title",
   type: "bar",
   background: "#eeeeee",
-  foreground: "#000000",
   dimensity: 1,
   values: [[12, 6, 8, 7, 10]],
   x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],

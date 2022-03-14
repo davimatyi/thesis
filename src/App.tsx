@@ -5,6 +5,9 @@ import DataEditor from './routes/DataEditor';
 import Overview from './routes/Overview';
 import StyleEditor from './routes/StyleEditor';
 import Welcome from './routes/Welcome';
+import { defaultChart } from './types/ChartDataType';
+
+let chart = defaultChart;
 
 class App extends React.Component {
 
@@ -16,7 +19,7 @@ class App extends React.Component {
             <Route path="/" element={<Welcome />} />
             <Route path="/editor" element={<DataEditor />} />
             <Route path="/style" element={<StyleEditor />} />
-            <Route path="/overview" element={<Overview />} />
+            <Route path="/overview" element={<Overview chart={chart} />} />
           </Routes>
         </HashRouter>
       </div>

@@ -6,14 +6,12 @@ import DrawBarChart from './charts/BarChart';
 import DrawPieChart from './charts/PieChart';
 import DrawLineChart from './charts/LineChart';
 
-const canvasWidth = 800, canvasHeight = 600;
-
 export interface MetaData {
 	canvasWidth: number,
 	canvasHeight: number,
 }
 
-let metadata: MetaData = {
+const metadata: MetaData = {
 	canvasWidth: 800,
 	canvasHeight: 600,
 }
@@ -22,7 +20,7 @@ const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
 
 
 	const setup = (p5: p5Types, canvasParentRef: Element) => {
-		p5.createCanvas(canvasWidth, canvasHeight).parent(canvasParentRef);
+		p5.createCanvas(metadata.canvasWidth, metadata.canvasHeight).parent(canvasParentRef);
 	};
 
 	const draw = (p5: p5Types) => {

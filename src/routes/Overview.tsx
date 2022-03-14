@@ -1,54 +1,22 @@
 import React from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
-import CheckBox from '../components/checkbox/CheckBox';
-import Slider from '../components/inputs/slider/Slider';
-import Accordion from '../components/layout/accordion/Accordion';
-import AccordionItem from '../components/layout/accordion/AccordionItem';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
-import ScrollBox from '../components/layout/scrollbox/ScrollBox';
+import BarChartControls from '../controls/BarChartControls';
 import ChartView from '../rendering/ChartView';
-import { defaultChart } from '../types/ChartDataType';
+import { ChartData } from '../types/ChartDataType';
 
-const Overview: React.FC = () => {
+const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
   return (
     <>
       Overview
       <LinkButton to="/style">Back</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='75%'>
-          <ChartView data={defaultChart} />
+          <ChartView data={chart} />
         </FlexBox>
         <FlexBox flexAmount='25%'>
-          <ScrollBox>
-            <Accordion>
-              <AccordionItem text='Accordion 1'>
-                <CheckBox 
-                  callBack={(v: boolean) => {defaultChart.show_background_grid = v}}
-                  isChecked={defaultChart.show_background_grid}
-                  text={"Grid"}
-                />
-                <CheckBox 
-                  callBack={(v: boolean) => {defaultChart.show_x_axis = v}}
-                  isChecked={defaultChart.show_x_axis}
-                  text={"Show x"}
-                />
-                <CheckBox 
-                  callBack={(v: boolean) => {defaultChart.show_y_axis = v}}
-                  isChecked={defaultChart.show_y_axis}
-                  text={"Show y"}
-                />
-              </AccordionItem>
-              <AccordionItem text="asd">
-                <Slider
-                  initialValue={50}
-                  min={0}
-                  max={99}
-                  onChange={(val: number) => {defaultChart.spacing = val}}
-                />
-              </AccordionItem>
-            </Accordion>
-          </ScrollBox>
+          <BarChartControls chart={chart}></BarChartControls>
         </FlexBox>
       </FlexContainer>
     </>
