@@ -10,7 +10,7 @@ const DrawBarChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
   const barWidth = (meta.canvasWidth - 2 * data.margin) / dataCount * (1 - data.spacing / 100.0);
   const spacing = (meta.canvasWidth - 2 * data.margin) / dataCount * (data.spacing / 100.0);
   const colorCount = data.fill_colors.length;
-  const markerCount = Math.round(maxValue / data.y_axis_marker_frequency);
+  const markerCount = Math.round(maxValue * (data.y_axis_marker_frequency / 100.0));
 
   p5.background(data.background);
 

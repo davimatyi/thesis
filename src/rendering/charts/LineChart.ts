@@ -9,7 +9,7 @@ const DrawLineChart = (p5: p5Types, data: ChartData, meta: MetaData) => {
   const minValue = data.start_from_zero ? 0 : Math.min(...(data.values.map(arr => Math.min(...arr))));
   const dataCount = flatArr.length;
   const segmentWidth = (meta.canvasWidth - 2 * data.margin) / dataCount;
-  const markerCount = Math.round((maxValue - minValue) / data.y_axis_marker_frequency);
+  const markerCount = Math.round(maxValue * (data.y_axis_marker_frequency / 100.0));
 
   p5.background(data.background);
 
