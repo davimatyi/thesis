@@ -53,6 +53,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
                 callBack={(v: boolean) => { chart.fill_gradient = v }}
                 isChecked={chart.fill_gradient}
                 text="Use gradient"
+                onClick={forcedUpdate}
               />
               {
                 chart.fill_gradient &&
