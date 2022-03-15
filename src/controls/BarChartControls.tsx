@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import IconButton from "../components/buttons/iconbutton/IconButton";
 import CheckBox from "../components/checkbox/CheckBox";
 import ColorPicker from "../components/colorpicker/ColorPicker";
 import Slider from "../components/inputs/slider/Slider";
@@ -75,6 +76,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
                   return <FlexBox><ColorPicker initialColor={v} onColorPicked={(v: string) => { chart.fill_colors[i] = v }} /></FlexBox>
                 })
               }
+              <FlexBox><IconButton onClick={(e: any) => {chart.fill_colors.push("#555555"); forcedUpdate();}}/></FlexBox>
               </FlexContainer>
             </>
           }

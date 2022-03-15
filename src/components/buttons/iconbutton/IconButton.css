@@ -1,0 +1,18 @@
+.icon_button {
+  width: fit-content;
+  border-radius: 2px;
+  background-color: #fff;
+  transition: background-color 0.2s ease-in-out;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, .1);
+  padding: 2px;
+  margin: 3px;
+  height: 25px;
+}
+
+.icon_button:hover {
+  background-color: #ccc;
+}
+
+.icon_button img {
+  width: 25px;
+}
