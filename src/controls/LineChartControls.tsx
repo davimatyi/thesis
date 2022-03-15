@@ -12,7 +12,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const forcedUpdate = useForcedUpdate();
 
@@ -31,70 +31,13 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             text="Show background grid"
           />
         </AccordionItem>
-        <AccordionItem text="Fill">
-          Primary fill color
+        <AccordionItem text="Colors">
+          Stroke color
           <TextField
-            text={chart.background}
-            onChange={(v: string) => { chart.background = v }}
+            text={chart.stroke_color}
+            onChange={(v: string) => { chart.stroke_color = v }}
           />
-          <CheckBox
-            callBack={(v: boolean) => { chart.fill_gradient = v }}
-            isChecked={chart.fill_gradient}
-            text="Use gradient"
-          />
-          {
-            chart.fill_gradient &&
-            <>
-              Secondary fill color
-              <TextField
-                text={chart.background}
-                onChange={(v: string) => { chart.background = v }}
-              />
-            </>
-          }
-          <CheckBox
-            callBack={(v: boolean) => { chart.use_multiple_colors = v }}
-            isChecked={chart.use_multiple_colors}
-            text="Use alternating colors"
-          />
-          {/* TODO implement color picker and color array */}
-        </AccordionItem>
-        <AccordionItem text="Stroke">
-          Border radius
-          <Slider
-            initialValue={chart.border_radius}
-            min={0}
-            max={99}
-            onChange={(val: number) => { chart.border_radius = val }}
-          />
-          <CheckBox
-            text="Stroke"
-            isChecked={chart.stroke}
-            callBack={(v: boolean) => { chart.stroke = v }}
-            onClick={forcedUpdate}
-          />
-          {
-            chart.stroke && 
-            <>
-              Stroke width
-              <Slider
-                initialValue={chart.stroke_width}
-                min={1}
-                max={20}
-                onChange={(val: number) => { chart.stroke_width = val }}
-              />
-            </>
-          }
-          {
-            chart.stroke && 
-            <>
-              Stroke color
-              <TextField
-                text={chart.stroke_color}
-                onChange={(v: string) => { chart.stroke_color = v }}
-              />
-            </>
-          }
+
         </AccordionItem>
         <AccordionItem text='Axes'>
           <CheckBox
@@ -110,7 +53,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             onClick={forcedUpdate}
           />
           {
-            (chart.show_x_axis || chart.show_y_axis) && 
+            (chart.show_x_axis || chart.show_y_axis) &&
             <>
               Axis line width
               <Slider
@@ -122,7 +65,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             </>
           }
           {
-            (chart.show_x_axis || chart.show_y_axis) && 
+            (chart.show_x_axis || chart.show_y_axis) &&
             <>
               Axis line color
               <TextField
@@ -145,12 +88,10 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           }
         </AccordionItem>
         <AccordionItem text="Spacing">
-          Spacing between bars
-          <Slider
-            initialValue={chart.spacing}
-            min={0}
-            max={99}
-            onChange={(val: number) => { chart.spacing = val }}
+          <CheckBox
+            text="Start from 0"
+            isChecked={chart.start_from_zero}
+            callBack={(v: boolean) => { chart.start_from_zero = v }}
           />
           Margin
           <Slider
@@ -165,4 +106,4 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
   );
 }
 
-export default BarChartControls;
+export default LineChartControls;

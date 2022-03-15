@@ -3,10 +3,23 @@ import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import BarChartControls from '../controls/BarChartControls';
+import LineChartControls from '../controls/LineChartControls';
 import ChartView from '../rendering/ChartView';
 import { ChartData } from '../types/ChartDataType';
 
+
+
 const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
+
+  function switchControls() {
+    switch(chart.type) {
+      case 'bar': return <BarChartControls chart={chart}/>;
+      case 'line': return <LineChartControls chart={chart}/>;
+    }
+  } 
+
+  const fun = switchControls();
+
   return (
     <>
       Overview
@@ -16,7 +29,9 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
           <ChartView data={chart} />
         </FlexBox>
         <FlexBox flexAmount='25%'>
-          <BarChartControls chart={chart}></BarChartControls>
+          {
+            fun
+          }
         </FlexBox>
       </FlexContainer>
     </>
