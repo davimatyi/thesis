@@ -1,11 +1,11 @@
 .colorpicker_color {
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   border-radius: 2px;
 }
 
 .colorpicker_swatch {
-  padding: 5px;
+  padding: 2px;
   background-color: #fff;
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgba(0,0,0,.1);

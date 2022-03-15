@@ -4,6 +4,8 @@ import ColorPicker from "../components/colorpicker/ColorPicker";
 import Slider from "../components/inputs/slider/Slider";
 import Accordion from "../components/layout/accordion/Accordion";
 import AccordionItem from "../components/layout/accordion/AccordionItem";
+import FlexBox from "../components/layout/flexbox/FlexBox";
+import FlexContainer from "../components/layout/flexbox/FlexContainer";
 import ScrollBox from "../components/layout/scrollbox/ScrollBox";
 import { ChartData } from "../types/ChartDataType";
 
@@ -32,32 +34,50 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           />
         </AccordionItem>
         <AccordionItem text="Fill">
-          Primary fill color
-          <ColorPicker
-            initialColor={chart.fill_primary}
-            onColorPicked={(v: string) => { chart.fill_primary = v }}
-          />
-          <CheckBox
-            callBack={(v: boolean) => { chart.fill_gradient = v }}
-            isChecked={chart.fill_gradient}
-            text="Use gradient"
-          />
-          {
-            chart.fill_gradient &&
-            <>
-              Secondary fill color
-              <ColorPicker
-                initialColor={chart.fill_secondary}
-                onColorPicked={(v: string) => { chart.fill_secondary = v }}
-              />
-            </>
-          }
           <CheckBox
             callBack={(v: boolean) => { chart.use_multiple_colors = v }}
             isChecked={chart.use_multiple_colors}
             text="Use alternating colors"
+            onClick={forcedUpdate}
           />
-          {/* TODO implement color picker and color array */}
+          {
+            !chart.use_multiple_colors &&
+            <>
+              Primary fill color
+              <ColorPicker
+                initialColor={chart.fill_primary}
+                onColorPicked={(v: string) => { chart.fill_primary = v }}
+              />
+              <CheckBox
+                callBack={(v: boolean) => { chart.fill_gradient = v }}
+                isChecked={chart.fill_gradient}
+                text="Use gradient"
+              />
+              {
+                chart.fill_gradient &&
+                <>
+                  Secondary fill color
+                  <ColorPicker
+                    initialColor={chart.fill_secondary}
+                    onColorPicked={(v: string) => { chart.fill_secondary = v }}
+                  />
+                </>
+              }
+            </>
+          }
+          {
+            chart.use_multiple_colors &&
+            <>
+              Color palette
+              <FlexContainer>
+              {
+                chart.fill_colors.map((v, i) => {
+                  return <FlexBox><ColorPicker initialColor={v} onColorPicked={(v: string) => { chart.fill_colors[i] = v }} /></FlexBox>
+                })
+              }
+              </FlexContainer>
+            </>
+          }
         </AccordionItem>
         <AccordionItem text="Stroke">
           Border radius
