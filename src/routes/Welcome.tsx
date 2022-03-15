@@ -2,6 +2,7 @@ import React from 'react';
 import Button from '../components/buttons/button/Button';
 import DropDownButton from '../components/buttons/dropdownbutton/DropDownButton';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
+import ColorPicker from '../components/colorpicker/ColorPicker';
 
 const Welcome: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const Welcome: React.FC = () => {
           })
         }
       </DropDownButton>
+      <ColorPicker initialColor='#555555' onColorPicked={(c: string) => alert(c)}></ColorPicker>
     </>
   );
 }
