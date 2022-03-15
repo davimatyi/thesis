@@ -1,6 +1,6 @@
 .colorpicker_color {
-  width: 36px;
-  height: 14px;
+  width: 20px;
+  height: 20px;
   border-radius: 2px;
 }
 
@@ -9,6 +9,7 @@
   background-color: #fff;
   border-radius: 1px;
   box-shadow: 0 0 0 1px rgba(0,0,0,.1);
+  width: fit-content;
 }
 
 .colorpicker_popover {

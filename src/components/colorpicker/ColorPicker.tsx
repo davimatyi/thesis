@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ColorResult, SketchPicker } from 'react-color';
+import './ColorPicker.css';
 
 const ColorPicker: React.FC<{ initialColor: string, onColorPicked: Function }> = ({ initialColor, onColorPicked }) => {
 

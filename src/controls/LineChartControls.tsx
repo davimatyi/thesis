@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CheckBox from "../components/checkbox/CheckBox";
+import ColorPicker from "../components/colorpicker/ColorPicker";
 import Slider from "../components/inputs/slider/Slider";
-import TextField from "../components/inputs/TextField";
 import Accordion from "../components/layout/accordion/Accordion";
 import AccordionItem from "../components/layout/accordion/AccordionItem";
 import ScrollBox from "../components/layout/scrollbox/ScrollBox";
@@ -21,9 +21,9 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
       <Accordion>
         <AccordionItem text="Background">
           Background color
-          <TextField
-            text={chart.background}
-            onChange={(v: string) => { chart.background = v }}
+          <ColorPicker
+            initialColor={chart.background}
+            onColorPicked={(v: string) => { chart.background = v }}
           />
           <CheckBox
             callBack={(v: boolean) => { chart.show_background_grid = v; }}
@@ -33,9 +33,9 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
         </AccordionItem>
         <AccordionItem text="Colors">
           Stroke color
-          <TextField
-            text={chart.stroke_color}
-            onChange={(v: string) => { chart.stroke_color = v }}
+          <ColorPicker
+            initialColor={chart.stroke_color}
+            onColorPicked={(v: string) => { chart.stroke_color = v }}
           />
 
         </AccordionItem>
@@ -68,14 +68,14 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             (chart.show_x_axis || chart.show_y_axis) &&
             <>
               Axis line color
-              <TextField
-                text={chart.axis_line_color}
-                onChange={(v: string) => { chart.axis_line_color = v }}
+              <ColorPicker
+                initialColor={chart.axis_line_color}
+                onColorPicked={(v: string) => { chart.axis_line_color = v }}
               />
             </>
           }
           {
-            chart.show_y_axis && 
+            chart.show_y_axis &&
             <>
               Y axis marker frequency
               <Slider
