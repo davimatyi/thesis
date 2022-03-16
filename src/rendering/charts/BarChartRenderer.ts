@@ -1,7 +1,7 @@
 import p5Types from 'p5';
 import { ChartData } from '../../types/ChartDataType';
 import { MetaData } from '../ChartView';
-import AbstractRenderer from './AbstractRenderer';
+import AbstractRenderer from '../AbstractRenderer';
 
 class BarChartRenderer extends AbstractRenderer {
   draw(p5: p5Types, data: ChartData, meta: MetaData) {
