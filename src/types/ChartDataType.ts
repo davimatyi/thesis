@@ -30,7 +30,7 @@ export interface ChartData {
 
 export const defaultChart: ChartData = {
   title: "title",
-  type: "line",
+  type: "bar",
   background: "#eeeeee",
   dimensity: 1,
   values: [[12, 6, 8, 7, 10]],
@@ -42,7 +42,7 @@ export const defaultChart: ChartData = {
   fill_primary: "#72b2ac",
   fill_secondary: "#00ff00",
   fill_gradient: false,
-  fill_colors: ["#ff0000", "#00ff00"],
+  fill_colors: ["#226CB3", "#4FBAF3"],
   use_multiple_colors: true,
   show_x_axis: true,
   show_y_axis: true,

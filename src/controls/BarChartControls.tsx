@@ -74,7 +74,13 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
               <FlexContainer>
               {
                 chart.fill_colors.map((v, i) => {
-                  return <FlexBox><ColorPicker initialColor={v} onColorPicked={(v: string) => { chart.fill_colors[i] = v }} /></FlexBox>
+                  return <FlexBox>
+                    <ColorPicker 
+                      initialColor={v} 
+                      onColorPicked={(v: string) => { chart.fill_colors[i] = v }} 
+                      rightClick={() => {chart.fill_colors.splice(i, 1); forcedUpdate()}}
+                    />
+                  </FlexBox>
                 })
               }
               <FlexBox><IconButton onClick={(e: any) => {chart.fill_colors.push("#555555"); forcedUpdate();}}/></FlexBox>

@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { ColorResult, SketchPicker } from 'react-color';
 import './ColorPicker.css';
 
-const ColorPicker: React.FC<{ initialColor: string, onColorPicked: Function }> = ({ initialColor, onColorPicked }) => {
+const ColorPicker: React.FC<{ initialColor: string, onColorPicked: Function, rightClick?: Function }> = ({ initialColor, onColorPicked, rightClick }) => {
 
   const [displayColorPicker, setDisplay] = useState(false);
   const [currentColor, setCurrentColor] = useState<string>(initialColor);
 
-  const handleClick = () => {
+  const handleClick = (e: React.MouseEvent) => {
+    if(e.button === 2 && rightClick !== undefined) rightClick();
     setDisplay(!displayColorPicker);
   }
 
@@ -22,7 +23,7 @@ const ColorPicker: React.FC<{ initialColor: string, onColorPicked: Function }> =
 
   return (
     <div>
-      <div className="colorpicker_swatch" onClick={handleClick}>
+      <div className="colorpicker_swatch" onClick={handleClick} onContextMenu={handleClick}>
         <div className="colorpicker_color" style={{backgroundColor: currentColor}} />
       </div>
       { 

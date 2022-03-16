@@ -10,7 +10,7 @@ interface props {
   text: string, 
   onSelection: Function, 
   group: ListGroupController,
-  selected: boolean
+  selected?: boolean
 }
 
 const ListSelectorItem: React.FC<props> = ({ index, iconSrc, text, onSelection, group, selected }) => {

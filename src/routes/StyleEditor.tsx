@@ -6,11 +6,14 @@ import ScrollBox from '../components/layout/scrollbox/ScrollBox';
 import ListGroupController from '../components/listselector/ListGroupController';
 import ListSelectorItem from '../components/listselector/ListSelectorItem';
 import { ChartData } from '../types/ChartDataType';
-import icon from '../assets/placeholder.png';
+import icon1 from '../assets/typeselect_barchart.png';
+import icon2 from '../assets/typeselect_linechart.png';
+import icon3 from '../assets/typeselect_piechart.png';
 
 const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
-  const controller = new ListGroupController();
+  const typeGroup = new ListGroupController();
+  const styleGroup = new ListGroupController();
 
   return (
     <>
@@ -18,31 +21,62 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       <LinkButton to="/editor">Back</LinkButton>
       <LinkButton to="/overview">Next</LinkButton>
       <FlexContainer>
-        <FlexBox>
+        <FlexBox flexAmount='50%'>
           <ScrollBox>
             <ListSelectorItem
-              group={controller}
-              iconSrc={icon}
+              group={typeGroup}
+              iconSrc={icon1}
               index={0}
               text="Bar Chart"
               onSelection={() => chart.type = "bar"}
               selected={chart.type === "bar"}
             />
             <ListSelectorItem
-              group={controller}
-              iconSrc={icon}
+              group={typeGroup}
+              iconSrc={icon2}
               index={1}
               text="Line Chart"
               onSelection={() => chart.type = "line"}
               selected={chart.type === "line"}
             />
             <ListSelectorItem
-              group={controller}
-              iconSrc={icon}
+              group={typeGroup}
+              iconSrc={icon3}
               index={2}
               text="Pie Chart"
               onSelection={() => chart.type = "pie"}
               selected={chart.type === "pie"}
+            />
+          </ScrollBox>
+        </FlexBox>
+        <FlexBox flexAmount='50%'>
+          <ScrollBox>
+            <ListSelectorItem
+              group={styleGroup}
+              iconSrc={icon1}
+              index={0}
+              text="Classic"
+              onSelection={() => {
+
+              }}
+            />
+            <ListSelectorItem
+              group={styleGroup}
+              iconSrc={icon1}
+              index={1}
+              text="Classic"
+              onSelection={() => {
+                
+              }}
+            />
+            <ListSelectorItem
+              group={styleGroup}
+              iconSrc={icon1}
+              index={2}
+              text="Classic"
+              onSelection={() => {
+                
+              }}
             />
           </ScrollBox>
         </FlexBox>
