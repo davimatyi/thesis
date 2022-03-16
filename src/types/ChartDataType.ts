@@ -30,7 +30,7 @@ export interface ChartData {
 
 export const defaultChart: ChartData = {
   title: "title",
-  type: "pie",
+  type: "line",
   background: "#eeeeee",
   dimensity: 1,
   values: [[12, 6, 8, 7, 10]],

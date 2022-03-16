@@ -31,13 +31,19 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             text="Show background grid"
           />
         </AccordionItem>
-        <AccordionItem text="Colors">
+        <AccordionItem text="Stroke">
           Stroke color
           <ColorPicker
             initialColor={chart.stroke_color}
             onColorPicked={(v: string) => { chart.stroke_color = v }}
           />
-
+          Stroke width
+          <Slider
+            initialValue={chart.stroke_width}
+            min={1}
+            max={20}
+            onChange={(val: number) => { chart.stroke_width = val }}
+          />
         </AccordionItem>
         <AccordionItem text='Axes'>
           <CheckBox
