@@ -1,6 +1,6 @@
 import React from "react";
 import './IconButton.css';
-import plus_icon from './plus_icon.png';
+import plus_icon from '../../../assets/plus_icon.png';
 
 const IconButton: React.FC<{ onClick?: React.MouseEventHandler }> = ({ onClick }) => {
   return (
