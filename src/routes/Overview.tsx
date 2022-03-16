@@ -4,6 +4,7 @@ import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import BarChartControls from '../controls/BarChartControls';
 import LineChartControls from '../controls/LineChartControls';
+import PieChartControls from '../controls/PieChartControls';
 import ChartView from '../rendering/ChartView';
 import { ChartData } from '../types/ChartDataType';
 
@@ -15,6 +16,7 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
     switch(chart.type) {
       case 'bar': return <BarChartControls chart={chart}/>;
       case 'line': return <LineChartControls chart={chart}/>;
+      case 'pie': return <PieChartControls chart={chart}/>;
     }
   } 
 
