@@ -13,7 +13,7 @@ const Slider: React.FC<{initialValue: number, min: number, max: number, onChange
         className="slider" 
         onChange={
           (e) => {
-            onChange(e.target.value);
+            onChange(+e.target.value);
             setValue(+e.target.value);
           }
         }/>

@@ -74,7 +74,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
               <FlexContainer>
               {
                 chart.fill_colors.map((v, i) => {
-                  return <FlexBox>
+                  return <FlexBox key={i}>
                     <ColorPicker 
                       initialColor={v} 
                       onColorPicked={(v: string) => { chart.fill_colors[i] = v }} 
