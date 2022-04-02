@@ -4,30 +4,7 @@ import { Table, TableBody, TableCell, TableHead, TableRow } from "@mui/material"
 import './Table.css';
 
 
-const DataTable: React.FC<{ data: {}[] }> = ({ data }) => {
-
-  const columns = React.useMemo<Column[]>(
-    () => [
-      {
-        Header: 'Row',
-        columns: [
-          {
-            Header: 'Row',
-            accessor: 'row'
-          }
-        ]
-      },
-      {
-        Header: 'Value',
-        columns: [
-          {
-            Header: 'Value',
-            accessor: 'value'
-          }
-        ]
-      }
-    ], []
-  );
+const DataTable: React.FC<{ columns: readonly Column<{}>[], data: {}[] }> = ({ columns, data }) => {
 
   const { getTableProps, headerGroups, rows, prepareRow } = useTable(
     {

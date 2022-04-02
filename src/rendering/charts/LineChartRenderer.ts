@@ -7,7 +7,7 @@ class LineChartRenderer extends AbstractRenderer {
 
   draw(p5: p5Types, data: ChartData, meta: MetaData) {
 
-    const flatArr = data.values.flat();
+    const flatArr = data.values[0];
     const minValue = data.start_from_zero ? 0 : Math.min(...(data.values.map(arr => Math.min(...arr))));
     const dataCount = flatArr.length;
     const segmentWidth = (meta.canvasWidth - 2 * data.margin) / dataCount;

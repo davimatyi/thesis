@@ -7,7 +7,7 @@ class PieChartRenderer extends AbstractRenderer {
 
   draw(p5: p5Types, data: ChartData, meta: MetaData) {
 
-    const flatArray = data.values.flat();
+    const flatArray = data.values[0];
     const sum = flatArray.reduce((acc, curr) => acc + curr);
     const dataCount = flatArray.length;
     const size = meta.canvasWidth < meta.canvasHeight ? meta.canvasWidth - 2 * data.margin : meta.canvasHeight - 2 * data.margin;

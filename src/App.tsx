@@ -17,7 +17,7 @@ class App extends React.Component {
         <HashRouter>
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/editor" element={<DataEditor />} />
+            <Route path="/editor" element={<DataEditor chart={chart} />} />
             <Route path="/style" element={<StyleEditor chart={chart} />} />
             <Route path="/overview" element={<Overview chart={chart} />} />
           </Routes>

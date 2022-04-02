@@ -6,7 +6,7 @@ import AbstractRenderer from '../AbstractRenderer';
 class BarChartRenderer extends AbstractRenderer {
   draw(p5: p5Types, data: ChartData, meta: MetaData) {
 
-    const flatArr = data.values.flat();
+    const flatArr = data.values[0];
     const dataCount = flatArr.length;
     const barWidth = (meta.canvasWidth - 2 * data.margin) / dataCount * (1 - data.spacing / 100.0);
     const spacing = (meta.canvasWidth - 2 * data.margin) / dataCount * (data.spacing / 100.0);
