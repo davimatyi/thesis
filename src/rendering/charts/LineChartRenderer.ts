@@ -11,27 +11,32 @@ class LineChartRenderer extends AbstractRenderer {
     const minValue = data.start_from_zero ? 0 : Math.min(...(data.values.map(arr => Math.min(...arr))));
     const dataCount = flatArr.length;
     const segmentWidth = (meta.canvasWidth - 2 * data.margin) / dataCount;
-    
+
 
     p5.background(data.background);
 
     this.drawBackgroundGrid(p5, data, meta);
 
-    p5.stroke(data.stroke_color);
-    p5.strokeWeight(data.stroke_width);
+    for (let i = 0; i < data.values.length; i++) {
+      if (data.use_multiple_colors)
+        p5.stroke(data.fill_colors[i % data.fill_colors.length]);
+      else
+        p5.stroke(data.fill_primary);
 
-    let prevHeight = (flatArr[0] - minValue) / (meta.maxValue - minValue) * (meta.canvasHeight - data.margin * 2);
+      p5.strokeWeight(data.stroke_width);
 
-    for (let i = 1; i < dataCount; i++) {
-      const height = (flatArr[i] - minValue) / (meta.maxValue - minValue) * (meta.canvasHeight - data.margin * 2);
-      p5.line(
-        (i - 1) * segmentWidth + data.margin + segmentWidth / 2,
-        meta.canvasHeight - data.margin - prevHeight,
-        i * segmentWidth + data.margin + segmentWidth / 2,
-        meta.canvasHeight - data.margin - height
-      );
+      let prevHeight = (data.values[i][0] - minValue) / (meta.maxValue - minValue) * (meta.canvasHeight - data.margin * 2);
+      for (let j = 1; j < dataCount; j++) {
+        const height = (data.values[i][j] - minValue) / (meta.maxValue - minValue) * (meta.canvasHeight - data.margin * 2);
+        p5.line(
+          (j - 1) * segmentWidth + data.margin + segmentWidth / 2,
+          meta.canvasHeight - data.margin - prevHeight,
+          j * segmentWidth + data.margin + segmentWidth / 2,
+          meta.canvasHeight - data.margin - height
+        );
 
-      prevHeight = height;
+        prevHeight = height;
+      }
     }
 
     this.drawLineChartAxes(p5, data, meta, segmentWidth, dataCount, minValue);

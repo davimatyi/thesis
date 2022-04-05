@@ -35,7 +35,7 @@ export const defaultChart: ChartData = {
   dimensity: 1,
   values: [[12, 6, 8, 7, 10], [4, 5, 6, 3, 2]],
   x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],
-  y_axis_labels: ["column 1", "column 2"],
+  y_axis_labels: ["name", "column 1", "column 2"],
   stroke_color: "#555555",
   stroke_width: 5,
   stroke: false,

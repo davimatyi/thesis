@@ -49,13 +49,17 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
         alert("File read error");
         return;
       }
-      const text: string = (e.target.result).toString();
-      const { xheaders, yheaders, data } = parseCSV(text, true);
-      chart.x_axis_labels = xheaders;
-      chart.y_axis_labels = yheaders;
-      chart.values = data;
-      forcedUpdate();
-      console.log(chart);
+      try {
+        const text: string = (e.target.result).toString();
+        const { xheaders, yheaders, data } = parseCSV(text, true);
+        chart.x_axis_labels = xheaders;
+        chart.y_axis_labels = yheaders;
+        chart.values = data;
+        forcedUpdate();
+        console.log(chart);
+      } catch (e) {
+        alert(e);
+      }
     }
     if (e.target.files !== null)
       reader.readAsText(e.target.files[0]);

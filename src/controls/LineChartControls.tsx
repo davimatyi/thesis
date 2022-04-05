@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import IconButton from "../components/buttons/iconbutton/IconButton";
 import CheckBox from "../components/checkbox/CheckBox";
 import ColorPicker from "../components/colorpicker/ColorPicker";
 import Slider from "../components/inputs/slider/Slider";
 import Accordion from "../components/layout/accordion/Accordion";
 import AccordionItem from "../components/layout/accordion/AccordionItem";
+import FlexBox from "../components/layout/flexbox/FlexBox";
+import FlexContainer from "../components/layout/flexbox/FlexContainer";
 import ScrollBox from "../components/layout/scrollbox/ScrollBox";
 import { ChartData } from "../types/ChartDataType";
 
@@ -32,11 +35,42 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           />
         </AccordionItem>
         <AccordionItem text="Stroke">
-          Stroke color
-          <ColorPicker
-            initialColor={chart.stroke_color}
-            onColorPicked={(v: string) => { chart.stroke_color = v }}
+          <CheckBox
+            callBack={(v: boolean) => { chart.use_multiple_colors = v }}
+            isChecked={chart.use_multiple_colors}
+            text="Use alternating colors"
+            onClick={forcedUpdate}
           />
+          {
+            !chart.use_multiple_colors &&
+            <>
+              Stroke color
+              <ColorPicker
+                initialColor={chart.fill_primary}
+                onColorPicked={(v: string) => { chart.fill_primary = v }}
+              />
+            </>
+          }
+          {
+            chart.use_multiple_colors &&
+            <>
+              Color palette
+              <FlexContainer>
+                {
+                  chart.fill_colors.map((v, i) => {
+                    return <FlexBox key={i}>
+                      <ColorPicker
+                        initialColor={v}
+                        onColorPicked={(v: string) => { chart.fill_colors[i] = v }}
+                        rightClick={() => { chart.fill_colors.splice(i, 1); forcedUpdate() }}
+                      />
+                    </FlexBox>
+                  })
+                }
+                <FlexBox><IconButton onClick={(e: any) => { chart.fill_colors.push("#555555"); forcedUpdate(); }} /></FlexBox>
+              </FlexContainer>
+            </>
+          }
           Stroke width
           <Slider
             initialValue={chart.stroke_width}
@@ -108,7 +142,7 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           />
         </AccordionItem>
       </Accordion>
-    </ScrollBox>
+    </ScrollBox >
   );
 }
 
