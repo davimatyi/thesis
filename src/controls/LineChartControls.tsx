@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import IconButton from "../components/buttons/iconbutton/IconButton";
 import CheckBox from "../components/checkbox/CheckBox";
 import ColorPicker from "../components/colorpicker/ColorPicker";
-import Slider from "../components/inputs/slider/Slider";
 import Accordion from "../components/layout/accordion/Accordion";
 import AccordionItem from "../components/layout/accordion/AccordionItem";
 import FlexBox from "../components/layout/flexbox/FlexBox";
 import FlexContainer from "../components/layout/flexbox/FlexContainer";
 import ScrollBox from "../components/layout/scrollbox/ScrollBox";
 import { ChartData } from "../types/ChartDataType";
+import { Slider } from "@mui/material";
 
 function useForcedUpdate() {
   const [, setValue] = useState(0);
@@ -73,10 +73,10 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           }
           Stroke width
           <Slider
-            initialValue={chart.stroke_width}
+            defaultValue={chart.stroke_width}
             min={1}
             max={20}
-            onChange={(val: number) => { chart.stroke_width = val }}
+            onChange={(_, v) => { chart.stroke_width = Array.isArray(v) ? v[0] : v }}
           />
         </AccordionItem>
         <AccordionItem text='Axes'>
@@ -99,8 +99,8 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
               <Slider
                 min={1}
                 max={10}
-                initialValue={chart.axis_line_width}
-                onChange={(v: number) => { chart.axis_line_width = v }}
+                defaultValue={chart.axis_line_width}
+                onChange={(_, v) => { chart.axis_line_width = Array.isArray(v) ? v[0] : v }}
               />
             </>
           }
@@ -121,8 +121,8 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
               <Slider
                 min={1}
                 max={100}
-                initialValue={chart.y_axis_marker_frequency}
-                onChange={(v: number) => { chart.y_axis_marker_frequency = v }}
+                defaultValue={chart.y_axis_marker_frequency}
+                onChange={(_, v) => { chart.y_axis_marker_frequency = Array.isArray(v) ? v[0] : v }}
               />
             </>
           }
@@ -135,10 +135,10 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           />
           Margin
           <Slider
-            initialValue={chart.margin}
+            defaultValue={chart.margin}
             min={0}
             max={200}
-            onChange={(val: number) => { chart.margin = val }}
+            onChange={(_, v) => { chart.margin = Array.isArray(v) ? v[0] : v }}
           />
         </AccordionItem>
       </Accordion>

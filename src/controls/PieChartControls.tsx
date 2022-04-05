@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import IconButton from "../components/buttons/iconbutton/IconButton";
 import CheckBox from "../components/checkbox/CheckBox";
 import ColorPicker from "../components/colorpicker/ColorPicker";
-import Slider from "../components/inputs/slider/Slider";
 import Accordion from "../components/layout/accordion/Accordion";
 import AccordionItem from "../components/layout/accordion/AccordionItem";
 import FlexBox from "../components/layout/flexbox/FlexBox";
 import FlexContainer from "../components/layout/flexbox/FlexContainer";
 import ScrollBox from "../components/layout/scrollbox/ScrollBox";
 import { ChartData } from "../types/ChartDataType";
+import { Slider } from "@mui/material";
 
 function useForcedUpdate() {
   const [, setValue] = useState(0);
@@ -73,10 +73,10 @@ const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             <>
               Stroke width
               <Slider
-                initialValue={chart.stroke_width}
+                defaultValue={chart.stroke_width}
                 min={1}
                 max={20}
-                onChange={(val: number) => { chart.stroke_width = val }}
+                onChange={(_, v) => { chart.stroke_width = Array.isArray(v) ? v[0] : v }}
               />
             </>
           }
@@ -94,17 +94,17 @@ const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
         <AccordionItem text="Spacing">
           Spacing between slices
           <Slider
-            initialValue={chart.spacing}
+            defaultValue={chart.spacing}
             min={0}
             max={99}
-            onChange={(val: number) => { chart.spacing = val }}
+            onChange={(_, v) => { chart.spacing = Array.isArray(v) ? v[0] : v }}
           />
           Margin
           <Slider
-            initialValue={chart.margin}
+            defaultValue={chart.margin}
             min={0}
             max={200}
-            onChange={(val: number) => { chart.margin = val }}
+            onChange={(_, v) => { chart.margin = Array.isArray(v) ? v[0] : v }}
           />
         </AccordionItem>
       </Accordion>
