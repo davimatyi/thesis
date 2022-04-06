@@ -6,3 +6,7 @@ a {
 a:visited {
   color: black;
 }
+
+.linkbutton {
+  margin: 10px;
+}

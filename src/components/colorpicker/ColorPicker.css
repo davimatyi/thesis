@@ -15,7 +15,11 @@
 
 .colorpicker_popover {
   position: absolute;
-  z-index: '2';
+  z-index: 10000;
+}
+
+.colorpicker_picker {
+  z-index: 100001;
 }
 
 .colorpicker_cover {

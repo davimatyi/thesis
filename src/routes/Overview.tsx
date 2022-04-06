@@ -24,13 +24,13 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
 
   return (
     <>
-      Overview
+      <h2>Overview</h2>
       <LinkButton to="/style">Back</LinkButton>
       <FlexContainer>
-        <FlexBox flexAmount='75%'>
+        <FlexBox flexAmount='65%'>
           <ChartView data={chart} />
         </FlexBox>
-        <FlexBox flexAmount='25%'>
+        <FlexBox flexAmount='35%' height='50%'>
           {
             fun
           }

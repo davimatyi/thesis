@@ -4,7 +4,7 @@ import LinkButton from '../components/buttons/linkbutton/LinkButton';
 const Welcome: React.FC = () => {
   return (
     <>
-      Welcome
+      <h2>Welcome</h2>
       <LinkButton to="/editor">Next</LinkButton>
     </>
   );

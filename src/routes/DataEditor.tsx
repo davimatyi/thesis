@@ -67,7 +67,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      Editor
+      <h2>Editor</h2>
       <LinkButton to="/">Back</LinkButton>
       <LinkButton to="/style">Next</LinkButton>
       <CssBaseline />

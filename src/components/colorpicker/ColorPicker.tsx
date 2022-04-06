@@ -30,7 +30,7 @@ const ColorPicker: React.FC<{ initialColor: string, onColorPicked: Function, rig
         displayColorPicker && 
           <div className="colorpicker_popover">
             <div className="colorpicker_cover" onClick={handleClose}/>
-            <SketchPicker color={currentColor} onChange={handleChange} />
+            <SketchPicker color={currentColor} onChange={handleChange} className="colorpicker_picker"/>
           </div>
       }
     </div>

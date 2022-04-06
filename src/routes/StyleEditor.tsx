@@ -17,7 +17,7 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      Style
+      <h2>Style</h2>
       <LinkButton to="/editor">Back</LinkButton>
       <LinkButton to="/overview">Next</LinkButton>
       <FlexContainer>

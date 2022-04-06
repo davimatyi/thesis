@@ -31,7 +31,7 @@ export interface ChartData {
 export const defaultChart: ChartData = {
   title: "title",
   type: "bar",
-  background: "#eeeeee",
+  background: "#ffffff",
   dimensity: 1,
   values: [[12, 6, 8, 7, 10], [4, 5, 6, 3, 2]],
   x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],

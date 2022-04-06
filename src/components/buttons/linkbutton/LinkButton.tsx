@@ -5,9 +5,15 @@ import './LinkButton.css';
 
 const LinkButton: React.FC<{ to: string }> = ({ children, to }) => {
   return (
-    <Link to={to}>
-      <Button onClick={undefined}>{children}</Button>
-    </Link>
+      <Button 
+        className="linkbutton" 
+        variant="contained" 
+        onClick={undefined} 
+        component={Link} 
+        to={to}
+      >
+        {children}
+      </Button>
   );
 }
 
