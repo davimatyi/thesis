@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { HashRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import DataEditor from './routes/DataEditor';
@@ -7,7 +7,7 @@ import StyleEditor from './routes/StyleEditor';
 import Welcome from './routes/Welcome';
 import { ChartData } from './types/ChartDataType';
 
-let chart: ChartData = {
+const geci: ChartData = {
   title: "title",
   type: "bar",
   background: "#ffffff",
@@ -37,14 +37,17 @@ let chart: ChartData = {
   start_from_zero: true
 }
 
-class App extends React.Component {
 
-  render() {
+
+
+const App: React.FC = () => {
+  const [chart, setChart] = useState<ChartData>(geci);
+  
     return (
       <div className="App">
         <HashRouter>
           <Routes>
-            <Route path="/" element={<Welcome chart={chart} />} />
+            <Route path="/" element={<Welcome chart={chart} setChart={setChart} />} />
             <Route path="/editor" element={<DataEditor chart={chart} />} />
             <Route path="/style" element={<StyleEditor chart={chart} />} />
             <Route path="/overview" element={<Overview chart={chart} />} />
@@ -52,7 +55,6 @@ class App extends React.Component {
         </HashRouter>
       </div>
     );
-  }
 }
 
 export default App;

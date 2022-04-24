@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, SaveAltOutlined, SaveOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
@@ -14,6 +14,9 @@ import { ChartData } from '../types/ChartDataType';
 
 const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
 
+  const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
+  const saveButton = useRef<HTMLAnchorElement>(null);
+
   function switchControls() {
     switch(chart.type) {
       case 'bar': return <BarChartControls chart={chart}/>;
@@ -25,14 +28,19 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
   const fun = switchControls();
 
   const saveProject = () => {
-    // const { remote } = require('electron').remote;
-    // const mainProcess = remote.require('./main.ts');
-    // var electronFS = remote.require('fs');
-    // electronFS.writeFile("./project.json", JSON.stringify(chart), (e: any) => {
-    //   if(e) alert(e);
-    // });
-    // mainProcess.saveFile("./project.json", JSON.stringify(chart));
+    const blob = new Blob([JSON.stringify(chart)]);
+    const downloadUrl = URL.createObjectURL(blob);
+    setDownloadUrl(downloadUrl);
   }
+  
+  useEffect(() => {
+    if(fileDownloadUrl !== "") {
+      console.log(fileDownloadUrl);
+      saveButton.current?.click();
+      URL.revokeObjectURL(fileDownloadUrl);
+      setDownloadUrl("");
+    }
+  }, [fileDownloadUrl]);
 
   return (
     <>
@@ -55,6 +63,12 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
               >
                 Save
               </Button>
+              <a 
+                style={{display: 'none'}}
+                download={"file.json"}
+                href={fileDownloadUrl}
+                ref={saveButton}
+              >save</a>
             </FlexBox>
             <FlexBox>
               <Button

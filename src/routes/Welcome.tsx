@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import { ChartData } from '../types/ChartDataType';
 
-const Welcome: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>> }> = ({ chart, setChart }) => {
 
   const inputFile = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -23,7 +23,9 @@ const Welcome: React.FC<{ chart: ChartData }> = ({ chart }) => {
       }
       try {
         const text: string = (e.target.result).toString();
-        chart = JSON.parse(text);
+        const temp: ChartData = JSON.parse(text);
+        console.log(temp);
+        setChart(temp);
         navigate("/editor");
       } catch (e) {
         alert(e);
