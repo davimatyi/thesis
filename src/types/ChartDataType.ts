@@ -28,32 +28,3 @@ export interface ChartData {
   start_from_zero: boolean
 } 
 
-export const defaultChart: ChartData = {
-  title: "title",
-  type: "bar",
-  background: "#ffffff",
-  dimensity: 1,
-  values: [[12, 6, 8, 7, 10], [4, 5, 6, 3, 2]],
-  x_axis_labels: ["value 1", "value 2", "value 3", "value 4", "value 5"],
-  y_axis_labels: ["name", "column 1", "column 2"],
-  stroke_color: "#555555",
-  stroke_width: 5,
-  stroke: false,
-  fill_primary: "#72b2ac",
-  fill_secondary: "#00ff00",
-  fill_gradient: false,
-  fill_colors: ["#226CB3", "#4FBAF3"],
-  use_multiple_colors: true,
-  show_x_axis: true,
-  show_y_axis: true,
-  axis_line_width: 5,
-  axis_line_color: "#222222",
-  axis_marker_length: 25,
-  y_axis_marker_frequency: 100,
-  show_value_labels: true,
-  show_background_grid: true,
-  spacing: 20,
-  border_radius: 0,
-  margin: 100,
-  start_from_zero: true
-}

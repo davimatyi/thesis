@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
@@ -22,6 +23,16 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
 
   const fun = switchControls();
 
+  const saveProject = () => {
+    // const { remote } = require('electron').remote;
+    // const mainProcess = remote.require('./main.ts');
+    // var electronFS = remote.require('fs');
+    // electronFS.writeFile("./project.json", JSON.stringify(chart), (e: any) => {
+    //   if(e) alert(e);
+    // });
+    // mainProcess.saveFile("./project.json", JSON.stringify(chart));
+  }
+
   return (
     <>
       <h2>Overview</h2>
@@ -34,6 +45,15 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
           {
             fun
           }
+          <FlexContainer>
+            <FlexBox>
+              <Button onClick={saveProject}>Save</Button>
+            </FlexBox>
+            <FlexBox>
+              <Button>Export</Button>
+            </FlexBox>
+          </FlexContainer>
+
         </FlexBox>
       </FlexContainer>
     </>

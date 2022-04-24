@@ -34,6 +34,8 @@ function createWindow() {
       hardResetMethod: 'exit'
     });
   }
+
+  // const fs = window.require('fs');
 }
 
 app.on('ready', createWindow);
@@ -49,3 +51,10 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
+
+const saveFile = (name: string, content: string) => {
+  const { dialog } = require('electron');
+}
+
+export default saveFile;
