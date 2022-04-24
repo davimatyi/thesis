@@ -1,3 +1,4 @@
+import { ArrowLeftOutlined, SaveAltOutlined, SaveOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import React from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
@@ -35,27 +36,41 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
 
   return (
     <>
-      <h2>Overview</h2>
-      <LinkButton to="/style">Back</LinkButton>
+      <LinkButton to="/style" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
       <FlexContainer>
-        <FlexBox flexAmount='65%'>
+        <FlexBox flexAmount='65%' height='0.8vw'>
           <ChartView data={chart} />
         </FlexBox>
-        <FlexBox flexAmount='35%' height='50%'>
+        <FlexBox flexAmount='35%' height='0.8vh'>
           {
             fun
           }
           <FlexContainer>
             <FlexBox>
-              <Button onClick={saveProject}>Save</Button>
+              <Button
+                onClick={saveProject}
+                style={{fontSize: '20px', position: 'absolute', bottom: '10px', right: '180px'}} 
+                variant='contained'
+                endIcon={<SaveOutlined/>}
+              >
+                Save
+              </Button>
             </FlexBox>
             <FlexBox>
-              <Button>Export</Button>
+              <Button
+                // onClick={saveProject}
+                style={{fontSize: '20px', position: 'absolute', bottom: '10px', right: '30px'}} 
+                variant='contained'
+                endIcon={<SaveAltOutlined/>}
+              >
+                Export
+              </Button>
             </FlexBox>
           </FlexContainer>
 
         </FlexBox>
       </FlexContainer>
+      
     </>
   );
 }

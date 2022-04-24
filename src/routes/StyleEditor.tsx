@@ -9,6 +9,7 @@ import { ChartData } from '../types/ChartDataType';
 import icon1 from '../assets/typeselect_barchart.png';
 import icon2 from '../assets/typeselect_linechart.png';
 import icon3 from '../assets/typeselect_piechart.png';
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
 
 const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
@@ -17,12 +18,14 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      <h2>Style</h2>
-      <LinkButton to="/editor">Back</LinkButton>
-      <LinkButton to="/overview">Next</LinkButton>
+      <LinkButton to="/editor" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
+      <LinkButton to="/overview" align="bottom" endIcon={<ArrowRightOutlined/>}>Next</LinkButton>
       <FlexContainer>
-        <FlexBox flexAmount='50%'>
-          <ScrollBox>
+        <FlexBox flexAmount='40%' height='100%'>
+          <h3 style={{marginLeft: '20px'}}>Chart type</h3>
+          <ScrollBox
+            style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)'}}
+          >
             <ListSelectorItem
               group={typeGroup}
               iconSrc={icon1}
@@ -49,8 +52,11 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
             />
           </ScrollBox>
         </FlexBox>
-        <FlexBox flexAmount='50%'>
-          <ScrollBox>
+        <FlexBox flexAmount='40%' height='100%'>
+          <h3 style={{marginLeft: '20px'}}>Chart style template</h3>
+          <ScrollBox
+            style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)'}}
+          >
             <ListSelectorItem
               group={styleGroup}
               iconSrc={icon1}

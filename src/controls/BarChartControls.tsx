@@ -22,7 +22,9 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
   const forcedUpdate = useForcedUpdate();
 
   return (
-    <ScrollBox>
+    <ScrollBox
+      style={{maxHeight: 'calc(100vh - 150px)'}}
+    >
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -32,6 +34,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Background
         </AccordionSummary>
         <AccordionDetails>
+          Background Color
           <ColorPicker
             initialColor={chart.background}
             onColorPicked={(v: string) => { chart.background = v }}
@@ -115,6 +118,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Stroke
         </AccordionSummary>
         <AccordionDetails>
+          Border radius
           <Slider
             defaultValue={chart.border_radius}
             min={0}

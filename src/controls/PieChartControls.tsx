@@ -22,7 +22,9 @@ const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
   const forcedUpdate = useForcedUpdate();
 
   return (
-    <ScrollBox>
+    <ScrollBox
+      style={{maxHeight: 'calc(100vh - 150px)'}}
+    >
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}

@@ -10,3 +10,9 @@ a:visited {
 .linkbutton {
   margin: 10px;
 }
+
+.nextbutton {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}

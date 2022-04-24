@@ -1,8 +1,11 @@
+import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
 import { CssBaseline } from '@mui/material';
 import React, { useState } from 'react';
 import { Column } from 'react-table';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import DataTable from '../components/datatable/DataTable';
+import FlexBox from '../components/layout/flexbox/FlexBox';
+import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import { ChartData } from '../types/ChartDataType';
 import parseCSV from '../utils/CSVparser';
 
@@ -67,14 +70,19 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      <h2>Editor</h2>
-      <LinkButton to="/">Back</LinkButton>
-      <LinkButton to="/style">Next</LinkButton>
-      <CssBaseline />
-      <DataTable columns={columns} data={data} />
-      <div>
-        <input type="file" onChange={(e) => parseFile(e)} />
-      </div>
+      <LinkButton to="/" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
+      <FlexContainer>
+        <FlexBox flexAmount='75%'>
+          <CssBaseline />
+          <DataTable columns={columns} data={data} />
+        </FlexBox>
+        <FlexBox flexAmount='25%'>
+          <div>
+            <input type="file" onChange={(e) => parseFile(e)} />
+          </div>
+          <LinkButton to="/style" align="bottom" endIcon={<ArrowRightOutlined />}>Next</LinkButton>
+        </FlexBox>
+      </FlexContainer>
     </>
   );
 }

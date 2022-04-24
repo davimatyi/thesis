@@ -1,6 +1,18 @@
 .listselector {
   transition: background-color 0.2s ease-in-out;
-  border: 1px solid black;
+  /* border: 1px solid black; */
+  /* margin: 5px; */
+  border-radius: 20px;
+  padding: 10px;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+}
+
+.listselector_label {
+  font-size: 20px;
+  vertical-align: middle;
+  padding-top: 13px;
+  padding-left: 10px;
 }
 
 .listselector img {
