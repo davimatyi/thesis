@@ -10,7 +10,7 @@ class LineChartRenderer extends AbstractRenderer {
     const flatArr = data.values[0];
     const minValue = data.start_from_zero ? 0 : Math.min(...(data.values.map(arr => Math.min(...arr))));
     const dataCount = flatArr.length;
-    const segmentWidth = (meta.canvasWidth - 2 * data.margin) / dataCount;
+    const segmentWidth = (p5.width - 2 * data.margin) / dataCount;
 
 
     p5.background(data.background);
@@ -25,14 +25,14 @@ class LineChartRenderer extends AbstractRenderer {
 
       p5.strokeWeight(data.stroke_width);
 
-      let prevHeight = (data.values[i][0] - minValue) / (meta.maxValue - minValue) * (meta.canvasHeight - data.margin * 2);
+      let prevHeight = (data.values[i][0] - minValue) / (meta.maxValue - minValue) * (p5.height - data.margin * 2);
       for (let j = 1; j < dataCount; j++) {
-        const height = (data.values[i][j] - minValue) / (meta.maxValue - minValue) * (meta.canvasHeight - data.margin * 2);
+        const height = (data.values[i][j] - minValue) / (meta.maxValue - minValue) * (p5.height - data.margin * 2);
         p5.line(
           (j - 1) * segmentWidth + data.margin + segmentWidth / 2,
-          meta.canvasHeight - data.margin - prevHeight,
+          p5.height - data.margin - prevHeight,
           j * segmentWidth + data.margin + segmentWidth / 2,
-          meta.canvasHeight - data.margin - height
+          p5.height - data.margin - height
         );
 
         prevHeight = height;

@@ -46,10 +46,10 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
     <>
       <LinkButton to="/style" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
       <FlexContainer>
-        <FlexBox flexAmount='65%' height='0.8vw'>
+        <FlexBox flexAmount='65%' height='80vh'>
           <ChartView data={chart} />
         </FlexBox>
-        <FlexBox flexAmount='35%' height='0.8vh'>
+        <FlexBox flexAmount='35%' height='80vh'>
           {
             fun
           }

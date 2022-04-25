@@ -23,7 +23,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <ScrollBox
-      style={{maxHeight: 'calc(100vh - 150px)'}}
+      style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px'}}
     >
       <Accordion>
         <AccordionSummary
@@ -221,6 +221,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Spacing
         </AccordionSummary>
         <AccordionDetails>
+          Spacing between bars
           <Slider
             defaultValue={chart.spacing}
             min={0}

@@ -8,8 +8,8 @@ class BarChartRenderer extends AbstractRenderer {
 
     const flatArr = data.values[0];
     const dataCount = flatArr.length;
-    const barWidth = (meta.canvasWidth - 2 * data.margin) / dataCount * (1 - data.spacing / 100.0);
-    const spacing = (meta.canvasWidth - 2 * data.margin) / dataCount * (data.spacing / 100.0);
+    const barWidth = (p5.width - 2 * data.margin) / dataCount * (1 - data.spacing / 100.0);
+    const spacing = (p5.width - 2 * data.margin) / dataCount * (data.spacing / 100.0);
     const colorCount = data.fill_colors.length;
 
     p5.background(data.background);
@@ -30,9 +30,9 @@ class BarChartRenderer extends AbstractRenderer {
 
       p5.rect(
         data.margin + i * (barWidth + spacing) + spacing / 2,
-        (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / meta.maxValue),
+        (p5.height - data.margin) - (p5.height - 2 * data.margin) * (flatArr[i] / meta.maxValue),
         barWidth,
-        (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / meta.maxValue),
+        (p5.height - 2 * data.margin) * (flatArr[i] / meta.maxValue),
         data.border_radius
       );
       if (data.show_value_labels) {
@@ -42,7 +42,7 @@ class BarChartRenderer extends AbstractRenderer {
         p5.textStyle(p5.BOLD);
         p5.translate(
           data.margin + i * (barWidth + spacing) + spacing / 2 + barWidth / 2,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (flatArr[i] / meta.maxValue) - 10
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * (flatArr[i] / meta.maxValue) - 10
         );
         p5.text(flatArr[i], - p5.textWidth(flatArr[i] + "") / 2, 0, 0);
         p5.pop();

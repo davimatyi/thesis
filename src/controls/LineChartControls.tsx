@@ -23,7 +23,7 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <ScrollBox
-      style={{maxHeight: 'calc(100vh - 150px)'}}
+      style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px'}}
     >
       <Accordion>
         <AccordionSummary

@@ -7,7 +7,7 @@ import StyleEditor from './routes/StyleEditor';
 import Welcome from './routes/Welcome';
 import { ChartData } from './types/ChartDataType';
 
-const geci: ChartData = {
+const defaultChart: ChartData = {
   title: "title",
   type: "bar",
   background: "#ffffff",
@@ -41,7 +41,7 @@ const geci: ChartData = {
 
 
 const App: React.FC = () => {
-  const [chart, setChart] = useState<ChartData>(geci);
+  const [chart, setChart] = useState<ChartData>(defaultChart);
   
     return (
       <div className="App">

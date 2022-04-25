@@ -10,7 +10,7 @@ class PieChartRenderer extends AbstractRenderer {
     const flatArray = data.values[0];
     const sum = flatArray.reduce((acc, curr) => acc + curr);
     const dataCount = flatArray.length;
-    const size = meta.canvasWidth < meta.canvasHeight ? meta.canvasWidth - 2 * data.margin : meta.canvasHeight - 2 * data.margin;
+    const size = p5.width < p5.height ? p5.width - 2 * data.margin : p5.height - 2 * data.margin;
     const colorCount = data.fill_colors.length;
 
     p5.background(data.background);
@@ -30,8 +30,8 @@ class PieChartRenderer extends AbstractRenderer {
       const angle = prevAngle + (flatArray[i] / sum) * p5.TWO_PI;
       const separationAngle = prevAngle + (angle - prevAngle) / 2;
       p5.arc(
-        meta.canvasWidth / 2 + Math.cos(separationAngle) * data.spacing,
-        meta.canvasHeight / 2 + Math.sin(separationAngle) * data.spacing,
+        p5.width / 2 + Math.cos(separationAngle) * data.spacing,
+        p5.height / 2 + Math.sin(separationAngle) * data.spacing,
         size,
         size,
         prevAngle,

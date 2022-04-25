@@ -13,16 +13,16 @@ abstract class AbstractRenderer {
 
       p5.line(
         data.margin,
-        meta.canvasHeight - data.margin,
-        meta.canvasWidth - data.margin,
-        meta.canvasHeight - data.margin
+        p5.height - data.margin,
+        p5.width - data.margin,
+        p5.height - data.margin
       );
       for (let i = 0; i < dataCount; i++) {
         p5.line(
           data.margin + i * (barWidth + spacing) + barWidth / 2 - data.axis_marker_length + spacing / 2,
-          meta.canvasHeight - data.margin + data.axis_marker_length,
+          p5.height - data.margin + data.axis_marker_length,
           data.margin + i * (barWidth + spacing) + barWidth / 2 + spacing / 2,
-          meta.canvasHeight - data.margin
+          p5.height - data.margin
         );
         if (data.x_axis_labels.length > i) {
           p5.push();
@@ -31,7 +31,7 @@ abstract class AbstractRenderer {
           p5.textStyle(p5.BOLD);
           p5.translate(
             data.margin + i * (barWidth + spacing) + barWidth / 2 + spacing / 2,
-            meta.canvasHeight - data.margin
+            p5.height - data.margin
           );
           p5.rotate(p5.radians(-45));
           p5.text(data.x_axis_labels[i], -p5.textWidth(data.x_axis_labels[i]), p5.textSize());
@@ -46,16 +46,16 @@ abstract class AbstractRenderer {
 
       p5.line(
         data.margin,
-        meta.canvasHeight - data.margin,
+        p5.height - data.margin,
         data.margin,
         data.margin - 20
       );
       for (let i = 0; i < markerCount; i++) {
         p5.line(
           data.margin - data.axis_marker_length,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount),
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * ((i + 1) / markerCount),
           data.margin,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount)
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * ((i + 1) / markerCount)
         );
         p5.push();
         p5.noStroke();
@@ -63,7 +63,7 @@ abstract class AbstractRenderer {
         p5.textStyle(p5.BOLD);
         p5.translate(
           data.margin,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount)
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * ((i + 1) / markerCount)
         );
         const text = Math.round((i + 1) / markerCount * meta.maxValue * 10) / 10 + "";
         p5.text(text, -p5.textWidth(text) - 10, -5);
@@ -82,16 +82,16 @@ abstract class AbstractRenderer {
 
       p5.line(
         data.margin,
-        meta.canvasHeight - data.margin,
-        meta.canvasWidth - data.margin,
-        meta.canvasHeight - data.margin
+        p5.height - data.margin,
+        p5.width - data.margin,
+        p5.height - data.margin
       );
       for (let i = 0; i < dataCount; i++) {
         p5.line(
           data.margin + i * (segmentWidth) + segmentWidth / 2 - data.axis_marker_length,
-          meta.canvasHeight - data.margin + data.axis_marker_length,
+          p5.height - data.margin + data.axis_marker_length,
           data.margin + i * (segmentWidth) + segmentWidth / 2,
-          meta.canvasHeight - data.margin
+          p5.height - data.margin
         );
 
         if (data.x_axis_labels.length > i) {
@@ -101,7 +101,7 @@ abstract class AbstractRenderer {
           p5.textStyle(p5.BOLD);
           p5.translate(
             data.margin + i * (segmentWidth) + segmentWidth / 2,
-            meta.canvasHeight - data.margin
+            p5.height - data.margin
           );
           p5.rotate(p5.radians(-45));
           p5.text(data.x_axis_labels[i], -p5.textWidth(data.x_axis_labels[i]), p5.textSize());
@@ -116,16 +116,16 @@ abstract class AbstractRenderer {
 
       p5.line(
         data.margin,
-        meta.canvasHeight - data.margin,
+        p5.height - data.margin,
         data.margin,
         data.margin - 20
       );
       for (let i = 0; i <= markerCount; i++) {
         p5.line(
           data.margin - data.axis_marker_length,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (i / markerCount),
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * (i / markerCount),
           data.margin,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (i / markerCount)
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * (i / markerCount)
         );
         p5.push();
         p5.noStroke();
@@ -133,7 +133,7 @@ abstract class AbstractRenderer {
         p5.textStyle(p5.BOLD);
         p5.translate(
           data.margin,
-          (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * (i / markerCount)
+          (p5.height - data.margin) - (p5.height - 2 * data.margin) * (i / markerCount)
         );
         const text = Math.round((minValue + i / markerCount * (meta.maxValue - minValue)) * 10) / 10 + "";
         p5.text(text, -p5.textWidth(text) - 10, -5);
@@ -154,9 +154,9 @@ abstract class AbstractRenderer {
     for (let i = 0; i < markerCount; i++) {
       p5.line(
         data.margin,
-        (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount),
-        meta.canvasWidth - data.margin,
-        (meta.canvasHeight - data.margin) - (meta.canvasHeight - 2 * data.margin) * ((i + 1) / markerCount)
+        (p5.height - data.margin) - (p5.height - 2 * data.margin) * ((i + 1) / markerCount),
+        p5.width - data.margin,
+        (p5.height - data.margin) - (p5.height - 2 * data.margin) * ((i + 1) / markerCount)
       );
     }
   }

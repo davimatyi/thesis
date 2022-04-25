@@ -7,14 +7,10 @@ import LineChartRenderer from './charts/LineChartRenderer';
 import BarChartRenderer from './charts/BarChartRenderer';
 
 export interface MetaData {
-	canvasWidth: number,
-	canvasHeight: number,
 	maxValue: number
 }
 
 const metadata: MetaData = {
-	canvasWidth: 800,
-	canvasHeight: 600,
 	maxValue: 0
 }
 
@@ -24,10 +20,13 @@ const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
 	const lineChart = new LineChartRenderer();
 	const pieChart = new PieChartRenderer();
 
-	const setup = (p5: p5Types, canvasParentRef: Element) => {
-		p5.createCanvas(metadata.canvasWidth, metadata.canvasHeight).parent(canvasParentRef);
-		metadata.maxValue = Math.max(...(data.values.map(arr => Math.max(...arr))));
+	const windowResized = (p5: p5Types) => {
+		p5.resizeCanvas(p5.windowWidth * 0.65, p5.windowHeight - 67);
+	}
 
+	const setup = (p5: p5Types, canvasParentRef: Element) => {
+		p5.createCanvas(p5.windowWidth * 0.65, p5.windowHeight - 67).parent(canvasParentRef);
+		metadata.maxValue = Math.max(...(data.values.map(arr => Math.max(...arr))));
 	};
 
 	const draw = (p5: p5Types) => {
@@ -38,7 +37,7 @@ const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
 		}
 	};
 
-	return <Sketch setup={setup} draw={draw} />;
+	return <Sketch setup={setup} draw={draw} windowResized={windowResized} />;
 };
 
 export default ChartView
