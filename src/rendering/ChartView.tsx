@@ -14,7 +14,7 @@ const metadata: MetaData = {
 	maxValue: 0
 }
 
-const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
+const ChartView: React.FC<{ data: ChartData, doExport: {value: boolean} }> = ({ data, doExport }) => {
 
 	const barChart = new BarChartRenderer();
 	const lineChart = new LineChartRenderer();
@@ -34,6 +34,10 @@ const ChartView: React.FC<{ data: ChartData }> = ({ data }) => {
 			case 'bar': barChart.draw(p5, data, metadata); break;
 			case 'pie': pieChart.draw(p5, data, metadata); break;
 			case 'line': lineChart.draw(p5, data, metadata); break;
+		}
+		if(doExport.value) {
+			p5.saveCanvas("image", "png");
+			doExport.value = false;
 		}
 	};
 

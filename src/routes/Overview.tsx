@@ -17,6 +17,8 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
   const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
   const saveButton = useRef<HTMLAnchorElement>(null);
 
+  const [doExport, setExport] = useState<{value: boolean}>({value: false});
+
   function switchControls() {
     switch(chart.type) {
       case 'bar': return <BarChartControls chart={chart}/>;
@@ -47,7 +49,7 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
       <LinkButton to="/style" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='65%' height='80vh'>
-          <ChartView data={chart} />
+          <ChartView data={chart} doExport={doExport} />
         </FlexBox>
         <FlexBox flexAmount='35%' height='80vh'>
           {
@@ -72,7 +74,7 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
             </FlexBox>
             <FlexBox>
               <Button
-                // onClick={saveProject}
+                onClick={() => setExport({value: true})}
                 style={{fontSize: '20px', position: 'absolute', bottom: '10px', right: '30px'}} 
                 variant='contained'
                 endIcon={<SaveAltOutlined/>}

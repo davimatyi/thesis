@@ -237,6 +237,23 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           />
         </AccordionDetails>
       </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          id="panel6a-header"
+          aria-controls="panel6a-content"
+        >
+          Details
+        </AccordionSummary>
+        <AccordionDetails>
+          <CheckBox
+            callBack={(v: boolean) => { chart.show_value_labels = v }}
+            isChecked={chart.show_value_labels}
+            text={"Show value labels"}
+            onClick={forcedUpdate}
+          />
+        </AccordionDetails>
+      </Accordion>
     </ScrollBox>
   );
 }
