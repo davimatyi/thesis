@@ -13,6 +13,8 @@ class PieChartRenderer extends AbstractRenderer {
     const size = p5.width < p5.height ? p5.width - 2 * data.margin : p5.height - 2 * data.margin;
     const colorCount = data.fill_colors.length;
 
+    p5.translate(- p5.width / 2, -p5.height/ 2);
+
     p5.background(data.background);
     if (data.stroke) {
       p5.stroke(data.stroke_color);

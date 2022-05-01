@@ -151,6 +151,9 @@ abstract class AbstractRenderer {
     p5.stroke("#cccccc");
     p5.strokeWeight(1);
 
+    p5.push();
+    p5.translate(0, 0, -1);
+
     for (let i = 0; i < markerCount; i++) {
       p5.line(
         data.margin,
@@ -159,6 +162,7 @@ abstract class AbstractRenderer {
         (p5.height - data.margin) - (p5.height - 2 * data.margin) * ((i + 1) / markerCount)
       );
     }
+    p5.pop();
   }
 
 

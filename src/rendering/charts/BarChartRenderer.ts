@@ -14,8 +14,9 @@ class BarChartRenderer extends AbstractRenderer {
 
     p5.background(data.background);
 
-    this.drawBackgroundGrid(p5, data, meta);
+    p5.translate(-p5.width / 2, -p5.height/2);
 
+    this.drawBackgroundGrid(p5, data, meta);
 
     if (data.stroke) {
       p5.stroke(data.stroke_color);

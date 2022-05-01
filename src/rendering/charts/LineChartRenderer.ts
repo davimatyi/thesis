@@ -12,8 +12,9 @@ class LineChartRenderer extends AbstractRenderer {
     const dataCount = flatArr.length;
     const segmentWidth = (p5.width - 2 * data.margin) / dataCount;
 
-
     p5.background(data.background);
+
+    p5.translate(-p5.width / 2, - p5.height / 2);
 
     this.drawBackgroundGrid(p5, data, meta);
 
