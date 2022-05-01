@@ -1,6 +1,6 @@
 export interface ChartData {
   title: string,
-  type: string, // TODO change chart type to enum
+  type: string, // 'bar', 'line', 'pie' or '3dbar'
   background: string, // color hex
   dimensity: number,
   values: number[][],
@@ -25,6 +25,9 @@ export interface ChartData {
   spacing: number, // percentile
   border_radius: number, // pixels
   margin: number, // pixels
-  start_from_zero: boolean
+  start_from_zero: boolean,
+  perspective_distance: number,
+  perspective_xangle: number,
+  perspective_yangle: number
 } 
 

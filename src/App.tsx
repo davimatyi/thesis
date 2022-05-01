@@ -34,7 +34,10 @@ const defaultChart: ChartData = {
   spacing: 20,
   border_radius: 0,
   margin: 100,
-  start_from_zero: true
+  start_from_zero: true,
+  perspective_distance: 50,
+  perspective_xangle: -0.3,
+  perspective_yangle: -0.2
 }
 
 

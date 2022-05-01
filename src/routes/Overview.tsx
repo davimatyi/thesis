@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
+import BarChart3DControls from '../controls/BarChart3DControls';
 import BarChartControls from '../controls/BarChartControls';
 import LineChartControls from '../controls/LineChartControls';
 import PieChartControls from '../controls/PieChartControls';
@@ -33,6 +34,7 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
       case 'bar': return <BarChartControls chart={chart}/>;
       case 'line': return <LineChartControls chart={chart}/>;
       case 'pie': return <PieChartControls chart={chart}/>;
+      case '3dbar': return <BarChart3DControls chart={chart}/>;
     }
   } 
 

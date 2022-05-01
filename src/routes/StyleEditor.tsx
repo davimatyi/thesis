@@ -50,6 +50,14 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
               onSelection={() => chart.type = "pie"}
               selected={chart.type === "pie"}
             />
+            <ListSelectorItem
+              group={typeGroup}
+              iconSrc={icon1}
+              index={3}
+              text="3D Bar Chart"
+              onSelection={() => chart.type = "3dbar"}
+              selected={chart.type === "3dbar"}
+            />
           </ScrollBox>
         </FlexBox>
         <FlexBox flexAmount='40%' height='100%'>
