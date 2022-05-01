@@ -69,22 +69,6 @@ const BarChart3DControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
                 initialColor={chart.fill_primary}
                 onColorPicked={(v: string) => { chart.fill_primary = v }}
               />
-              <CheckBox
-                callBack={(v: boolean) => { chart.fill_gradient = v }}
-                isChecked={chart.fill_gradient}
-                text="Use gradient"
-                onClick={forcedUpdate}
-              />
-              {
-                chart.fill_gradient &&
-                <>
-                  Secondary fill color
-                  <ColorPicker
-                    initialColor={chart.fill_secondary}
-                    onColorPicked={(v: string) => { chart.fill_secondary = v }}
-                  />
-                </>
-              }
             </>
           }
           {
@@ -220,13 +204,6 @@ const BarChart3DControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             min={0}
             max={99}
             onChange={(_, v) => { chart.spacing = Array.isArray(v) ? v[0] : v }}
-          />
-          Margin
-          <Slider
-            defaultValue={chart.margin}
-            min={0}
-            max={200}
-            onChange={(_, v) => { chart.margin = Array.isArray(v) ? v[0] : v }}
           />
         </AccordionDetails>
       </Accordion>

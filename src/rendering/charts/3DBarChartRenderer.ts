@@ -5,7 +5,7 @@ import AbstractRenderer from '../AbstractRenderer';
 
 class BarChart3DRenderer extends AbstractRenderer {
   draw(p5: p5Types, data: ChartData, meta: MetaData) {
-    
+
     // const dataCount = data.values.flat().length;
 
     /*
@@ -41,7 +41,7 @@ class BarChart3DRenderer extends AbstractRenderer {
 
     p5.translate(- xsize / 2, 0, zsize / 2);
 
-    if(data.show_x_axis) {
+    if (data.show_x_axis) {
       p5.push();
       p5.fill(data.axis_line_color);
       p5.stroke(data.axis_line_color);
@@ -51,7 +51,7 @@ class BarChart3DRenderer extends AbstractRenderer {
       p5.pop();
     }
 
-    if(data.show_y_axis) {
+    if (data.show_y_axis) {
       p5.push();
       p5.fill(data.axis_line_color);
       p5.stroke(data.axis_line_color);
@@ -60,9 +60,31 @@ class BarChart3DRenderer extends AbstractRenderer {
       p5.pop();
     }
 
-    if(data.show_background_grid) {
+    if (data.show_background_grid) {
       p5.push();
 
+      const markerCount = Math.round(meta.maxValue * (data.y_axis_marker_frequency / 100.0));
+      p5.stroke("#cccccc");
+      p5.strokeWeight(1);
+
+      for (let i = 0; i < markerCount; i++) {
+        p5.line(
+          -gridSize / 2,
+          -ysize * ((i + 1) / markerCount),
+          0,
+          -gridSize / 2,
+          -ysize * ((i + 1) / markerCount),
+          - zsize - gridSize / 2
+        );
+        p5.line(
+          -gridSize / 2,
+          -ysize * ((i + 1) / markerCount),
+          - zsize - gridSize / 2,
+          -gridSize / 2 + xsize + gridSize,
+          -ysize * ((i + 1) / markerCount),
+          - zsize - gridSize / 2
+        );
+      }
 
 
       p5.pop();
@@ -74,7 +96,12 @@ class BarChart3DRenderer extends AbstractRenderer {
       else
         p5.fill(data.fill_primary);
 
-      for(let j = 0; j < data.values[i].length; j++) {
+      if (data.stroke) {
+        p5.stroke(data.stroke_color);
+        p5.strokeWeight(data.stroke_width);
+      } else p5.noStroke();
+
+      for (let j = 0; j < data.values[i].length; j++) {
         p5.push();
         p5.translate(j * gridSize + gridSize / 2, - ysize * (data.values[i][j] / meta.maxValue) / 2, - i * gridSize - gridSize / 2);
         p5.box(barwidth, ysize * (data.values[i][j] / meta.maxValue), barwidth);
