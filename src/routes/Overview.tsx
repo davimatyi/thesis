@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, SaveAltOutlined, SaveOutlined } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import { Button, Menu, MenuItem } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
@@ -17,7 +17,16 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
   const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
   const saveButton = useRef<HTMLAnchorElement>(null);
 
-  const [doExport, setExport] = useState<{value: boolean}>({value: false});
+  const [doExport, setExport] = useState<{value: boolean, fileType: string}>({value: false, fileType: "png"});
+
+  const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
+  const exportOpen = Boolean(anchor);
+  const handleExportClick = (e: React.MouseEvent<HTMLElement>) => {
+    setAnchor(e.currentTarget);
+  }
+  const handleExportClose = () => {
+    setAnchor(null);
+  }
 
   function switchControls() {
     switch(chart.type) {
@@ -74,13 +83,37 @@ const Overview: React.FC<{chart: ChartData}> = ({chart}) => {
             </FlexBox>
             <FlexBox>
               <Button
-                onClick={() => setExport({value: true})}
+                id="export-button"
+                onClick={handleExportClick}
                 style={{fontSize: '20px', position: 'absolute', bottom: '10px', right: '30px'}} 
                 variant='contained'
                 endIcon={<SaveAltOutlined/>}
+                aria-controls={exportOpen ? 'export-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={exportOpen ? 'true' : undefined}
               >
                 Export
               </Button>
+              <Menu
+                id="export-menu"
+                anchorEl={anchor}
+                open={exportOpen}
+                onClose={handleExportClose}
+                MenuListProps={{
+                  'aria-labelledby': 'export-button'
+                }}
+              >
+                <MenuItem 
+                  onClick={() => {handleExportClose(); setExport({value: true, fileType: 'png'})}}
+                >
+                  Save as PNG
+                </MenuItem>
+                <MenuItem 
+                  onClick={() => {handleExportClose(); setExport({value: true, fileType: 'jpg'})}}
+                >
+                  Save as JPG
+                </MenuItem>
+              </Menu>
             </FlexBox>
           </FlexContainer>
 
