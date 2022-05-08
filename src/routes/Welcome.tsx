@@ -1,8 +1,7 @@
 import { Button } from '@mui/material';
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router';
-import LinkButton from '../components/buttons/linkbutton/LinkButton';
-import { ChartData } from '../types/ChartDataType';
+import defaultChart, { ChartData } from '../types/ChartDataType';
 
 const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>> }> = ({ chart, setChart }) => {
 
@@ -11,6 +10,11 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
 
   const onOpenButton = () => {
     inputFile.current?.click();
+  }
+
+  const onNewButton = () => {
+    setChart(defaultChart);
+    navigate("/editor");
   }
 
   const parseFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,8 +43,8 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
     <>
       <h2>Welcome</h2>
       {/* <LinkButton to="/editor">Next</LinkButton> */}
-      <LinkButton to="/editor" >New</LinkButton>
-      <Button onClick={onOpenButton} >Open project</Button>
+      <Button variant="contained" style={{margin: "10px"}} onClick={onNewButton}>New</Button>
+      <Button variant="contained" style={{margin: "10px"}} onClick={onOpenButton} >Open project</Button>
       <input type="file" id="file" ref={inputFile} style={{ display: "none" }} onChange={(e)=> parseFile(e)}/>
 
     </>

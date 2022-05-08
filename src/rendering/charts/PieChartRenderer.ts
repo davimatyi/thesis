@@ -16,14 +16,15 @@ class PieChartRenderer extends AbstractRenderer {
     p5.translate(- p5.width / 2, -p5.height/ 2);
 
     p5.background(data.background);
-    if (data.stroke) {
-      p5.stroke(data.stroke_color);
-      p5.strokeWeight(data.stroke_width);
-    } else p5.noStroke();
 
     let prevAngle = 0;
 
     for (let i = 0; i < dataCount; i++) {
+      if (data.stroke) {
+        p5.stroke(data.stroke_color);
+        p5.strokeWeight(data.stroke_width);
+      } else p5.noStroke();
+
       if (data.use_multiple_colors)
         p5.fill(data.fill_colors[i % colorCount]);
       else
@@ -40,6 +41,18 @@ class PieChartRenderer extends AbstractRenderer {
         angle,
         p5.PIE
       );
+
+      if(data.show_value_labels) {
+        p5.push();
+        p5.noStroke();
+        p5.fill(data.axis_line_color);
+        p5.textStyle(p5.BOLD);
+        p5.translate(p5.width/2, p5.height/2);
+        p5.translate((size / 2 + 20 + data.spacing) * Math.cos(separationAngle), (size / 2 + 20 + data.spacing) * Math.sin(separationAngle));
+        p5.text(data.x_axis_labels[i], 0, 0);
+        p5.pop();
+      }
+
       prevAngle = angle;
     }
   }
