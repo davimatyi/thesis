@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
 import { CssBaseline } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Column } from 'react-table';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import CheckBox from '../components/checkbox/CheckBox';
@@ -21,6 +21,8 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const [xChecked, setXChecked] = useState<boolean>(true);
   const [yChecked, setYChecked] = useState<boolean>(true);
+
+  const [canProceed, setCanProceed] = useState<boolean>(false);
 
   const data = chart.values[0].map((_, i) => {
     const obj: any = {};
@@ -71,6 +73,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
         chart.values = data;
         forcedUpdate();
         console.log(chart);
+        setCanProceed(true);
       } catch (e) {
         alert(e);
       }
@@ -79,9 +82,16 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       reader.readAsText(e.target.files[0]);
   }
 
+  useEffect(() => {
+    if(chart.x_axis_labels === undefined || chart.y_axis_labels === undefined || chart.values === undefined
+      || chart.x_axis_labels.length === 0 || chart.y_axis_labels.length === 0 || chart.values.length === 0) {
+      setCanProceed(false);
+    } else setCanProceed(true);
+  }, [canProceed, chart.values, chart.x_axis_labels, chart.y_axis_labels]);
+
   return (
     <>
-      <LinkButton to="/" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
+      <LinkButton to="/" startIcon={<ArrowLeftOutlined/>}>Cancel</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='75%'>
           <CssBaseline />
@@ -102,7 +112,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
             text="Row names included"
           />
           
-          <LinkButton to="/style" align="bottom" endIcon={<ArrowRightOutlined />}>Next</LinkButton>
+          <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<ArrowRightOutlined />}>Next</LinkButton>
         </FlexBox>
       </FlexContainer>
     </>

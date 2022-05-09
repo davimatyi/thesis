@@ -23,9 +23,9 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       <FlexContainer>
         <FlexBox flexAmount='40%' height='100%'>
           <h3 style={{marginLeft: '20px'}}>Chart type</h3>
-          <ScrollBox
-            style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)'}}
-          >
+          {/* <ScrollBox
+            style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)', scrollbarWidth: 'thin'}}
+          > */}
             <ListSelectorItem
               group={typeGroup}
               iconSrc={icon1}
@@ -58,13 +58,13 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
               onSelection={() => chart.type = "3dbar"}
               selected={chart.type === "3dbar"}
             />
-          </ScrollBox>
+          {/* </ScrollBox> */}
         </FlexBox>
         <FlexBox flexAmount='40%' height='100%'>
           <h3 style={{marginLeft: '20px'}}>Chart style template</h3>
-          <ScrollBox
+          {/* <ScrollBox
             style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)'}}
-          >
+          > */}
             <ListSelectorItem
               group={styleGroup}
               iconSrc={icon1}
@@ -92,7 +92,7 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
                 
               }}
             />
-          </ScrollBox>
+          {/* </ScrollBox> */}
         </FlexBox>
       </FlexContainer>
     </>

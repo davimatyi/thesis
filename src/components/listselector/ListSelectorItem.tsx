@@ -33,7 +33,7 @@ const ListSelectorItem: React.FC<props> = ({ index, iconSrc, text, onSelection, 
 
 
   return (
-    <div className="listselector" onClick={handleClick} style={{backgroundColor: isSelected ? "#1979e6" : "#fff", color: isSelected ? "white" : "black"}}>
+    <div className="listselector" onClick={handleClick} style={{backgroundColor: isSelected ? "#aaa" : "#eee", color: isSelected ? "white" : "black", margin: "0 20px 0 20px"}}>
       <FlexContainer>
         <FlexBox>
           <img src={iconSrc} alt=""/>
