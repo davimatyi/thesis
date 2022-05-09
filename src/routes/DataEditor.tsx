@@ -3,6 +3,7 @@ import { CssBaseline } from '@mui/material';
 import React, { useState } from 'react';
 import { Column } from 'react-table';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
+import CheckBox from '../components/checkbox/CheckBox';
 import DataTable from '../components/datatable/DataTable';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
@@ -17,6 +18,9 @@ function useForcedUpdate() {
 const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const forcedUpdate = useForcedUpdate();
+
+  const [xChecked, setXChecked] = useState<boolean>(true);
+  const [yChecked, setYChecked] = useState<boolean>(true);
 
   const data = chart.values[0].map((_, i) => {
     const obj: any = {};
@@ -54,7 +58,14 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       }
       try {
         const text: string = (e.target.result).toString();
-        const { xheaders, yheaders, data } = parseCSV(text, true);
+        const { xheaders, yheaders, data } = parseCSV(text, xChecked, yChecked);
+        if(xheaders === undefined || yheaders === undefined || data === undefined
+          || xheaders.length === 0 || yheaders.length === 0 || data.length === 0) {
+          throw new Error("Could not parse input file");
+        }
+        console.log(xheaders);
+        console.log(yheaders);
+        console.log(data);
         chart.x_axis_labels = xheaders;
         chart.y_axis_labels = yheaders;
         chart.values = data;
@@ -80,6 +91,17 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
           <div>
             <input type="file" onChange={(e) => parseFile(e)} />
           </div>
+          <CheckBox
+            callBack={setYChecked}
+            isChecked={yChecked}
+            text="Headers included"
+          />
+          <CheckBox
+            callBack={setXChecked}
+            isChecked={xChecked}
+            text="Row names included"
+          />
+          
           <LinkButton to="/style" align="bottom" endIcon={<ArrowRightOutlined />}>Next</LinkButton>
         </FlexBox>
       </FlexContainer>
