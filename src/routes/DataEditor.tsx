@@ -1,6 +1,6 @@
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
-import { CssBaseline } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { ArrowLeftOutlined, ArrowRightOutlined, FileOpenOutlined } from '@mui/icons-material';
+import { Button, CssBaseline } from '@mui/material';
+import React, { useEffect, useRef, useState } from 'react';
 import { Column } from 'react-table';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import CheckBox from '../components/checkbox/CheckBox';
@@ -17,12 +17,17 @@ function useForcedUpdate() {
 
 const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
+  const inputFile = useRef<HTMLInputElement>(null);
   const forcedUpdate = useForcedUpdate();
 
   const [xChecked, setXChecked] = useState<boolean>(true);
   const [yChecked, setYChecked] = useState<boolean>(true);
 
   const [canProceed, setCanProceed] = useState<boolean>(false);
+
+  const onOpenButton = () => {
+    inputFile.current?.click();
+  }
 
   const data = chart.values[0].map((_, i) => {
     const obj: any = {};
@@ -61,7 +66,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       try {
         const text: string = (e.target.result).toString();
         const { xheaders, yheaders, data } = parseCSV(text, xChecked, yChecked);
-        if(xheaders === undefined || yheaders === undefined || data === undefined
+        if (xheaders === undefined || yheaders === undefined || data === undefined
           || xheaders.length === 0 || yheaders.length === 0 || data.length === 0) {
           throw new Error("Could not parse input file");
         }
@@ -83,7 +88,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
   }
 
   useEffect(() => {
-    if(chart.x_axis_labels === undefined || chart.y_axis_labels === undefined || chart.values === undefined
+    if (chart.x_axis_labels === undefined || chart.y_axis_labels === undefined || chart.values === undefined
       || chart.x_axis_labels.length === 0 || chart.y_axis_labels.length === 0 || chart.values.length === 0) {
       setCanProceed(false);
     } else setCanProceed(true);
@@ -91,27 +96,28 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      <LinkButton to="/" startIcon={<ArrowLeftOutlined/>}>Cancel</LinkButton>
+      <LinkButton to="/" startIcon={<ArrowLeftOutlined />}>Cancel</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='75%'>
           <CssBaseline />
           <DataTable columns={columns} data={data} />
         </FlexBox>
         <FlexBox flexAmount='25%'>
-          <div>
-            <input type="file" onChange={(e) => parseFile(e)} />
+          <div style={{ paddingLeft: "20px" }}>
+            <Button variant="contained" style={{ margin: "10px", fontSize: "20px" }} endIcon={<FileOpenOutlined />} onClick={onOpenButton}>Import file</Button>
+            <input type="file" id="file" ref={inputFile} style={{ display: "none" }} onChange={(e) => parseFile(e)} />
+            <CheckBox
+              callBack={setYChecked}
+              isChecked={yChecked}
+              text="Headers included"
+            />
+            <CheckBox
+              callBack={setXChecked}
+              isChecked={xChecked}
+              text="Row names included"
+            />
           </div>
-          <CheckBox
-            callBack={setYChecked}
-            isChecked={yChecked}
-            text="Headers included"
-          />
-          <CheckBox
-            callBack={setXChecked}
-            isChecked={xChecked}
-            text="Row names included"
-          />
-          
+
           <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<ArrowRightOutlined />}>Next</LinkButton>
         </FlexBox>
       </FlexContainer>

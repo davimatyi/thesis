@@ -44,8 +44,8 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
     <>
       <h2>Welcome</h2>
       {/* <LinkButton to="/editor">Next</LinkButton> */}
-      <Button variant="contained" style={{margin: "10px"}} endIcon={<FiberNew />} onClick={onNewButton}>New</Button>
-      <Button variant="contained" style={{margin: "10px"}} endIcon={<FileOpen />} onClick={onOpenButton} >Open project</Button>
+      <Button variant="contained" style={{margin: "10px", fontSize: "20px"}} endIcon={<FiberNew />} onClick={onNewButton}>New</Button>
+      <Button variant="contained" style={{margin: "10px", fontSize: "20px"}} endIcon={<FileOpen />} onClick={onOpenButton} >Open project</Button>
       <input type="file" id="file" ref={inputFile} style={{ display: "none" }} onChange={(e)=> parseFile(e)}/>
 
     </>
