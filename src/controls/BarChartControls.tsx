@@ -23,7 +23,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <ScrollBox
-      style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px'}}
+    style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px', backgroundColor: "#ddd", borderRadius: "10px", padding: "5px"}}
     >
       <Accordion>
         <AccordionSummary
