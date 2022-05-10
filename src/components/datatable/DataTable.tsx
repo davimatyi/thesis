@@ -38,12 +38,13 @@ const DataTable: React.FC<{ columns: readonly Column<{}>[], data: {}[], chart: C
                     contentEditable={true} 
                     onInput={(e: any) => {
                       try{
-                      chart.values[j-1][i] = +e.target.innerHTML;
+                        chart.values[j-1][i] = +e.target.innerHTML;
                       } catch(e) {
-                        alert("An error has occured");
+                        
                       }
                       // console.log(e.target.innerHTML);
                     }} 
+                    
                   >
                     {cell.render('Cell')}
                   </TableCell>

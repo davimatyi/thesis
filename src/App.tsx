@@ -10,15 +10,16 @@ import defaultChart, { ChartData } from './types/ChartDataType';
 
 const App: React.FC = () => {
   const [chart, setChart] = useState<ChartData>(defaultChart);
+  const [previousFiles,] = useState<{name: string, path: string}[]> ([]);
   
     return (
       <div className="App">
         <HashRouter>
           <Routes>
-            <Route path="/" element={<Welcome chart={chart} setChart={setChart} />} />
-            <Route path="/editor" element={<DataEditor chart={chart} />} />
+            <Route path="/" element={<Welcome chart={chart} setChart={setChart} prevFilesList={previousFiles} />} />
+            <Route path="/editor" element={<DataEditor chart={chart} prevFilesList={previousFiles} />} />
             <Route path="/style" element={<StyleEditor chart={chart} />} />
-            <Route path="/overview" element={<Overview chart={chart} />} />
+            <Route path="/overview" element={<Overview chart={chart} prevFilesList={previousFiles} />} />
           </Routes>
         </HashRouter>
       </div>

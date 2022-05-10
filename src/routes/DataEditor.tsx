@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, ArrowRightOutlined, FileOpenOutlined, PlusOne } from '@mui/icons-material';
+import { FileOpenOutlined, NavigateBefore, NavigateNext, PlusOne } from '@mui/icons-material';
 import { Button, CssBaseline } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { Column } from 'react-table';
@@ -16,7 +16,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, path: string}[] }> = ({ chart, prevFilesList }) => {
 
   const inputFile = useRef<HTMLInputElement>(null);
   const forcedUpdate = useForcedUpdate();
@@ -114,12 +114,12 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      <LinkButton to="/" startIcon={<ArrowLeftOutlined />}>Cancel</LinkButton>
+      <LinkButton to="/" startIcon={<NavigateBefore />}>Cancel</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='75%'>
           <ScrollBox>
             <CssBaseline />
-            <DataTable columns={columns} data={data} chart={chart} />
+            {canProceed && <DataTable columns={columns} data={data} chart={chart} />}
           </ScrollBox>
         </FlexBox>
         <FlexBox flexAmount='25%'>
@@ -127,7 +127,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
             <Button 
               variant="contained" 
               style={{ margin: "10px 0", fontSize: "20px" }} 
-              endIcon={<FileOpenOutlined />} 
+              startIcon={<FileOpenOutlined />} 
               onClick={onOpenButton}
             >
               Import file
@@ -162,7 +162,7 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
             Add column
           </Button>
 
-          <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<ArrowRightOutlined />}>Next</LinkButton>
+          <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<NavigateNext />}>Next</LinkButton>
         </FlexBox>
       </FlexContainer>
     </>

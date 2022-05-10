@@ -2,14 +2,13 @@ import React from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
-import ScrollBox from '../components/layout/scrollbox/ScrollBox';
 import ListGroupController from '../components/listselector/ListGroupController';
 import ListSelectorItem from '../components/listselector/ListSelectorItem';
 import { ChartData } from '../types/ChartDataType';
 import icon1 from '../assets/typeselect_barchart.png';
 import icon2 from '../assets/typeselect_linechart.png';
 import icon3 from '../assets/typeselect_piechart.png';
-import { ArrowLeftOutlined, ArrowRightOutlined } from '@mui/icons-material';
+import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 
 const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
@@ -18,8 +17,8 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <>
-      <LinkButton to="/editor" startIcon={<ArrowLeftOutlined/>}>Back</LinkButton>
-      <LinkButton to="/overview" align="bottom" endIcon={<ArrowRightOutlined/>}>Next</LinkButton>
+      <LinkButton to="/editor" startIcon={<NavigateBefore/>}>Back</LinkButton>
+      <LinkButton to="/overview" align="bottom" endIcon={<NavigateNext/>}>Next</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='40%' height='100%'>
           <h3 style={{marginLeft: '20px'}}>Chart type</h3>
@@ -69,9 +68,9 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
               group={styleGroup}
               iconSrc={icon1}
               index={0}
-              text="Classic"
+              text="Default"
               onSelection={() => {
-
+                
               }}
             />
             <ListSelectorItem
