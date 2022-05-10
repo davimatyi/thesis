@@ -28,7 +28,8 @@ export interface ChartData {
   start_from_zero: boolean,
   perspective_distance: number,
   perspective_xangle: number,
-  perspective_yangle: number
+  perspective_yangle: number,
+  perspective_yoffset: number
 } 
 
 const defaultChart: ChartData = {
@@ -61,7 +62,8 @@ const defaultChart: ChartData = {
   start_from_zero: true,
   perspective_distance: 50,
   perspective_xangle: 1,
-  perspective_yangle: 1
+  perspective_yangle: 1,
+  perspective_yoffset: 0
 }
 
 export default defaultChart;

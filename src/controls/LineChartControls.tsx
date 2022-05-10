@@ -23,7 +23,14 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <ScrollBox
-    style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px', backgroundColor: "#ddd", borderRadius: "10px", padding: "5px"}}
+      style={{
+        maxHeight: 'calc(100vh - 150px)',
+        margin: '0 20px 0 20px',
+        backgroundColor: "#ddd",
+        borderRadius: "10px",
+        padding: "10px",
+        boxShadow: "inset 0 0 5px #777"
+      }}
     >
       <Accordion>
         <AccordionSummary
@@ -101,83 +108,83 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
         </AccordionDetails>
       </Accordion>
       <Accordion>
-      <AccordionSummary
-            expandIcon={<ExpandMoreIcon/>}
-            id="panel3a-header"
-            aria-controls="panel3a-content"
-          >
-            Axes
-          </AccordionSummary>
-          <AccordionDetails>
-        <CheckBox
-          callBack={(v: boolean) => { chart.show_x_axis = v }}
-          isChecked={chart.show_x_axis}
-          text={"Show X axis"}
-          onClick={forcedUpdate}
-        />
-        <CheckBox
-          callBack={(v: boolean) => { chart.show_y_axis = v }}
-          isChecked={chart.show_y_axis}
-          text={"Show Y axis"}
-          onClick={forcedUpdate}
-        />
-        {
-          (chart.show_x_axis || chart.show_y_axis) &&
-          <>
-            Axis line width
-            <Slider
-              min={1}
-              max={10}
-              defaultValue={chart.axis_line_width}
-              onChange={(_, v) => { chart.axis_line_width = Array.isArray(v) ? v[0] : v }}
-            />
-          </>
-        }
-        {
-          (chart.show_x_axis || chart.show_y_axis) &&
-          <>
-            Axis line color
-            <ColorPicker
-              initialColor={chart.axis_line_color}
-              onColorPicked={(v: string) => { chart.axis_line_color = v }}
-            />
-          </>
-        }
-        {
-          chart.show_y_axis &&
-          <>
-            Y axis marker frequency
-            <Slider
-              min={1}
-              max={100}
-              defaultValue={chart.y_axis_marker_frequency}
-              onChange={(_, v) => { chart.y_axis_marker_frequency = Array.isArray(v) ? v[0] : v }}
-            />
-          </>
-        }
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          id="panel3a-header"
+          aria-controls="panel3a-content"
+        >
+          Axes
+        </AccordionSummary>
+        <AccordionDetails>
+          <CheckBox
+            callBack={(v: boolean) => { chart.show_x_axis = v }}
+            isChecked={chart.show_x_axis}
+            text={"Show X axis"}
+            onClick={forcedUpdate}
+          />
+          <CheckBox
+            callBack={(v: boolean) => { chart.show_y_axis = v }}
+            isChecked={chart.show_y_axis}
+            text={"Show Y axis"}
+            onClick={forcedUpdate}
+          />
+          {
+            (chart.show_x_axis || chart.show_y_axis) &&
+            <>
+              Axis line width
+              <Slider
+                min={1}
+                max={10}
+                defaultValue={chart.axis_line_width}
+                onChange={(_, v) => { chart.axis_line_width = Array.isArray(v) ? v[0] : v }}
+              />
+            </>
+          }
+          {
+            (chart.show_x_axis || chart.show_y_axis) &&
+            <>
+              Axis line color
+              <ColorPicker
+                initialColor={chart.axis_line_color}
+                onColorPicked={(v: string) => { chart.axis_line_color = v }}
+              />
+            </>
+          }
+          {
+            chart.show_y_axis &&
+            <>
+              Y axis marker frequency
+              <Slider
+                min={1}
+                max={100}
+                defaultValue={chart.y_axis_marker_frequency}
+                onChange={(_, v) => { chart.y_axis_marker_frequency = Array.isArray(v) ? v[0] : v }}
+              />
+            </>
+          }
         </AccordionDetails>
       </Accordion>
       <Accordion>
-      <AccordionSummary
-            expandIcon={<ExpandMoreIcon/>}
-            id="panel4a-header"
-            aria-controls="panel4a-content"
-          >
-            Spacing
-          </AccordionSummary>
-          <AccordionDetails>
-        <CheckBox
-          text="Start from 0"
-          isChecked={chart.start_from_zero}
-          callBack={(v: boolean) => { chart.start_from_zero = v }}
-        />
-        Margin
-        <Slider
-          defaultValue={chart.margin}
-          min={0}
-          max={200}
-          onChange={(_, v) => { chart.margin = Array.isArray(v) ? v[0] : v }}
-        />
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          id="panel4a-header"
+          aria-controls="panel4a-content"
+        >
+          Spacing
+        </AccordionSummary>
+        <AccordionDetails>
+          <CheckBox
+            text="Start from 0"
+            isChecked={chart.start_from_zero}
+            callBack={(v: boolean) => { chart.start_from_zero = v }}
+          />
+          Margin
+          <Slider
+            defaultValue={chart.margin}
+            min={0}
+            max={200}
+            onChange={(_, v) => { chart.margin = Array.isArray(v) ? v[0] : v }}
+          />
         </AccordionDetails>
       </Accordion>
     </ScrollBox >

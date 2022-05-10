@@ -23,7 +23,14 @@ const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <ScrollBox
-      style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px', backgroundColor: "#ddd", borderRadius: "10px", padding: "5px"}}
+      style={{
+        maxHeight: 'calc(100vh - 150px)',
+        margin: '0 20px 0 20px',
+        backgroundColor: "#ddd",
+        borderRadius: "10px",
+        padding: "10px",
+        boxShadow: "inset 0 0 5px #777"
+      }}
     >
       <Accordion>
         <AccordionSummary
@@ -163,7 +170,7 @@ const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           />
         </AccordionDetails>
       </Accordion>
-      
+
     </ScrollBox>
   );
 }

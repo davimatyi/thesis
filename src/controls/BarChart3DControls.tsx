@@ -23,7 +23,14 @@ const BarChart3DControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   return (
     <ScrollBox
-    style={{maxHeight: 'calc(100vh - 150px)', margin: '0 20px 0 20px', backgroundColor: "#ddd", borderRadius: "10px", padding: "5px"}}
+      style={{
+        maxHeight: 'calc(100vh - 150px)',
+        margin: '0 20px 0 20px',
+        backgroundColor: "#ddd",
+        borderRadius: "10px",
+        padding: "10px",
+        boxShadow: "inset 0 0 5px #777"
+      }}
     >
       <Accordion>
         <AccordionSummary
@@ -255,6 +262,14 @@ const BarChart3DControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
             max={Math.PI / 2}
             step={0.01}
             onChange={(_, v) => { chart.perspective_yangle = Array.isArray(v) ? v[0] : v }}
+          />
+          Y offset
+          <Slider
+            defaultValue={chart.perspective_yoffset}
+            min={-1}
+            max={1}
+            step={0.01}
+            onChange={(_, v) => { chart.perspective_yoffset = Array.isArray(v) ? v[0] : v }}
           />
         </AccordionDetails>
       </Accordion>

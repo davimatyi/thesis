@@ -6,8 +6,6 @@ import AbstractRenderer from '../AbstractRenderer';
 class BarChart3DRenderer extends AbstractRenderer {
   draw(p5: p5Types, data: ChartData, meta: MetaData) {
 
-    // const dataCount = data.values.flat().length;
-
     /*
                       |  y
                       |
@@ -29,7 +27,6 @@ class BarChart3DRenderer extends AbstractRenderer {
     p5.background(data.background);
 
 
-
     p5.camera(
       p5.cos(data.perspective_xangle) * (data.perspective_distance + ysize / 2) * p5.sin(data.perspective_yangle),
       -ysize / 2 - data.perspective_distance * p5.cos(data.perspective_yangle),
@@ -39,26 +36,7 @@ class BarChart3DRenderer extends AbstractRenderer {
       0
     );
 
-    p5.translate(- xsize / 2, 0, zsize / 2);
-
-    if (data.show_x_axis) {
-      p5.push();
-      p5.fill(data.axis_line_color);
-      p5.stroke(data.axis_line_color);
-      p5.strokeWeight(data.axis_line_width);
-      p5.line(-gridSize / 2, 0, 0, -gridSize / 2, 0, - zsize - gridSize / 2);
-      p5.line(-gridSize / 2, 0, - zsize - gridSize / 2, -gridSize / 2 + xsize + gridSize, 0, - zsize - gridSize / 2);
-      p5.pop();
-    }
-
-    if (data.show_y_axis) {
-      p5.push();
-      p5.fill(data.axis_line_color);
-      p5.stroke(data.axis_line_color);
-      p5.strokeWeight(data.axis_line_width);
-      p5.line(-gridSize / 2, 0, -zsize - gridSize / 2, -gridSize / 2, -ysize, -zsize - gridSize / 2);
-      p5.pop();
-    }
+    p5.translate(- xsize / 2, data.perspective_yoffset * ysize, zsize / 2);
 
     if (data.show_background_grid) {
       p5.push();
@@ -85,17 +63,16 @@ class BarChart3DRenderer extends AbstractRenderer {
           - zsize - gridSize / 2
         );
       }
-
-
       p5.pop();
     }
 
+    
     for (let i = 0; i < data.values.length; i++) {
       if (data.use_multiple_colors)
         p5.fill(data.fill_colors[i % colorCount]);
       else
         p5.fill(data.fill_primary);
-
+  
       if (data.stroke) {
         p5.stroke(data.stroke_color);
         p5.strokeWeight(data.stroke_width);
@@ -106,6 +83,74 @@ class BarChart3DRenderer extends AbstractRenderer {
         p5.translate(j * gridSize + gridSize / 2, - ysize * (data.values[i][j] / meta.maxValue) / 2, - i * gridSize - gridSize / 2);
         p5.box(barwidth, ysize * (data.values[i][j] / meta.maxValue), barwidth);
         p5.pop();
+      }
+    }
+
+    if (data.show_x_axis) {
+      p5.push();
+      p5.fill(data.axis_line_color);
+      p5.stroke(data.axis_line_color);
+      p5.strokeWeight(data.axis_line_width);
+      p5.line(-gridSize / 2, 0, 0, -gridSize / 2, 0, - zsize - gridSize / 2);
+      p5.line(-gridSize / 2, 0, - zsize - gridSize / 2, -gridSize / 2 + xsize + gridSize, 0, - zsize - gridSize / 2);
+      p5.pop();
+      for(let i = 0; i < data.x_axis_labels.length; i++) {
+        p5.push();
+        p5.noStroke();
+        p5.fill(data.axis_line_color);
+        p5.textStyle(p5.BOLD);
+        p5.textSize(2);
+        p5.translate(i * gridSize + gridSize / 2 , 0, gridSize / 2);
+        p5.rotateX(Math.PI / 2);
+        p5.text(data.x_axis_labels[i], -p5.textWidth(data.x_axis_labels[i]) / 2, 0);
+        p5.pop();
+      }
+      for(let i = 0; i < data.y_axis_labels.length; i++) {
+        p5.push();
+        p5.noStroke();
+        p5.fill(data.axis_line_color);
+        p5.textStyle(p5.BOLD);
+        p5.textSize(2);
+        p5.translate(xsize + gridSize / 2, 0, - (i + 1) * gridSize + gridSize / 2);
+        p5.rotateX(Math.PI / 2);
+        p5.text(data.y_axis_labels[i+1], 0, 0);
+        p5.pop();
+      }
+    }
+
+    if (data.show_y_axis) {
+      p5.push();
+      p5.fill(data.axis_line_color);
+      p5.stroke(data.axis_line_color);
+      p5.strokeWeight(data.axis_line_width);
+      p5.line(-gridSize / 2, 0, -zsize - gridSize / 2, -gridSize / 2, -ysize, -zsize - gridSize / 2);
+      p5.pop();
+      const markerCount = Math.round(meta.maxValue * (data.y_axis_marker_frequency / 100.0));
+      for(let i = 0; i <= markerCount; i++) {
+        p5.push();
+        p5.noStroke();
+        p5.fill(data.axis_line_color);
+        p5.textStyle(p5.BOLD);
+        p5.textSize(2);
+        p5.translate(-gridSize / 2,  -ysize * (i / markerCount), 0);
+        const text = Math.round((i / markerCount * (meta.maxValue)) * 10) / 10 + "";
+        p5.text(text, -p5.textWidth(text), 0);
+        p5.pop();
+      }
+    }
+
+    if(data.show_value_labels) {
+      for(let i = 0; i < data.values.length; i++) {
+        for (let j = 0; j < data.values[i].length; j++) {
+          p5.push();
+          p5.noStroke();
+          p5.fill(data.axis_line_color);
+          p5.textStyle(p5.BOLD);
+          p5.textSize(2);
+          p5.translate(j * gridSize + gridSize / 2, - ysize * (data.values[i][j] / meta.maxValue) - 1, - i * gridSize - gridSize / 2);
+          p5.text(data.values[i][j], 0, 0);
+          p5.pop();
+        }
       }
     }
 
