@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, ArrowRightOutlined, FileOpenOutlined } from '@mui/icons-material';
+import { ArrowLeftOutlined, ArrowRightOutlined, FileOpenOutlined, PlusOne } from '@mui/icons-material';
 import { Button, CssBaseline } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { Column } from 'react-table';
@@ -7,6 +7,7 @@ import CheckBox from '../components/checkbox/CheckBox';
 import DataTable from '../components/datatable/DataTable';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
+import ScrollBox from '../components/layout/scrollbox/ScrollBox';
 import { ChartData } from '../types/ChartDataType';
 import parseCSV from '../utils/CSVparser';
 
@@ -24,6 +25,23 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
   const [yChecked, setYChecked] = useState<boolean>(true);
 
   const [canProceed, setCanProceed] = useState<boolean>(false);
+
+  const addRow = () => {
+    chart.x_axis_labels.push("");
+    for(let i = 0; i < chart.values.length; i++) {
+      chart.values[i].push(0);
+    }
+    forcedUpdate();
+  }
+
+  const addColumn = () => {
+    chart.y_axis_labels.push("");
+    chart.values.push([]);
+    for(let i = 0; i < chart.values[0].length; i++) {
+      chart.values[chart.values.length-1][i] = 0;
+    }
+    forcedUpdate();   
+  }
 
   const onOpenButton = () => {
     inputFile.current?.click();
@@ -99,12 +117,21 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       <LinkButton to="/" startIcon={<ArrowLeftOutlined />}>Cancel</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='75%'>
-          <CssBaseline />
-          <DataTable columns={columns} data={data} />
+          <ScrollBox>
+            <CssBaseline />
+            <DataTable columns={columns} data={data} chart={chart} />
+          </ScrollBox>
         </FlexBox>
         <FlexBox flexAmount='25%'>
           <div style={{ paddingLeft: "20px" }}>
-            <Button variant="contained" style={{ margin: "10px", fontSize: "20px" }} endIcon={<FileOpenOutlined />} onClick={onOpenButton}>Import file</Button>
+            <Button 
+              variant="contained" 
+              style={{ margin: "10px 0", fontSize: "20px" }} 
+              endIcon={<FileOpenOutlined />} 
+              onClick={onOpenButton}
+            >
+              Import file
+            </Button>
             <input type="file" id="file" ref={inputFile} style={{ display: "none" }} onChange={(e) => parseFile(e)} />
             <CheckBox
               callBack={setYChecked}
@@ -117,6 +144,23 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
               text="Row names included"
             />
           </div>
+
+          <Button 
+            variant="outlined" 
+            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
+            startIcon={<PlusOne/>} 
+            onClick={addRow}
+          >
+            Add row
+          </Button>
+          <Button 
+            variant="outlined" 
+            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
+            startIcon={<PlusOne/>} 
+            onClick={addColumn}
+          >
+            Add column
+          </Button>
 
           <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<ArrowRightOutlined />}>Next</LinkButton>
         </FlexBox>

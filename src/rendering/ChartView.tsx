@@ -38,6 +38,7 @@ const ChartView: React.FC<{ data: ChartData, doExport: {value: boolean, fileType
 		p5.textFont(font);
 		metadata.maxValue = Math.max(...(data.values.map(arr => Math.max(...arr))));
 		if(data.type === '3dbar') p5.perspective(p5.PI / 3.0, p5.width / p5.height, 0.1, 500);
+		windowResized(p5);
 	};
 
 	const draw = (p5: p5Types) => {
