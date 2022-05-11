@@ -17,7 +17,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const LineChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function }> = ({ chart, backgroundSetter }) => {
 
   const forcedUpdate = useForcedUpdate();
 
@@ -44,7 +44,7 @@ const LineChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Background color
           <ColorPicker
             initialColor={chart.background}
-            onColorPicked={(v: string) => { chart.background = v }}
+            onColorPicked={(v: string) => { chart.background = v; backgroundSetter(v) }}
           />
           <CheckBox
             callBack={(v: boolean) => { chart.show_background_grid = v; }}

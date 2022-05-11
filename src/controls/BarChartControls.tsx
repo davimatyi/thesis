@@ -17,7 +17,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const BarChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function }> = ({ chart, backgroundSetter }) => {
 
   const forcedUpdate = useForcedUpdate();
 
@@ -44,7 +44,7 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Background Color
           <ColorPicker
             initialColor={chart.background}
-            onColorPicked={(v: string) => { chart.background = v }}
+            onColorPicked={(v: string) => { chart.background = v; backgroundSetter(v) }}
           />
           <CheckBox
             callBack={(v: boolean) => { chart.show_background_grid = v; }}
@@ -125,13 +125,13 @@ const BarChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Stroke
         </AccordionSummary>
         <AccordionDetails>
-          Border radius
+          {/* Border radius
           <Slider
             defaultValue={chart.border_radius}
             min={0}
             max={99}
             onChange={(_, v) => { chart.border_radius = Array.isArray(v) ? v[0] : v }}
-          />
+          /> */}
           <CheckBox
             text="Stroke"
             isChecked={chart.stroke}

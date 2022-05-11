@@ -45,11 +45,13 @@ class PieChartRenderer extends AbstractRenderer {
       if(data.show_value_labels) {
         p5.push();
         p5.noStroke();
+        p5.textSize(14);
         p5.fill(data.axis_line_color);
         p5.textStyle(p5.BOLD);
         p5.translate(p5.width/2, p5.height/2);
         p5.translate((size / 2 + 20 + data.spacing) * Math.cos(separationAngle), (size / 2 + 20 + data.spacing) * Math.sin(separationAngle));
         p5.text(data.x_axis_labels[i], 0, 0);
+        p5.text(data.values[0][i], - p5.textWidth(data.values[0][i]+"") / 2.0, 20);
         p5.pop();
       }
 

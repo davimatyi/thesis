@@ -27,6 +27,7 @@ abstract class AbstractRenderer {
         if (data.x_axis_labels.length > i) {
           p5.push();
           p5.noStroke();
+          p5.textSize(14);
           p5.fill(data.axis_line_color);
           p5.textStyle(p5.BOLD);
           p5.translate(
@@ -59,6 +60,7 @@ abstract class AbstractRenderer {
         );
         p5.push();
         p5.noStroke();
+        p5.textSize(14);
         p5.fill(data.axis_line_color);
         p5.textStyle(p5.BOLD);
         p5.translate(
@@ -97,6 +99,7 @@ abstract class AbstractRenderer {
         if (data.x_axis_labels.length > i) {
           p5.push();
           p5.noStroke();
+          p5.textSize(14);
           p5.fill(data.axis_line_color);
           p5.textStyle(p5.BOLD);
           p5.translate(
@@ -129,6 +132,7 @@ abstract class AbstractRenderer {
         );
         p5.push();
         p5.noStroke();
+        p5.textSize(14);
         p5.fill(data.axis_line_color);
         p5.textStyle(p5.BOLD);
         p5.translate(

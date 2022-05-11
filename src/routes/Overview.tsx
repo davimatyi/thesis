@@ -13,10 +13,11 @@ import { ChartData } from '../types/ChartDataType';
 
 
 
-const Overview: React.FC<{ chart: ChartData, prevFilesList: {name: string, path: string}[] }> = ({ chart, prevFilesList }) => {
+const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path: string }[] }> = ({ chart, prevFilesList }) => {
 
   const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
   const saveButton = useRef<HTMLAnchorElement>(null);
+  const [backgroundColor, setBackground] = useState<string>(chart.background);
 
   const [doExport, setExport] = useState<{ value: boolean, fileType: string }>({ value: false, fileType: "png" });
 
@@ -31,10 +32,10 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: {name: string, path:
 
   function switchControls() {
     switch (chart.type) {
-      case 'bar': return <BarChartControls chart={chart} />;
-      case 'line': return <LineChartControls chart={chart} />;
-      case 'pie': return <PieChartControls chart={chart} />;
-      case '3dbar': return <BarChart3DControls chart={chart} />;
+      case 'bar': return <BarChartControls chart={chart} backgroundSetter={setBackground} />;
+      case 'line': return <LineChartControls chart={chart} backgroundSetter={setBackground} />;
+      case 'pie': return <PieChartControls chart={chart} backgroundSetter={setBackground} />;
+      case '3dbar': return <BarChart3DControls chart={chart} backgroundSetter={setBackground} />;
     }
   }
 
@@ -56,7 +57,7 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: {name: string, path:
   }, [fileDownloadUrl]);
 
   return (
-    <>
+    <div style={{width: "100%", height: "100vh", background: backgroundColor }}>
       <LinkButton to="/style" startIcon={<NavigateBefore />}>Back</LinkButton>
       <FlexContainer>
         <FlexBox flexAmount='65%' height='80vh'>
@@ -121,8 +122,7 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: {name: string, path:
 
         </FlexBox>
       </FlexContainer>
-
-    </>
+    </div>
   );
 }
 

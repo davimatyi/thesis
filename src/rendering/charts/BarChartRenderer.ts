@@ -34,11 +34,15 @@ class BarChartRenderer extends AbstractRenderer {
         (p5.height - data.margin) - (p5.height - 2 * data.margin) * (flatArr[i] / meta.maxValue),
         barWidth,
         (p5.height - 2 * data.margin) * (flatArr[i] / meta.maxValue),
+        data.border_radius,
+        data.border_radius,
+        data.border_radius,
         data.border_radius
       );
       if (data.show_value_labels) {
         p5.push();
         p5.noStroke();
+        p5.textSize(14);
         p5.fill(data.axis_line_color);
         p5.textStyle(p5.BOLD);
         p5.translate(

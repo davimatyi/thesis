@@ -1,4 +1,4 @@
-import { FileOpenOutlined, NavigateBefore, NavigateNext, PlusOne } from '@mui/icons-material';
+import { Clear, FileOpenOutlined, NavigateBefore, NavigateNext, PlusOne } from '@mui/icons-material';
 import { Button, CssBaseline } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import { Column } from 'react-table';
@@ -27,20 +27,27 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
   const [canProceed, setCanProceed] = useState<boolean>(false);
 
   const addRow = () => {
-    chart.x_axis_labels.push("");
     for(let i = 0; i < chart.values.length; i++) {
       chart.values[i].push(0);
     }
+    chart.x_axis_labels.push("");
     forcedUpdate();
   }
 
   const addColumn = () => {
-    chart.y_axis_labels.push("");
     chart.values.push([]);
     for(let i = 0; i < chart.values[0].length; i++) {
       chart.values[chart.values.length-1][i] = 0;
     }
+    chart.y_axis_labels.push("");
     forcedUpdate();   
+  }
+
+  const clearTable = () => {
+    chart.x_axis_labels = []
+    chart.y_axis_labels = []
+    chart.values = [[]];
+    forcedUpdate();
   }
 
   const onOpenButton = () => {
@@ -88,9 +95,9 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
           || xheaders.length === 0 || yheaders.length === 0 || data.length === 0) {
           throw new Error("Could not parse input file");
         }
-        console.log(xheaders);
-        console.log(yheaders);
-        console.log(data);
+        // console.log(xheaders);
+        // console.log(yheaders);
+        // console.log(data);
         chart.x_axis_labels = xheaders;
         chart.y_axis_labels = yheaders;
         chart.values = data;
@@ -153,6 +160,7 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
           >
             Add row
           </Button>
+          <br/>
           <Button 
             variant="outlined" 
             style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
@@ -160,6 +168,15 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
             onClick={addColumn}
           >
             Add column
+          </Button>
+          <br/>
+          <Button 
+            variant="outlined" 
+            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
+            startIcon={<Clear/>} 
+            onClick={clearTable}
+          >
+            Clear table
           </Button>
 
           <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<NavigateNext />}>Next</LinkButton>

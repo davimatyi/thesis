@@ -8,6 +8,7 @@ import { ChartData } from '../types/ChartDataType';
 import icon_type_bar from '../assets/typeselect_barchart.png';
 import icon_type_line from '../assets/typeselect_linechart.png';
 import icon_type_pie from '../assets/typeselect_piechart.png';
+import icon_type_3d from '../assets/typeselect_3d.png'
 import icon_style_def from '../assets/styleselect_default.png';
 import icon_style_dark from '../assets/styleselect_dark.png';
 import icon_style_rgb from '../assets/styleselect_rainbow.png';
@@ -23,11 +24,9 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
       <LinkButton to="/editor" startIcon={<NavigateBefore/>}>Back</LinkButton>
       <LinkButton to="/overview" align="bottom" endIcon={<NavigateNext/>}>Next</LinkButton>
       <FlexContainer>
-        <FlexBox flexAmount='40%' height='100%'>
-          <h3 style={{marginLeft: '20px'}}>Chart type</h3>
-          {/* <ScrollBox
-            style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)', scrollbarWidth: 'thin'}}
-          > */}
+        <FlexBox flexAmount='50%' height='100%'>
+          <h2 style={{marginLeft: '10%'}}>Chart type</h2>
+          <div style={{ padding: "0 10% 0 10%"}}>
             <ListSelectorItem
               group={typeGroup}
               iconSrc={icon_type_bar}
@@ -54,19 +53,17 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
             />
             <ListSelectorItem
               group={typeGroup}
-              iconSrc={icon_type_bar}
+              iconSrc={icon_type_3d}
               index={3}
               text="3D Bar Chart"
               onSelection={() => chart.type = "3dbar"}
               selected={chart.type === "3dbar"}
             />
-          {/* </ScrollBox> */}
+          </div>
         </FlexBox>
-        <FlexBox flexAmount='40%' height='100%'>
-          <h3 style={{marginLeft: '20px'}}>Chart style template</h3>
-          {/* <ScrollBox
-            style={{borderRadius: '20px', margin: '20px', height: 'calc(100% - 160px)'}}
-          > */}
+        <FlexBox flexAmount='50%' height='100%'>
+          <h2 style={{marginLeft: '10%'}}>Chart style template</h2>
+          <div style={{ padding: "0 10% 0 10%"}}>
             <ListSelectorItem
               group={styleGroup}
               iconSrc={icon_style_def}
@@ -112,7 +109,7 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
                 chart.fill_colors.push("#3737C8");
               }}
             />
-          {/* </ScrollBox> */}
+          </div>
         </FlexBox>
       </FlexContainer>
     </>

@@ -17,7 +17,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const PieChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function }> = ({ chart, backgroundSetter }) => {
 
   const forcedUpdate = useForcedUpdate();
 
@@ -44,7 +44,7 @@ const PieChartControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Background color
           <ColorPicker
             initialColor={chart.background}
-            onColorPicked={(v: string) => { chart.background = v }}
+            onColorPicked={(v: string) => { chart.background = v; backgroundSetter(v) }}
           />
         </AccordionDetails>
       </Accordion>

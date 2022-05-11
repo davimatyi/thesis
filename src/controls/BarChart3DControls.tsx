@@ -17,7 +17,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const BarChart3DControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const BarChart3DControls: React.FC<{ chart: ChartData, backgroundSetter: Function }> = ({ chart, backgroundSetter }) => {
 
   const forcedUpdate = useForcedUpdate();
 
@@ -44,7 +44,7 @@ const BarChart3DControls: React.FC<{ chart: ChartData }> = ({ chart }) => {
           Background Color
           <ColorPicker
             initialColor={chart.background}
-            onColorPicked={(v: string) => { chart.background = v }}
+            onColorPicked={(v: string) => { chart.background = v; backgroundSetter(v) }}
           />
           <CheckBox
             callBack={(v: boolean) => { chart.show_background_grid = v; }}
