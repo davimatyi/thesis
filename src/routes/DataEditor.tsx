@@ -16,7 +16,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, path: string}[] }> = ({ chart, prevFilesList }) => {
+const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, path: string }[] }> = ({ chart, prevFilesList }) => {
 
   const inputFile = useRef<HTMLInputElement>(null);
   const forcedUpdate = useForcedUpdate();
@@ -26,8 +26,39 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
 
   const [canProceed, setCanProceed] = useState<boolean>(false);
 
+
+  const onOpenButton = () => {
+    inputFile.current?.click();
+  }
+
+  let data = chart.values[0].map((_, i) => {
+    const obj: any = {};
+    obj['row'] = chart.x_axis_labels[i];
+    chart.values.map((arr, j) => obj["col" + j] = arr[i]);
+    return obj;
+  });
+
+
+  let columns = React.useMemo<Column[]>(
+    () => chart.y_axis_labels.map((val, i) => { return { Header: val, accessor: (i === 0 ? "row" : ("col" + (i - 1))) } })
+    , [chart.y_axis_labels]
+  );
+
+  const RebuildTable = () => {
+    columns = React.useMemo<Column[]>(
+      () => chart.y_axis_labels.map((val, i) => { return { Header: val, accessor: (i === 0 ? "row" : ("col" + (i - 1))) } })
+      , []
+    );
+    data = chart.values[0].map((_, i) => {
+      const obj: any = {};
+      obj['row'] = chart.x_axis_labels[i];
+      chart.values.map((arr, j) => obj["col" + j] = arr[i]);
+      return obj;
+    });
+  }
+
   const addRow = () => {
-    for(let i = 0; i < chart.values.length; i++) {
+    for (let i = 0; i < chart.values.length; i++) {
       chart.values[i].push(0);
     }
     chart.x_axis_labels.push("");
@@ -36,11 +67,12 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
 
   const addColumn = () => {
     chart.values.push([]);
-    for(let i = 0; i < chart.values[0].length; i++) {
-      chart.values[chart.values.length-1][i] = 0;
+    for (let i = 0; i < chart.values[0].length; i++) {
+      chart.values[chart.values.length - 1][i] = 0;
     }
     chart.y_axis_labels.push("");
-    forcedUpdate();   
+    RebuildTable();
+    forcedUpdate();
   }
 
   const clearTable = () => {
@@ -49,36 +81,6 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
     chart.values = [[]];
     forcedUpdate();
   }
-
-  const onOpenButton = () => {
-    inputFile.current?.click();
-  }
-
-  const data = chart.values[0].map((_, i) => {
-    const obj: any = {};
-    obj['row'] = chart.x_axis_labels[i];
-    chart.values.map((arr, j) => obj["col" + j] = arr[i]);
-    return obj;
-  });
-
-
-  const columns = React.useMemo<Column[]>(
-    () => [
-      {
-        Header: 'Row',
-        columns: [
-          {
-            Header: chart.y_axis_labels[0],
-            accessor: 'row'
-          }
-        ]
-      },
-      {
-        Header: 'Values',
-        columns: chart.y_axis_labels.slice(1).map((val, i) => { return { Header: val, accessor: "col" + i } })
-      }
-    ], [chart.y_axis_labels]
-  );
 
   const parseFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -131,10 +133,10 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
         </FlexBox>
         <FlexBox flexAmount='25%'>
           <div style={{ paddingLeft: "20px" }}>
-            <Button 
-              variant="contained" 
-              style={{ margin: "10px 0", fontSize: "20px" }} 
-              startIcon={<FileOpenOutlined />} 
+            <Button
+              variant="contained"
+              style={{ margin: "10px 0", fontSize: "20px" }}
+              startIcon={<FileOpenOutlined />}
               onClick={onOpenButton}
             >
               Import file
@@ -152,28 +154,28 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: {name: string, pat
             />
           </div>
 
-          <Button 
-            variant="outlined" 
-            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
-            startIcon={<PlusOne/>} 
+          <Button
+            variant="outlined"
+            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+            startIcon={<PlusOne />}
             onClick={addRow}
           >
             Add row
           </Button>
-          <br/>
-          <Button 
-            variant="outlined" 
-            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
-            startIcon={<PlusOne/>} 
+          <br />
+          <Button
+            variant="outlined"
+            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+            startIcon={<PlusOne />}
             onClick={addColumn}
           >
             Add column
           </Button>
-          <br/>
-          <Button 
-            variant="outlined" 
-            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px"}} 
-            startIcon={<Clear/>} 
+          <br />
+          <Button
+            variant="outlined"
+            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+            startIcon={<Clear />}
             onClick={clearTable}
           >
             Clear table

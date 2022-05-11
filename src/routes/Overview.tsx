@@ -1,5 +1,6 @@
-import { NavigateBefore, SaveAltOutlined, SaveOutlined } from '@mui/icons-material';
-import { Button, Menu, MenuItem } from '@mui/material';
+import { NavigateBefore, SaveAltOutlined, SaveOutlined, Fullscreen } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
+import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
@@ -18,9 +19,10 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path
   const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
   const saveButton = useRef<HTMLAnchorElement>(null);
   const [backgroundColor, setBackground] = useState<string>(chart.background);
+  const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
+
 
   const [doExport, setExport] = useState<{ value: boolean, fileType: string }>({ value: false, fileType: "png" });
-
   const [anchor, setAnchor] = React.useState<null | HTMLElement>(null);
   const exportOpen = Boolean(anchor);
   const handleExportClick = (e: React.MouseEvent<HTMLElement>) => {
@@ -57,16 +59,20 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path
   }, [fileDownloadUrl]);
 
   return (
-    <div style={{width: "100%", height: "100vh", background: backgroundColor }}>
+    <div style={{ width: "100%", height: "100vh", background: backgroundColor }}>
       <LinkButton to="/style" startIcon={<NavigateBefore />}>Back</LinkButton>
+      <IconButton color="primary" aria-label="hide controls" component="span" onClick={() => setDetailsOpen(!detailsOpen)}>
+        <Fullscreen fontSize='large'/>
+      </IconButton>
       <FlexContainer>
+        <div style={{transition: "width 0.2s ease-in-out", width: (detailsOpen ? "0" : "35%")}}></div>
         <FlexBox flexAmount='65%' height='80vh'>
           <ChartView data={chart} doExport={doExport} />
         </FlexBox>
         <FlexBox flexAmount='35%' height='80vh'>
-          {
-            fun
-          }
+          <div style={{ position: "absolute", width: "35vw", left: detailsOpen ? "calc(65% + 5px)" : "100%", transition: "left 0.2s ease-in-out" }}>
+            {fun}
+          </div>
           <FlexContainer>
             <FlexBox>
               <Button
@@ -85,7 +91,7 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path
               >save</a>
             </FlexBox>
             <FlexBox>
-              <Button
+              <LoadingButton
                 id="export-button"
                 onClick={handleExportClick}
                 style={{ fontSize: '20px', position: 'absolute', bottom: '10px', right: '30px' }}
@@ -94,9 +100,10 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path
                 aria-controls={exportOpen ? 'export-menu' : undefined}
                 aria-haspopup="true"
                 aria-expanded={exportOpen ? 'true' : undefined}
+                loading={exportOpen}
               >
                 Export
-              </Button>
+              </LoadingButton>
               <Menu
                 id="export-menu"
                 anchorEl={anchor}
@@ -105,6 +112,7 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path
                 MenuListProps={{
                   'aria-labelledby': 'export-button'
                 }}
+                style={{top: "-50px"}}
               >
                 <MenuItem
                   onClick={() => { handleExportClose(); setExport({ value: true, fileType: 'png' }) }}
