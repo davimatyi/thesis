@@ -25,7 +25,7 @@ const ChartView: React.FC<{ data: ChartData, doExport: {value: boolean, fileType
 	let font: p5Types.Font;
 
 	const preload = (p5: p5Types) => {
-		font = p5.loadFont(process.env.PUBLIC_URL + '/OpenSans_Regular.ttf');
+		font = p5.loadFont(process.env.PUBLIC_URL + '/OpenSans_Bold.ttf');
 	}
 
 	const windowResized = (p5: p5Types) => {

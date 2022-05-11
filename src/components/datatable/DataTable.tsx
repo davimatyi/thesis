@@ -18,8 +18,14 @@ const DataTable: React.FC<{ columns: readonly Column<{}>[], data: {}[], chart: C
       <TableHead>
         {headerGroups.map(headerGroup => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(column => (
-              <TableCell {...column.getHeaderProps()}>
+            {headerGroup.headers.map((column,i) => (
+              <TableCell 
+                {...column.getHeaderProps()}
+                contentEditable={true} 
+                    onInput={(e: any) => {
+                      chart.y_axis_labels[i] = e.target.innerHTML;
+                    }} 
+              >
                 {column.render('Header')}
               </TableCell>
             ))}
@@ -37,14 +43,16 @@ const DataTable: React.FC<{ columns: readonly Column<{}>[], data: {}[], chart: C
                     {...cell.getCellProps()}  
                     contentEditable={true} 
                     onInput={(e: any) => {
-                      try{
-                        chart.values[j-1][i] = +e.target.innerHTML;
-                      } catch(e) {
-                        
-                      }
+                      if(j>0)
+                        try{
+                          chart.values[j-1][i] = +e.target.innerHTML;
+                        } catch(e) {
+                          
+                        }
+                      else 
+                        chart.x_axis_labels[i] = e.target.innerHTML;
                       // console.log(e.target.innerHTML);
-                    }} 
-                    
+                    }}                     
                   >
                     {cell.render('Cell')}
                   </TableCell>

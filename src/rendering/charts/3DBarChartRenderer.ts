@@ -143,12 +143,12 @@ class BarChart3DRenderer extends AbstractRenderer {
       for(let i = 0; i < data.values.length; i++) {
         for (let j = 0; j < data.values[i].length; j++) {
           p5.push();
-          p5.noStroke();
+          p5.stroke("#fff")
           p5.fill(data.axis_line_color);
-          p5.textStyle(p5.BOLD);
+          p5.textStyle(p5.ITALIC);
           p5.textSize(2);
           p5.translate(j * gridSize + gridSize / 2, - ysize * (data.values[i][j] / meta.maxValue) - 1, - i * gridSize - gridSize / 2);
-          p5.text(data.values[i][j], 0, 0);
+          p5.text(data.values[i][j], -p5.textWidth(data.values[i][j]+"") / 2, 0);
           p5.pop();
         }
       }
