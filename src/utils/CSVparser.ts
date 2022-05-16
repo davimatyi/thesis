@@ -25,15 +25,15 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
       });
     });
   } else if(!xHeaders && !yHeaders) {
-    yheaders = lines[0].split(";").map((_, i) => "");
-    xheaders = lines.map((l, i) => i+"");
+    yheaders = lines[0].split(";").map((_, i) => "col"+(i+1));
+    xheaders = lines.map((l, i) => (i+1)+"");
     data = yheaders.map((y, i) => {
       return lines.map((l, _) => {
         return +l.split(';')[i];
       });
     });
   } else if(xHeaders) {
-    yheaders = lines[0].split(";").map((_, i) => "");
+    yheaders = lines[0].split(";").map((_, i) => "col"+(i+1));
     xheaders = lines.slice(0).map((l, _) => l.split(';')[0]);
     data = yheaders.slice(1).map((y, i) => {
       return lines.slice(0).map((l, _) => {
@@ -42,7 +42,7 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
     });
   } else if(yHeaders) {
     yheaders = lines[0].split(';');
-    xheaders = lines.map((l, i) => i+"");
+    xheaders = lines.map((l, i) => (i+1)+"");
     data = yheaders.slice(0).map((y, i) => {
       return lines.slice(1).map((l, _) => {
         return +l.split(';')[i];

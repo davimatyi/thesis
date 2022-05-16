@@ -1,0 +1,30 @@
+.popup_cover {
+  position: fixed;
+  z-index: 100000;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0.4, 0.4, 0.4, 0.4);
+  backdrop-filter: blur(8px);
+}
+
+.popup_dialog {
+  position: absolute;
+  z-index: 100001;
+  width: 350px;
+  height: 200px;
+  left: calc(50% - 100px);
+  transition: top 0.5s ease-in-out;
+  box-shadow: 5px 5px 5px #555;
+  background: white;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.popup_dialog_title {
+  font-size: 20px;
+  margin: 10px 0;
+  width: fit-content;
+  float: left;
+}

@@ -1,4 +1,4 @@
-import { NavigateBefore, SaveAltOutlined, SaveOutlined, Fullscreen } from '@mui/icons-material';
+import { NavigateBefore, SaveAltOutlined, SaveOutlined, Fullscreen, FullscreenExit } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
 import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
@@ -61,9 +61,11 @@ const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path
   return (
     <div style={{ width: "100%", height: "100vh", background: backgroundColor }}>
       <LinkButton to="/style" startIcon={<NavigateBefore />}>Back</LinkButton>
-      <IconButton color="primary" aria-label="hide controls" component="span" onClick={() => setDetailsOpen(!detailsOpen)}>
-        <Fullscreen fontSize='large'/>
-      </IconButton>
+      <div style={{float: "right", margin: "10px", backgroundColor: "#1976d2", borderRadius: "25px"}}>
+        <IconButton aria-label="hide controls" component="span" onClick={() => setDetailsOpen(!detailsOpen)}>
+          {detailsOpen ? <Fullscreen fontSize='large' htmlColor="white"/> : <FullscreenExit fontSize='large' htmlColor="white"/>}
+        </IconButton>
+      </div>
       <FlexContainer>
         <div style={{transition: "width 0.2s ease-in-out", width: (detailsOpen ? "0" : "35%")}}></div>
         <FlexBox flexAmount='65%' height='80vh'>

@@ -1,17 +1,19 @@
 import { Create, OpenInBrowser } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import FileList from '../components/filelist/FileList';
 import { ChartData } from '../types/ChartDataType';
+import { LoadingButton } from '@mui/lab';
 
 const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: { name: string, path: string }[] }>
   = ({ chart, setChart, prevFilesList }) => {
 
     const inputFile = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
+    const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
     const onOpenButton = () => {
       inputFile.current?.click();
@@ -74,18 +76,26 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
               </Button>
             </div>
             <div style={{ flexDirection: "column" }}>
-              <Button
+              <LoadingButton
                 variant="contained"
                 style={{ margin: "10px", fontSize: "20px", width: "300px" }}
                 startIcon={<OpenInBrowser />}
                 onClick={onOpenButton}
+                loading={dialogOpen}
               >
                 Open project
-              </Button>
+              </LoadingButton>
             </div>
           </FlexBox>
         </FlexContainer>
-        <input type="file" id="file" ref={inputFile} style={{ display: "none" }} onChange={(e) => parseFile(e)} />
+        <input 
+          type="file" 
+          id="file" 
+          ref={inputFile} 
+          style={{ display: "none" }} 
+          onChange={(e) => { setDialogOpen(false); parseFile(e);}}
+          accept="json"
+        />
 
       </>
     );

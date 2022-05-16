@@ -1,13 +1,13 @@
-import { Clear, FileOpenOutlined, NavigateBefore, NavigateNext, PlusOne } from '@mui/icons-material';
+import { Clear, Create, NavigateBefore, NavigateNext, OpenInNew, PlusOne } from '@mui/icons-material';
 import { Button, CssBaseline } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
-import { Column } from 'react-table';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import CheckBox from '../components/checkbox/CheckBox';
 import DataTable from '../components/datatable/DataTable';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import ScrollBox from '../components/layout/scrollbox/ScrollBox';
+import PopupDialog from '../components/popupdialog/PopupDialog';
 import { ChartData } from '../types/ChartDataType';
 import parseCSV from '../utils/CSVparser';
 
@@ -26,6 +26,8 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
 
   const [canProceed, setCanProceed] = useState<boolean>(false);
 
+  let closeFileDialog: {fun: Function | null} = {fun: null};
+
 
   const onOpenButton = () => {
     inputFile.current?.click();
@@ -38,30 +40,13 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
     return obj;
   });
 
-
-  let columns = React.useMemo<Column[]>(
-    () => chart.y_axis_labels.map((val, i) => { return { Header: val, accessor: (i === 0 ? "row" : ("col" + (i - 1))) } })
-    , [chart.y_axis_labels]
-  );
-
-  const RebuildTable = () => {
-    columns = React.useMemo<Column[]>(
-      () => chart.y_axis_labels.map((val, i) => { return { Header: val, accessor: (i === 0 ? "row" : ("col" + (i - 1))) } })
-      , []
-    );
-    data = chart.values[0].map((_, i) => {
-      const obj: any = {};
-      obj['row'] = chart.x_axis_labels[i];
-      chart.values.map((arr, j) => obj["col" + j] = arr[i]);
-      return obj;
-    });
-  }
+  let columns = chart.y_axis_labels.map((val, i) => { return { Header: val, accessor: (i === 0 ? "row" : ("col" + (i - 1))) } });
 
   const addRow = () => {
     for (let i = 0; i < chart.values.length; i++) {
       chart.values[i].push(0);
     }
-    chart.x_axis_labels.push("");
+    chart.x_axis_labels.push((chart.x_axis_labels.length + 1) + "");
     forcedUpdate();
   }
 
@@ -70,8 +55,7 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
     for (let i = 0; i < chart.values[0].length; i++) {
       chart.values[chart.values.length - 1][i] = 0;
     }
-    chart.y_axis_labels.push("");
-    RebuildTable();
+    chart.y_axis_labels.push("value " + (chart.y_axis_labels.length));
     forcedUpdate();
   }
 
@@ -79,6 +63,13 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
     chart.x_axis_labels = []
     chart.y_axis_labels = []
     chart.values = [[]];
+    forcedUpdate();
+  }
+
+  const createTable = () => {
+    chart.x_axis_labels = ["1"]
+    chart.y_axis_labels = ["", "value"]
+    chart.values = [[0]];
     forcedUpdate();
   }
 
@@ -97,9 +88,6 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
           || xheaders.length === 0 || yheaders.length === 0 || data.length === 0) {
           throw new Error("Could not parse input file");
         }
-        // console.log(xheaders);
-        // console.log(yheaders);
-        // console.log(data);
         chart.x_axis_labels = xheaders;
         chart.y_axis_labels = yheaders;
         chart.values = data;
@@ -132,54 +120,84 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
           </ScrollBox>
         </FlexBox>
         <FlexBox flexAmount='25%'>
-          <div style={{ paddingLeft: "20px" }}>
-            <Button
-              variant="contained"
-              style={{ margin: "10px 0", fontSize: "20px" }}
-              startIcon={<FileOpenOutlined />}
-              onClick={onOpenButton}
-            >
-              Import file
-            </Button>
-            <input type="file" id="file" ref={inputFile} style={{ display: "none" }} onChange={(e) => parseFile(e)} />
-            <CheckBox
-              callBack={setYChecked}
-              isChecked={yChecked}
-              text="Headers included"
-            />
-            <CheckBox
-              callBack={setXChecked}
-              isChecked={xChecked}
-              text="Row names included"
-            />
+          <div style={{ paddingLeft: "20px" }}>            
+            <PopupDialog title="Choose a file to import" closeFunction={closeFileDialog}>
+              <Button
+                variant="contained"
+                style={{ margin: "10px 0", fontSize: "20px" }}
+                startIcon={<OpenInNew />}
+                onClick={onOpenButton}
+              >
+                Choose file
+              </Button>
+              <input 
+                type="file" 
+                id="file" 
+                ref={inputFile} 
+                style={{ display: "none" }} 
+                onChange={(e) => {
+                  parseFile(e);
+                  if(closeFileDialog.fun !== null) closeFileDialog.fun();
+                }} 
+                accept="csv"
+                onAbort={() => {if(closeFileDialog.fun !== null) closeFileDialog.fun()}}
+              />
+              <CheckBox
+                callBack={setYChecked}
+                isChecked={yChecked}
+                text="Headers included"
+              />
+              <CheckBox
+                callBack={setXChecked}
+                isChecked={xChecked}
+                text="Row names included"
+              />
+            </PopupDialog>
           </div>
 
-          <Button
-            variant="outlined"
-            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
-            startIcon={<PlusOne />}
-            onClick={addRow}
-          >
-            Add row
-          </Button>
-          <br />
-          <Button
-            variant="outlined"
-            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
-            startIcon={<PlusOne />}
-            onClick={addColumn}
-          >
-            Add column
-          </Button>
-          <br />
-          <Button
-            variant="outlined"
-            style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
-            startIcon={<Clear />}
-            onClick={clearTable}
-          >
-            Clear table
-          </Button>
+          {chart.values[0].length !== 0 &&
+            <>
+              <Button
+                variant="outlined"
+                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+                startIcon={<PlusOne />}
+                onClick={addRow}
+              >
+                Add row
+              </Button>
+              <br />
+              <Button
+                variant="outlined"
+                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+                startIcon={<PlusOne />}
+                onClick={addColumn}
+              >
+                Add column
+              </Button>
+              <br />
+              <Button
+                variant="outlined"
+                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+                startIcon={<Clear />}
+                onClick={clearTable}
+              >
+                Clear table
+              </Button>
+            </>
+          }
+          {
+            chart.values[0].length === 0 &&
+            <>
+              <Button
+                variant="outlined"
+                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+                startIcon={<Create />}
+                onClick={createTable}
+              >
+                Create empty table
+              </Button>
+            </>
+          }
 
           <LinkButton to="/style" align="bottom" disabled={!canProceed} endIcon={<NavigateNext />}>Next</LinkButton>
         </FlexBox>
