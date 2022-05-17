@@ -10,7 +10,11 @@ function createWindow() {
     height: 720,
     webPreferences: {
       nodeIntegration: true
-    }
+    },
+    minHeight: 600,
+    minWidth: 800,
+    title: "Graphite",
+    icon: './public/icon.png'
   });
 
   // win.removeMenu();
@@ -51,10 +55,3 @@ app.on('activate', () => {
     createWindow();
   }
 });
-
-
-const saveFile = (name: string, content: string) => {
-  const { dialog } = require('electron');
-}
-
-export default saveFile;
