@@ -1,4 +1,9 @@
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;
+  height: 100vh;
+}
+
+.item {
+  height: 100vh;
 }

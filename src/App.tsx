@@ -6,6 +6,7 @@ import Overview from './routes/Overview';
 import StyleEditor from './routes/StyleEditor';
 import Welcome from './routes/Welcome';
 import defaultChart, { ChartData } from './types/ChartDataType';
+import SlideRoutes from 'react-slide-routes';
 
 
 const App: React.FC = () => {
@@ -14,14 +15,12 @@ const App: React.FC = () => {
   
     return (
       <div className="App">
-        <HashRouter>
-          <Routes>
+          <SlideRoutes>
             <Route path="/" element={<Welcome chart={chart} setChart={setChart} prevFilesList={previousFiles} />} />
             <Route path="/editor" element={<DataEditor chart={chart} prevFilesList={previousFiles} />} />
             <Route path="/style" element={<StyleEditor chart={chart} />} />
             <Route path="/overview" element={<Overview chart={chart} prevFilesList={previousFiles} />} />
-          </Routes>
-        </HashRouter>
+          </SlideRoutes>
       </div>
     );
 }
