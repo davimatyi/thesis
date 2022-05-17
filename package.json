@@ -12,7 +12,11 @@
     ],
     "directories": {
       "buildResources": "assets"
-    }
+    },
+    "win": {
+      "icon": "build/icon.ico"
+    },
+    "productName": "Graphite"
   },
   "dependencies": {
     "@emotion/react": "^11.8.2",
