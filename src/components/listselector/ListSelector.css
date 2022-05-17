@@ -16,16 +16,17 @@
 }
 
 .listselector_label {
-  font-size: 20px;
+  /* font-size: 20px; */
   vertical-align: middle;
   padding-top: 13px;
   padding-left: 10px;
 }
 
-.listselector img, .listselector_selected img {
-  width: 40px;
-  height: 40px;
+.listselector img {
+  width: 50px;
+  height: 50px;
   margin: 5px;
+  margin-right: 10px;
 }
 
 .listselector:hover {

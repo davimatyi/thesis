@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { HashRouter, Routes, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import './App.css';
 import DataEditor from './routes/DataEditor';
 import Overview from './routes/Overview';
@@ -15,7 +15,7 @@ const App: React.FC = () => {
   
     return (
       <div className="App">
-          <SlideRoutes>
+          <SlideRoutes destroy="false">
             <Route path="/" element={<Welcome chart={chart} setChart={setChart} prevFilesList={previousFiles} />} />
             <Route path="/editor" element={<DataEditor chart={chart} prevFilesList={previousFiles} />} />
             <Route path="/style" element={<StyleEditor chart={chart} />} />

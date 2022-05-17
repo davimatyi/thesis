@@ -39,7 +39,9 @@ const ListSelectorItem: React.FC<props> = ({ index, iconSrc, text, onSelection, 
           <img src={iconSrc} alt=""/>
         </FlexBox>
         <FlexBox>
-          <div className="listselector_label">{text}</div>
+          {/* <div className="listselector_label">{text}</div>
+           */}
+           <h3>{text}</h3>
         </FlexBox>
       </FlexContainer>
     </div>
