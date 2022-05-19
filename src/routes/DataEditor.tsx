@@ -16,7 +16,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const DataEditor: React.FC<{ chart: ChartData, prevFilesList: File[] }> = ({ chart, prevFilesList }) => {
+const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const inputFile = useRef<HTMLInputElement>(null);
   const forcedUpdate = useForcedUpdate();

@@ -1,23 +1,21 @@
 import { Create, OpenInBrowser } from '@mui/icons-material';
 import { Button } from '@mui/material';
-import React, { useRef, useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import FileList from '../components/filelist/FileList';
 import { ChartData } from '../types/ChartDataType';
 import { LoadingButton } from '@mui/lab';
+const { ipcRenderer } = window.require('electron');
+const fs = window.require('fs');
 
-const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: File[] }>
+const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: string[] }>
   = ({ chart, setChart, prevFilesList }) => {
 
-    const inputFile = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-    const onOpenButton = () => {
-      inputFile.current?.click();
-    }
 
     const onNewButton = () => {
       chart.values = [[]];
@@ -32,38 +30,39 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
       navigate("/editor");
     }
 
-    const parseFile = (file: File) => {
-      const reader = new FileReader();
-      reader.onload = async (e) => {
-        if (e.target === null || e.target.result === null) {
-          alert("File read error");
-          return;
-        }
-        try {
-          const text: string = (e.target.result).toString();
-          const temp: ChartData = JSON.parse(text);
-          console.log(temp);
-          setChart(temp);
-          navigate("/editor");
-        } catch (e) {
-          alert(e);
-        }
+    
+    const parseFile = useCallback((file: string) => {
+      try {
+        const data = fs.readFileSync(file).toString();
+        setChart(JSON.parse(data));
+        navigate("/editor");
+      } catch (e) {
+        alert(e);
       }
-      reader.readAsText(file);
-      
+    }, [navigate, setChart]);
+
+    const onOpenButton = () => {
+      ipcRenderer.send('show-open-dialog');
+      setDialogOpen(true);
     }
 
-    const onFileOpened = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
-      if (e.target.files !== null) {
-        const file = e.target.files[0];
-        parseFile(file);
-        prevFilesList.push(file);
-        if(prevFilesList.length > 5) prevFilesList.splice(0, prevFilesList.length - 5);
-        localStorage.setItem("prevFiles", JSON.stringify(prevFilesList));
-      }
-      
-    }
+    useEffect(() => {
+      ipcRenderer.on('file-open-reply', (event: any, result: any) => {
+        console.log(result);
+        setDialogOpen(false);
+        if (!result.canceled) {
+          if(!prevFilesList.includes(result.filePaths[0]))
+            prevFilesList.push(result.filePaths[0]);
+          if (prevFilesList.length > 5) prevFilesList.splice(0, prevFilesList.length - 5);
+          parseFile(result.filePaths[0]);
+          localStorage.setItem("prevFiles", JSON.stringify(prevFilesList));
+        }
+      });
+      return () => {
+        ipcRenderer.removeAllListeners('file-open-reply');
+      };
+    }, [parseFile, prevFilesList]);
+
 
     return (
       <>
@@ -97,14 +96,14 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
             </div>
           </FlexBox>
         </FlexContainer>
-        <input 
+        {/* <input 
           type="file" 
           id="file" 
           ref={inputFile} 
           style={{ display: "none" }} 
           onChange={(e) => { setDialogOpen(false); onFileOpened(e);}}
           accept="json"
-        />
+        /> */}
 
       </>
     );

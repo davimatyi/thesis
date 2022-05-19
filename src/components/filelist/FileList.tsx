@@ -2,7 +2,7 @@ import { Box, List, ListItem, ListItemButton, ListItemText } from '@mui/material
 import React from 'react';
 
 
-const FileList: React.FC<{ list: File[], func: Function }> = ({ list, func }) => {
+const FileList: React.FC<{ list: string[], func: Function }> = ({ list, func }) => {
   return (
     <Box
       sx={{ width: '100%', height: 400, maxWidth: 360, bgcolor: '#eee' }}
@@ -14,7 +14,7 @@ const FileList: React.FC<{ list: File[], func: Function }> = ({ list, func }) =>
             return (
               <ListItem key={i} component="div" disablePadding >
                 <ListItemButton>
-                  <ListItemText primary={v.name} secondary={v.webkitRelativePath} onClick={(_) => func(v)}/>
+                  <ListItemText primary={v} onClick={(_) => func(v)}/>
                 </ListItemButton>
               </ListItem>
             )

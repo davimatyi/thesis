@@ -1,6 +1,6 @@
-import { app, BrowserWindow } from 'electron';
-import * as path from 'path';
+import { app, BrowserWindow, dialog, ipcMain } from 'electron';
 import * as isDev from 'electron-is-dev';
+import * as path from 'path';
 
 let win: BrowserWindow | null = null;
 
@@ -10,14 +10,14 @@ function createWindow() {
     height: 720,
     webPreferences: {
       nodeIntegration: true,
-      contextIsolation: false
+      contextIsolation: false,
+      preload: __dirname + '/preload.js'
     },
     minHeight: 600,
     minWidth: 800,
     title: "Graphite",
     icon: './public/icon.png',
   });
-
   // win.removeMenu();
 
   if (isDev) {
@@ -43,7 +43,16 @@ function createWindow() {
   // const fs = window.require('fs');
 }
 
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  
+  ipcMain.on('show-open-dialog', (event) => {
+    if(!win) return;
+    dialog.showOpenDialog(win, {properties: ['openFile'], filters: [{name: 'Graphite JSON', extensions: ['json']}]}).then(selectionResult => {
+      event.reply('file-open-reply', selectionResult);
+    });
+  });  
+});
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -56,3 +65,4 @@ app.on('activate', () => {
     createWindow();
   }
 });
+
