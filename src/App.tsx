@@ -11,8 +11,12 @@ import SlideRoutes from 'react-slide-routes';
 
 const App: React.FC = () => {
   const [chart, setChart] = useState<ChartData>(defaultChart);
-  const [previousFiles,] = useState<{name: string, path: string}[]> ([]);
-  
+  const [previousFiles,] = useState<File[]> (() => {
+    const data = localStorage.getItem("prevFiles");
+    if(data !== null) return JSON.parse(data);
+    else return [];
+  });
+
     return (
       <div className="App">
           <SlideRoutes destroy="false">

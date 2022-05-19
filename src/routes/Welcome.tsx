@@ -8,7 +8,7 @@ import FileList from '../components/filelist/FileList';
 import { ChartData } from '../types/ChartDataType';
 import { LoadingButton } from '@mui/lab';
 
-const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: { name: string, path: string }[] }>
+const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: File[] }>
   = ({ chart, setChart, prevFilesList }) => {
 
     const inputFile = useRef<HTMLInputElement>(null);
@@ -32,8 +32,7 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
       navigate("/editor");
     }
 
-    const parseFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
-      e.preventDefault();
+    const parseFile = (file: File) => {
       const reader = new FileReader();
       reader.onload = async (e) => {
         if (e.target === null || e.target.result === null) {
@@ -50,10 +49,20 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
           alert(e);
         }
       }
+      reader.readAsText(file);
+      
+    }
+
+    const onFileOpened = async (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
       if (e.target.files !== null) {
-        reader.readAsText(e.target.files[0]);
-        prevFilesList.push({ name: e.target.files[0].name, path: e.target.files[0].webkitRelativePath });
+        const file = e.target.files[0];
+        parseFile(file);
+        prevFilesList.push(file);
+        if(prevFilesList.length > 5) prevFilesList.splice(0, prevFilesList.length - 5);
+        localStorage.setItem("prevFiles", JSON.stringify(prevFilesList));
       }
+      
     }
 
     return (
@@ -62,7 +71,7 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
         <FlexContainer>
           <FlexBox flexAmount='60%'>
             <h3>Recent projects</h3>
-            <FileList list={prevFilesList} />
+            <FileList list={prevFilesList} func={parseFile} />
           </FlexBox>
           <FlexBox flexAmount='40%' >
             <div style={{ flexDirection: "column" }}>
@@ -93,7 +102,7 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
           id="file" 
           ref={inputFile} 
           style={{ display: "none" }} 
-          onChange={(e) => { setDialogOpen(false); parseFile(e);}}
+          onChange={(e) => { setDialogOpen(false); onFileOpened(e);}}
           accept="json"
         />
 

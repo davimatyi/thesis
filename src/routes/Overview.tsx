@@ -14,7 +14,7 @@ import { ChartData } from '../types/ChartDataType';
 
 
 
-const Overview: React.FC<{ chart: ChartData, prevFilesList: { name: string, path: string }[] }> = ({ chart, prevFilesList }) => {
+const Overview: React.FC<{ chart: ChartData, prevFilesList: File[] }> = ({ chart, prevFilesList }) => {
 
   const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
   const saveButton = useRef<HTMLAnchorElement>(null);

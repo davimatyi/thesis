@@ -1,4 +1,4 @@
-import { Clear, Create, NavigateBefore, NavigateNext, OpenInNew, PlusOne } from '@mui/icons-material';
+import { Add, Clear, Create, NavigateBefore, NavigateNext, OpenInNew, Remove } from '@mui/icons-material';
 import { Button, CssBaseline } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
@@ -16,7 +16,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, path: string }[] }> = ({ chart, prevFilesList }) => {
+const DataEditor: React.FC<{ chart: ChartData, prevFilesList: File[] }> = ({ chart, prevFilesList }) => {
 
   const inputFile = useRef<HTMLInputElement>(null);
   const forcedUpdate = useForcedUpdate();
@@ -26,7 +26,7 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
 
   const [canProceed, setCanProceed] = useState<boolean>(false);
 
-  let closeFileDialog: {fun: Function | null} = {fun: null};
+  let closeFileDialog: { fun: Function | null } = { fun: null };
 
 
   const onOpenButton = () => {
@@ -56,6 +56,24 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
       chart.values[chart.values.length - 1][i] = 0;
     }
     chart.y_axis_labels.push("value " + (chart.y_axis_labels.length));
+    forcedUpdate();
+  }
+
+  const removeColumn = () => {
+    if (chart.values.length > 1) {
+      chart.values.splice(chart.values.length - 1, 1);
+      chart.y_axis_labels.splice(chart.y_axis_labels.length - 1, 1);
+    }
+    forcedUpdate();
+  }
+
+  const removeRow = () => {
+    if (chart.values[0].length > 1) {
+      for (let i = 0; i < chart.values.length; i++) {
+        chart.values[i].splice(chart.values[i].length - 1, 1);
+      }
+      chart.x_axis_labels.splice(chart.x_axis_labels.length - 1, 1);
+    }
     forcedUpdate();
   }
 
@@ -113,14 +131,14 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
     <>
       <LinkButton to="/" startIcon={<NavigateBefore />}>Cancel</LinkButton>
       <FlexContainer>
-        <FlexBox flexAmount='75%'>
+        <FlexBox flexAmount='calc(100% - 320px)'>
           <ScrollBox>
             <CssBaseline />
             {canProceed && <DataTable columns={columns} data={data} chart={chart} />}
           </ScrollBox>
         </FlexBox>
-        <FlexBox flexAmount='25%'>
-          <div style={{ paddingLeft: "20px" }}>            
+        <FlexBox flexAmount='320px'>
+          <div style={{ paddingLeft: "20px" }}>
             <PopupDialog title="Choose a file to import" closeFunction={closeFileDialog}>
               <Button
                 variant="contained"
@@ -130,17 +148,17 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
               >
                 Choose file
               </Button>
-              <input 
-                type="file" 
-                id="file" 
-                ref={inputFile} 
-                style={{ display: "none" }} 
+              <input
+                type="file"
+                id="file"
+                ref={inputFile}
+                style={{ display: "none" }}
                 onChange={(e) => {
                   parseFile(e);
-                  if(closeFileDialog.fun !== null) closeFileDialog.fun();
-                }} 
+                  if (closeFileDialog.fun !== null) closeFileDialog.fun();
+                }}
                 accept="csv"
-                onAbort={() => {if(closeFileDialog.fun !== null) closeFileDialog.fun()}}
+                onAbort={() => { if (closeFileDialog.fun !== null) closeFileDialog.fun() }}
               />
               <CheckBox
                 callBack={setYChecked}
@@ -159,30 +177,62 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
             <>
               <Button
                 variant="outlined"
-                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
-                startIcon={<PlusOne />}
-                onClick={addRow}
-              >
-                Add row
-              </Button>
-              <br />
-              <Button
-                variant="outlined"
-                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
-                startIcon={<PlusOne />}
-                onClick={addColumn}
-              >
-                Add column
-              </Button>
-              <br />
-              <Button
-                variant="outlined"
-                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px", width: "280px" }}
                 startIcon={<Clear />}
                 onClick={clearTable}
               >
                 Clear table
               </Button>
+              <div style={{ margin: "5px 20px 0 20px" }}>
+                <span style={{ fontWeight: "600", margin: "5px auto" }}>Rows</span>
+                <FlexContainer>
+                  <FlexBox flexAmount="50%">
+                    <Button
+                      variant="outlined"
+                      style={{ fontSize: "18px", width: "140px" }}
+                      startIcon={<Add />}
+                      onClick={addRow}
+                    >
+                      Add
+                    </Button>
+                  </FlexBox>
+                  <FlexBox flexAmount="50%">
+                    <Button
+                      variant="outlined"
+                      style={{ fontSize: "18px", width: "140px" }}
+                      startIcon={<Remove />}
+                      onClick={removeRow}
+                    >
+                      Remove
+                    </Button>
+                  </FlexBox>
+                </FlexContainer>
+              </div>
+              <div style={{ margin: "5px 20px 5px 20px" }}>
+              <span style={{ fontWeight: "600", margin: "5px auto" }}>Columns</span>
+                <FlexContainer>
+                  <FlexBox flexAmount="50%">
+                    <Button
+                      variant="outlined"
+                      style={{ fontSize: "18px", width: "140px" }}
+                      startIcon={<Add />}
+                      onClick={addColumn}
+                    >
+                      Add
+                    </Button>
+                  </FlexBox>
+                  <FlexBox flexAmount="50%">
+                    <Button
+                      variant="outlined"
+                      style={{ fontSize: "18px", width: "140px" }}
+                      startIcon={<Remove />}
+                      onClick={removeColumn}
+                    >
+                      Remove
+                    </Button>
+                  </FlexBox>
+                </FlexContainer>
+              </div>
             </>
           }
           {
@@ -190,7 +240,7 @@ const DataEditor: React.FC<{ chart: ChartData, prevFilesList: { name: string, pa
             <>
               <Button
                 variant="outlined"
-                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px" }}
+                style={{ margin: "5px", fontSize: "18px", marginLeft: "20px", width: "280px" }}
                 startIcon={<Create />}
                 onClick={createTable}
               >

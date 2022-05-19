@@ -16,7 +16,7 @@ const PopupDialog: React.FC<{ title: string, closeFunction: {fun: Function | nul
         variant="contained"
         startIcon={<FileOpen/>}
         loading={isShowing}
-        style={{ margin: "10px 0", fontSize: "20px" }}
+        style={{ margin: "10px 0", fontSize: "20px", width: "280px" }}
         onClick={() => setShowing(true)}
       >
         Import file

@@ -9,12 +9,13 @@ function createWindow() {
     width: 1280,
     height: 720,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false
     },
     minHeight: 600,
     minWidth: 800,
     title: "Graphite",
-    icon: './public/icon.png'
+    icon: './public/icon.png',
   });
 
   // win.removeMenu();
