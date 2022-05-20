@@ -73,10 +73,11 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
             <FileList list={prevFilesList} func={parseFile} />
           </FlexBox>
           <FlexBox flexAmount='40%' >
+          <div style={{fontWeight: 400, margin: '10px', fontSize: '20px'}}>Get started</div>
             <div style={{ flexDirection: "column" }}>
               <Button
                 variant="contained"
-                style={{ margin: "10px", fontSize: "20px", width: "300px", marginTop: "calc(70% - 150px)" }}
+                style={{ margin: "10px", fontSize: "20px", width: "300px", height: "80px" }}
                 startIcon={<Create />}
                 onClick={onNewButton}
               >
@@ -86,7 +87,7 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
             <div style={{ flexDirection: "column" }}>
               <LoadingButton
                 variant="contained"
-                style={{ margin: "10px", fontSize: "20px", width: "300px" }}
+                style={{ margin: "10px", fontSize: "20px", width: "300px", height: "80px" }}
                 startIcon={<OpenInBrowser />}
                 onClick={onOpenButton}
                 loading={dialogOpen}
