@@ -65,18 +65,18 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
 
 
     return (
-      <>
-        <h1 style={{ fontFamily: "Segoe UI" }}>Graphite</h1>
+      <div style={{width: '100%', maxWidth: '700px', margin: "100px auto"}}>
+        <div style={{ fontFamily: "Segoe UI", fontWeight: 500, fontSize: '32px' }}>Graphite</div>
         <FlexContainer>
           <FlexBox flexAmount='60%'>
-            <h3>Recent projects</h3>
+            <div style={{fontWeight: 400, margin: '10px', fontSize: '20px'}}>Recent projects</div>
             <FileList list={prevFilesList} func={parseFile} />
           </FlexBox>
           <FlexBox flexAmount='40%' >
             <div style={{ flexDirection: "column" }}>
               <Button
                 variant="contained"
-                style={{ margin: "10px", fontSize: "20px", width: "300px", marginTop: "calc(50% - 150px)" }}
+                style={{ margin: "10px", fontSize: "20px", width: "300px", marginTop: "calc(70% - 150px)" }}
                 startIcon={<Create />}
                 onClick={onNewButton}
               >
@@ -96,16 +96,7 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
             </div>
           </FlexBox>
         </FlexContainer>
-        {/* <input 
-          type="file" 
-          id="file" 
-          ref={inputFile} 
-          style={{ display: "none" }} 
-          onChange={(e) => { setDialogOpen(false); onFileOpened(e);}}
-          accept="json"
-        /> */}
-
-      </>
+      </div>
     );
   }
 
