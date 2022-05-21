@@ -72,7 +72,7 @@ const Overview: React.FC<{ chart: ChartData }> = ({ chart }) => {
           <ChartView data={chart} doExport={doExport} />
         </FlexBox>
         <FlexBox flexAmount='35%' height='80vh'>
-          <div style={{ position: "absolute", width: "35vw", left: detailsOpen ? "calc(65% + 5px)" : "100%", transition: "left 0.2s ease-in-out" }}>
+          <div style={{ position: "absolute", width: "35vw", left: detailsOpen ? "calc(65% + 5px)" : "100%", transition: "left 0.2s ease-in-out", padding: '15px 0' }}>
             {fun}
           </div>
           <FlexContainer>

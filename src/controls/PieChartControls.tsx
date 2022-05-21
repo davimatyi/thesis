@@ -24,7 +24,7 @@ const PieChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function 
   return (
     <ScrollBox
       style={{
-        maxHeight: 'calc(100vh - 150px)',
+        maxHeight: 'calc(100vh - 180px)',
         margin: '0 20px 0 20px',
         backgroundColor: "#ddd",
         borderRadius: "10px",
