@@ -11,14 +11,13 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-      preload: __dirname + '/preload.js'
     },
     minHeight: 600,
     minWidth: 800,
     title: "Graphite",
     icon: './public/icon.png',
   });
-  win.removeMenu();
+  // win.removeMenu();
 
   if (isDev) {
     win.loadURL('http://localhost:3000/index.html');

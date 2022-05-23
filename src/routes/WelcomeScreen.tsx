@@ -10,7 +10,7 @@ import { LoadingButton } from '@mui/lab';
 const { ipcRenderer } = window.require('electron');
 const fs = window.require('fs');
 
-const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: string[] }>
+const WelcomeScreen: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetStateAction<ChartData>>, prevFilesList: string[] }>
   = ({ chart, setChart, prevFilesList }) => {
 
     const navigate = useNavigate();
@@ -101,4 +101,4 @@ const Welcome: React.FC<{ chart: ChartData, setChart: React.Dispatch<React.SetSt
     );
   }
 
-export default Welcome;
+export default WelcomeScreen;

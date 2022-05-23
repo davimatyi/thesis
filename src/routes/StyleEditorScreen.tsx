@@ -14,7 +14,7 @@ import icon_style_dark from '../assets/styleselect_dark.png';
 import icon_style_rgb from '../assets/styleselect_rainbow.png';
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
 
-const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const StyleEditorScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const typeGroup = new ListGroupController();
   const styleGroup = new ListGroupController();
@@ -116,4 +116,4 @@ const StyleEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
   );
 }
 
-export default StyleEditor;
+export default StyleEditorScreen;

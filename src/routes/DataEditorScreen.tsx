@@ -16,7 +16,7 @@ function useForcedUpdate() {
   return () => setValue(value => value + 1);
 }
 
-const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const DataEditorScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const inputFile = useRef<HTMLInputElement>(null);
   const forcedUpdate = useForcedUpdate();
@@ -256,4 +256,4 @@ const DataEditor: React.FC<{ chart: ChartData }> = ({ chart }) => {
   );
 }
 
-export default DataEditor;
+export default DataEditorScreen;

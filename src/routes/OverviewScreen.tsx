@@ -14,7 +14,7 @@ import { ChartData } from '../types/ChartDataType';
 
 
 
-const Overview: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const OverviewScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
   const saveButton = useRef<HTMLAnchorElement>(null);
@@ -136,4 +136,4 @@ const Overview: React.FC<{ chart: ChartData }> = ({ chart }) => {
   );
 }
 
-export default Overview;
+export default OverviewScreen;
