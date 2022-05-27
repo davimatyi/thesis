@@ -23,7 +23,7 @@ const App: React.FC = () => {
             <Route path="/" element={<WelcomeScreen chart={chart} setChart={setChart} prevFilesList={previousFiles} />} />
             <Route path="/editor" element={<DataEditorScreen chart={chart} />} />
             <Route path="/style" element={<StyleEditorScreen chart={chart} />} />
-            <Route path="/overview" element={<OverviewScreen chart={chart} />} />
+            <Route path="/overview" element={<OverviewScreen chart={chart} prevFilesList={previousFiles} />} />
           </SlideRoutes>
       </div>
     );

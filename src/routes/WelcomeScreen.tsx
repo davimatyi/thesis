@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
 import FileList from '../components/filelist/FileList';
-import { ChartData } from '../types/ChartDataType';
+import defaultChart, { ChartData } from '../types/ChartDataType';
 import { LoadingButton } from '@mui/lab';
 const { ipcRenderer } = window.require('electron');
 const fs = window.require('fs');
@@ -34,7 +34,11 @@ const WelcomeScreen: React.FC<{ chart: ChartData, setChart: React.Dispatch<React
     const parseFile = useCallback((file: string) => {
       try {
         const data = fs.readFileSync(file).toString();
-        setChart(JSON.parse(data));
+        const temp : ChartData = JSON.parse(data);
+        Object.keys(defaultChart).forEach(key => {
+          if(!temp.hasOwnProperty(key)) throw new Error("Failed to parse project file")
+        })
+        setChart(temp);
         navigate("/editor");
       } catch (e) {
         alert(e);

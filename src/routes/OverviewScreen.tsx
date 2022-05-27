@@ -1,7 +1,7 @@
 import { NavigateBefore, SaveAltOutlined, SaveOutlined, Fullscreen, FullscreenExit } from '@mui/icons-material';
 import { LoadingButton } from '@mui/lab';
-import { Button, IconButton, Menu, MenuItem } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import { IconButton, Menu, MenuItem } from '@mui/material';
+import React, { useCallback, useEffect, useState } from 'react';
 import LinkButton from '../components/buttons/linkbutton/LinkButton';
 import FlexBox from '../components/layout/flexbox/FlexBox';
 import FlexContainer from '../components/layout/flexbox/FlexContainer';
@@ -11,15 +11,16 @@ import LineChartControls from '../controls/LineChartControls';
 import PieChartControls from '../controls/PieChartControls';
 import ChartView from '../rendering/ChartView';
 import { ChartData } from '../types/ChartDataType';
+const { ipcRenderer } = window.require('electron');
+const fs = window.require('fs');
 
 
 
-const OverviewScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
+const OverviewScreen: React.FC<{ chart: ChartData, prevFilesList: string[] }> = ({ chart, prevFilesList }) => {
 
-  const [fileDownloadUrl, setDownloadUrl] = useState<string>("");
-  const saveButton = useRef<HTMLAnchorElement>(null);
   const [backgroundColor, setBackground] = useState<string>(chart.background);
   const [detailsOpen, setDetailsOpen] = useState<boolean>(true);
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
 
   const [doExport, setExport] = useState<{ value: boolean, fileType: string }>({ value: false, fileType: "png" });
@@ -44,19 +45,35 @@ const OverviewScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
   const fun = switchControls();
 
   const saveProject = () => {
-    const blob = new Blob([JSON.stringify(chart)]);
-    const downloadUrl = URL.createObjectURL(blob);
-    setDownloadUrl(downloadUrl);
+    ipcRenderer.send('show-save-dialog');
+    setDialogOpen(true);
   }
 
-  useEffect(() => {
-    if (fileDownloadUrl !== "") {
-      console.log(fileDownloadUrl);
-      saveButton.current?.click();
-      URL.revokeObjectURL(fileDownloadUrl);
-      setDownloadUrl("");
+  const saveFile = useCallback((file: string) => {
+    try{
+      const data = JSON.stringify(chart);
+      fs.writeFileSync(file, data);
+    } catch(e) {
+      alert(e);
     }
-  }, [fileDownloadUrl]);
+  }, [chart]);
+
+  useEffect(() => {
+    ipcRenderer.on('file-save-reply', (event: any, result: any) => {
+      console.log(result);
+      setDialogOpen(false);
+      if(!result.canceled) {
+        if(!prevFilesList.includes(result.filePath))
+            prevFilesList.push(result.filePath);
+          if (prevFilesList.length > 5) prevFilesList.splice(0, prevFilesList.length - 5);
+          saveFile(result.filePath);
+          localStorage.setItem("prevFiles", JSON.stringify(prevFilesList));
+      }
+    });
+    return () => {
+      ipcRenderer.removeAllListeners('file-save-reply');
+    }
+  }, [prevFilesList, saveFile]);
 
   return (
     <div style={{ width: "100%", height: "100vh", background: backgroundColor }}>
@@ -77,20 +94,15 @@ const OverviewScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
           </div>
           <FlexContainer>
             <FlexBox>
-              <Button
+              <LoadingButton
                 onClick={saveProject}
                 style={{ fontSize: '20px', position: 'absolute', bottom: '10px', right: '180px' }}
                 variant='contained'
                 startIcon={<SaveOutlined />}
+                loading={dialogOpen}
               >
                 Save
-              </Button>
-              <a
-                style={{ display: 'none' }}
-                download={"file.json"}
-                href={fileDownloadUrl}
-                ref={saveButton}
-              >save</a>
+              </LoadingButton>
             </FlexBox>
             <FlexBox>
               <LoadingButton

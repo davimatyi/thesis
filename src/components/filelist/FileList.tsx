@@ -1,4 +1,4 @@
-import { Box, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemButton, ListItemText } from '@mui/material';
 import React from 'react';
 import ScrollBox from '../layout/scrollbox/ScrollBox';
 

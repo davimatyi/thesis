@@ -50,6 +50,13 @@ app.on('ready', () => {
     dialog.showOpenDialog(win, {properties: ['openFile'], filters: [{name: 'Graphite JSON', extensions: ['json']}]}).then(selectionResult => {
       event.reply('file-open-reply', selectionResult);
     });
+  }); 
+
+  ipcMain.on('show-save-dialog', (event) => {
+    if(!win) return;
+    dialog.showSaveDialog(win, {properties: ['createDirectory'], filters: [{name: 'Graphite JSON', extensions: ['json']}]}).then(selectionResult => {
+      event.reply('file-save-reply', selectionResult);
+    });
   });  
 });
 
