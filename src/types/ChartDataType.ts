@@ -41,7 +41,7 @@ const defaultChart: ChartData = {
   x_axis_labels: [],
   y_axis_labels: [],
   stroke_color: "#555555",
-  stroke_width: 5,
+  stroke_width: 1,
   stroke: false,
   fill_primary: "#72b2ac",
   fill_secondary: "#00ff00",
@@ -61,7 +61,7 @@ const defaultChart: ChartData = {
   margin: 100,
   start_from_zero: true,
   perspective_distance: 50,
-  perspective_xangle: 1,
+  perspective_xangle: 1.5,
   perspective_yangle: 1,
   perspective_yoffset: 0
 }
