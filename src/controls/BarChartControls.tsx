@@ -105,7 +105,9 @@ const BarChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function 
                       <ColorPicker
                         initialColor={v}
                         onColorPicked={(v: string) => { chart.fill_colors[i] = v }}
-                        rightClick={() => { chart.fill_colors.splice(i, 1); forcedUpdate() }}
+                        rightClick={() => { 
+                          if(chart.fill_colors.length > 1) chart.fill_colors.splice(i, 1); forcedUpdate() 
+                        }}
                       />
                     </FlexBox>
                   })
@@ -189,7 +191,7 @@ const BarChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function 
               Axis line width
               <Slider
                 min={1}
-                max={10}
+                max={5}
                 defaultValue={chart.axis_line_width}
                 onChange={(_, v) => { chart.axis_line_width = Array.isArray(v) ? v[0] : v }}
               />

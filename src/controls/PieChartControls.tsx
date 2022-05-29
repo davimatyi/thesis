@@ -80,7 +80,17 @@ const PieChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function 
               <FlexContainer>
                 {
                   chart.fill_colors.map((v, i) => {
-                    return <FlexBox><ColorPicker initialColor={v} onColorPicked={(v: string) => { chart.fill_colors[i] = v }} /></FlexBox>
+                    return (
+                      <FlexBox>
+                        <ColorPicker 
+                          initialColor={v} 
+                          onColorPicked={(v: string) => { chart.fill_colors[i] = v }} 
+                          rightClick={() => { 
+                            if(chart.fill_colors.length > 1) chart.fill_colors.splice(i, 1); forcedUpdate() 
+                          }}
+                        />
+                      </FlexBox>
+                    )
                   })
                 }
                 <FlexBox><IconButton onClick={(e: any) => { chart.fill_colors.push("#555555"); forcedUpdate(); }} /></FlexBox>

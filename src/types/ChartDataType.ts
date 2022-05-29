@@ -50,7 +50,7 @@ const defaultChart: ChartData = {
   use_multiple_colors: true,
   show_x_axis: true,
   show_y_axis: true,
-  axis_line_width: 5,
+  axis_line_width: 3,
   axis_line_color: "#222222",
   axis_marker_length: 25,
   y_axis_marker_frequency: 100,

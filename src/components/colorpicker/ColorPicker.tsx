@@ -23,7 +23,7 @@ const ColorPicker: React.FC<{ initialColor: string, onColorPicked: Function, rig
 
   return (
     <div>
-      <div className="colorpicker_swatch" onClick={handleClick} onContextMenu={handleClick}>
+      <div className="colorpicker_swatch" onClick={handleClick} onContextMenu={handleClick} title="Left click to select color, right click to delete">
         <div className="colorpicker_color" style={{backgroundColor: currentColor}} />
       </div>
       { 
