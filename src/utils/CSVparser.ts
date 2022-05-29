@@ -26,6 +26,7 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
     });
   } else if(!xHeaders && !yHeaders) {
     yheaders = lines[0].split(";").map((_, i) => "col"+(i+1));
+    yheaders.splice(0, 0, "name");
     xheaders = lines.map((l, i) => (i+1)+"");
     data = yheaders.map((y, i) => {
       return lines.map((l, _) => {
@@ -42,8 +43,9 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
     });
   } else if(yHeaders) {
     yheaders = lines[0].split(';');
+    yheaders.splice(0, 0, "name");
     xheaders = lines.map((l, i) => (i+1)+"");
-    data = yheaders.slice(0).map((y, i) => {
+    data = yheaders.map((y, i) => {
       return lines.slice(1).map((l, _) => {
         return +l.split(';')[i];
       });
