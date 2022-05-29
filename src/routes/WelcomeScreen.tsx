@@ -72,11 +72,11 @@ const WelcomeScreen: React.FC<{ chart: ChartData, setChart: React.Dispatch<React
       <div style={{width: '100%', maxWidth: '700px', margin: "100px auto"}}>
         <div style={{ fontFamily: "Segoe UI", fontWeight: 500, fontSize: '32px' }}>Graphite</div>
         <FlexContainer>
-          <FlexBox flexAmount='60%'>
+          <FlexBox flexAmount='400px'>
             <div style={{fontWeight: 400, margin: '10px', fontSize: '20px'}}>Recent projects</div>
             <FileList list={prevFilesList} func={parseFile} />
           </FlexBox>
-          <FlexBox flexAmount='40%' >
+          <FlexBox flexAmount='300px' >
           <div style={{fontWeight: 400, margin: '10px', fontSize: '20px'}}>Get started</div>
             <div style={{ flexDirection: "column" }}>
               <Button

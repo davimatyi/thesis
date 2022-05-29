@@ -8,7 +8,7 @@ const FileList: React.FC<{ list: string[], func: Function }> = ({ list, func }) 
     // <Box
     //   sx={{ width: '100%', height: '100%', maxHeight: "200px", bgcolor: '#fff', border: '1px solid #999' }}
     // >
-    <ScrollBox style={{height: "200px", backgroundColor: "#eee"}}>
+    <ScrollBox style={{height: "200px", backgroundColor: "#eee", width: "400px"}}>
       {list.length > 0 ? 
       <List>
         {
@@ -16,7 +16,7 @@ const FileList: React.FC<{ list: string[], func: Function }> = ({ list, func }) 
             return (
               <ListItem key={i} component="div" disablePadding >
                 <ListItemButton>
-                  <ListItemText primary={v} onClick={(_) => func(v)}/>
+                  <ListItemText style={{wordWrap: "break-word", maxWidth: "400px"}} primary={v} onClick={(_) => func(v)}/>
                 </ListItemButton>
               </ListItem>
             )
