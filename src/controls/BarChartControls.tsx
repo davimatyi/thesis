@@ -145,7 +145,7 @@ const BarChartControls: React.FC<{ chart: ChartData, backgroundSetter: Function 
               <Slider
                 defaultValue={chart.stroke_width}
                 min={1}
-                max={20}
+                max={5}
                 onChange={(_, v) => { chart.stroke_width = Array.isArray(v) ? v[0] : v }}
               />
             </>
