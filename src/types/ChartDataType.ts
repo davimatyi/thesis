@@ -40,7 +40,7 @@ const defaultChart: ChartData = {
   values: [[]],
   x_axis_labels: [],
   y_axis_labels: [],
-  stroke_color: "#555555",
+  stroke_color: "#000000",
   stroke_width: 1,
   stroke: false,
   fill_primary: "#72b2ac",

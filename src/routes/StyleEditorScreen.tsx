@@ -100,6 +100,7 @@ const StyleEditorScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
               text="Colorful"
               onSelection={() => {
                 chart.background = "#ffffff";
+                chart.axis_line_color = "#000000";
                 chart.fill_colors.splice(0, chart.fill_colors.length);
                 chart.fill_colors.push("#F70000");
                 chart.fill_colors.push("#FF6E00");

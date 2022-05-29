@@ -81,7 +81,7 @@ class BarChart3DRenderer extends AbstractRenderer {
       for (let j = 0; j < data.values[i].length; j++) {
         p5.push();
         p5.translate(j * gridSize + gridSize / 2, - ysize * (data.values[i][j] / meta.maxValue) / 2, - i * gridSize - gridSize / 2);
-        p5.box(barwidth, ysize * (data.values[i][j] / meta.maxValue), barwidth);
+        p5.box(barwidth, ysize * ((data.values[i][j] < 0 ? 0.001 : data.values[i][j]) / meta.maxValue), barwidth);
         p5.pop();
       }
     }

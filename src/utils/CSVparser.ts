@@ -52,6 +52,11 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
     });
   }
 
+  data.flat().map((v, i) => {
+     if(v < 0) 
+      throw new Error("This file contains negative values.\nNegative values are not supported in this version."); 
+      return 0
+    })
 
   return { xheaders, yheaders, data };
 }
