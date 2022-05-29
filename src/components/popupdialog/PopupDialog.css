@@ -14,7 +14,7 @@
   z-index: 100001;
   width: 350px;
   height: 200px;
-  left: calc(50% - 100px);
+  left: calc(50% - 175px);
   transition: top 0.4s ease-in-out;
   box-shadow: 5px 5px 5px #555;
   background: white;

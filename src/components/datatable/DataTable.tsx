@@ -52,7 +52,10 @@ const DataTable: React.FC<{ columns: readonly Column<{}>[], data: {}[], chart: C
                       else 
                         chart.x_axis_labels[i] = e.target.innerHTML;
                       // console.log(e.target.innerHTML);
-                    }}                     
+                    }}
+                    onFocus={(e: any) => {
+                      if(chart.values[j-1][i] === 0) e.target.innerHTML = "";
+                    }}
                   >
                     {cell.render('Cell')}
                   </TableCell>

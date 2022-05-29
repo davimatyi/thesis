@@ -8,12 +8,16 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
 
   if(lines.length === 0) throw new Error("File is empty");
   for(let i = 0; i < lines.length; i++) {
-    if(lines[i].split(';').length !== lines[0].split(';').length) throw new Error("Could not parse file");
+    if(lines[i].split(';').length !== lines[0].split(';').length) 
+      throw new Error("Could not parse file\nValues are incorrectly formatted");
   }
 
   if(lines[0].split(";").length === 0) {
     xHeaders = false;
   }
+
+  if(yHeaders && lines[0].split(";").length === 1) 
+    throw new Error("This file only contains one row. Turn off row names before continuing");
 
 
   if (xHeaders && yHeaders) {

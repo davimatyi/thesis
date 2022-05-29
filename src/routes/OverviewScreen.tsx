@@ -84,7 +84,7 @@ const OverviewScreen: React.FC<{ chart: ChartData, prevFilesList: string[] }> = 
         </IconButton>
       </div>
       <FlexContainer>
-        <div style={{transition: "width 0.2s ease-in-out", width: (detailsOpen ? "0" : "35%")}}></div>
+        <div style={{transition: "width 0.2s ease-in-out", width: (detailsOpen ? "0" : "35vw")}}></div>
         <FlexBox flexAmount='65%' height='80vh'>
           <ChartView data={chart} doExport={doExport} />
         </FlexBox>
