@@ -1,6 +1,8 @@
 
 const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders: string[], yheaders: string[], data: number[][] } => {
 
+  // if(csv.indexOf(';') === -1) throw new Error("This file is not in csv format");
+
   const lines = csv.replace(/\r\n/g, '\n').split('\n');
   let xheaders: string[] = [];
   let yheaders: string[] = [];
@@ -12,13 +14,9 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
       throw new Error("Could not parse file\nValues are incorrectly formatted");
   }
 
-  if(lines[0].split(";").length === 0) {
+  if(lines[0].split(";").length === 1) {
     xHeaders = false;
   }
-
-  if(yHeaders && lines[0].split(";").length === 1) 
-    throw new Error("This file only contains one row. Turn off row names before continuing");
-
 
   if (xHeaders && yHeaders) {
     yheaders = lines[0].split(';');
@@ -32,7 +30,7 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
     yheaders = lines[0].split(";").map((_, i) => "col"+(i+1));
     yheaders.splice(0, 0, "name");
     xheaders = lines.map((l, i) => (i+1)+"");
-    data = yheaders.map((y, i) => {
+    data = yheaders.slice(1).map((y, i) => {
       return lines.map((l, _) => {
         return +l.split(';')[i];
       });
@@ -49,7 +47,7 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
     yheaders = lines[0].split(';');
     yheaders.splice(0, 0, "name");
     xheaders = lines.map((l, i) => (i+1)+"");
-    data = yheaders.map((y, i) => {
+    data = yheaders.slice(1).map((y, i) => {
       return lines.slice(1).map((l, _) => {
         return +l.split(';')[i];
       });
@@ -57,6 +55,7 @@ const parseCSV = (csv: string, xHeaders: boolean, yHeaders: boolean): { xheaders
   }
 
   data.flat().map((v, i) => {
+    if(isNaN(v)) throw new Error("Value error: value not in number format");
      if(v < 0) 
       throw new Error("This file contains negative values.\nNegative values are not supported in this version."); 
       return 0

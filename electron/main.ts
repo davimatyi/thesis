@@ -17,7 +17,7 @@ function createWindow() {
     title: "Graphite",
     icon: './public/icon.png',
   });
-  win.removeMenu();
+  // win.removeMenu();
 
   if (isDev) {
     win.loadURL('http://localhost:3000/index.html');

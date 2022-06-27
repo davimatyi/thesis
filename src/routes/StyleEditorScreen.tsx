@@ -13,16 +13,33 @@ import icon_style_def from '../assets/styleselect_default.png';
 import icon_style_dark from '../assets/styleselect_dark.png';
 import icon_style_rgb from '../assets/styleselect_rainbow.png';
 import { NavigateBefore, NavigateNext } from '@mui/icons-material';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router';
 
 const StyleEditorScreen: React.FC<{ chart: ChartData }> = ({ chart }) => {
 
   const typeGroup = new ListGroupController();
   const styleGroup = new ListGroupController();
 
+  const navigate = useNavigate();
+
+  const handleNextButton = () => {
+    if((chart.type === "pie" || chart.type === "bar") && chart.values.length > 1)
+      alert("Limitation: this type of chart can only show one column of data.");
+    navigate("/overview");
+  }
+
   return (
     <>
       <LinkButton to="/editor" startIcon={<NavigateBefore/>}>Back</LinkButton>
-      <LinkButton to="/overview" align="bottom" endIcon={<NavigateNext/>}>Next</LinkButton>
+      <Button 
+        variant="contained" 
+        onClick={handleNextButton} 
+        endIcon={<NavigateNext/>}
+        style={{ margin: "10px", fontSize: "20px", position: "absolute", right: "0", bottom: "0"}}
+      >
+        Next
+      </Button>
       <FlexContainer>
         <FlexBox flexAmount='50%' height='100%'>
           <h2 style={{marginLeft: '10%'}}>Chart type</h2>
